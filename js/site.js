@@ -24,7 +24,6 @@ Library.prototype.addBook = function (book) {
     this._bookShelf.push(book);
     return true;
     } else {
-    console.log("Error :: Need to pass a Book object or book(s) already added.");
     return false;
   }
 };
@@ -40,10 +39,12 @@ Library.prototype.addBooks = function (books) {
 Library.prototype.removeBookbyTitle = function (title) {
   var bkChk = this.checkIfBookExists(title);
   if(!bkChk){
-    return "Book title does not exist";
+    return false;
   } else {
     this._bookShelf.splice(bkChk - 1,1);
+    return true;
   }
+  return false;
 };
 
 Library.prototype.removeBookbyAuthor = function (authorName) {
@@ -51,40 +52,93 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
   if (this._bookShelf.length != 0 && authorName) {
     for (var i = 0; i < this._bookShelf.length; i++) {
       if(this._bookShelf[i].author == authorName){
+        this._bookShelf.splice(i,1);
         bookCt++;
-        console.log(i); //delete these
+        i--;
       }
     }
     if (bookCt === 0){
-       return "No book by this author exists in the library.";
+      console.log("No book by " + authorName + " exists in the library.");
+       return false;
      } else {
-       return bookCt + " books by that author deleted."
+       console.log(bookCt + " books by " + authorName + " deleted.");
+       return true;
      }
   }
   return false;
 };
 
+Library.prototype.genRandNo = function (rangeTop){
+  return Math.floor(Math.random() * rangeTop + 1);
+}
+
+Library.prototype.ftrArray = function (arrayToFilter) {
+  return arrayToFilter.filter(function (value, index, self) {
+  return self.indexOf(value) === index;
+  });
+}
+
 Library.prototype.getRandomBook = function () {
-
-  return false;
-};
-
-Library.prototype.getRandomAuthorName = function () {
-
+  if (this._bookShelf.length != 0){
+    return this._bookShelf[this.genRandNo(this._bookShelf.length) -1];
+  } else {
+    return null;
+  }
   return false;
 };
 
 Library.prototype.getBooksbyTitle = function (title) {
-
+  var titleSearch = [];
+  if(title){
+    var titleLower = title.toLowerCase();
+    var tsIndex = 0;
+    if (this._bookShelf.length != 0){
+      for (var i = 0; i < this._bookShelf.length; i++) {
+        if(this._bookShelf[i].title.toLowerCase().indexOf(titleLower) != -1){
+          titleSearch[tsIndex] = this._bookShelf[i].title;
+          tsIndex++;
+        }
+      }
+    }
+  }
+  return titleSearch;
 };
 
-Library.prototype.getBooksbyAuthor = function (authorName) {
-
-  return false;
+Library.prototype.getBooksbyAuthor = function (author) {
+  var bookSearch = [];
+  if(author){
+    var authorLower = author.toLowerCase();
+    var bkIndex = 0;
+    if (this._bookShelf.length != 0){
+      for (var i = 0; i < this._bookShelf.length; i++) {
+        if(this._bookShelf[i].author.toLowerCase().indexOf(authorLower) != -1){
+          bookSearch[bkIndex] = this._bookShelf[i];
+          bkIndex++;
+        }
+      }
+    }
+  }
+  return bookSearch;
 };
 
-Library.prototype.getAuthors = function () {
+Library.prototype.getAuthors = function (authorName) {
+  var authorList = [];
+  if (this._bookShelf.length != 0){
+    for (var i = 0; i < this._bookShelf.length; i++) {
+      authorList[i] = this._bookShelf[i].author;
+    }
+    authorList = this.ftrArray(authorList);
+  }
+  return authorList;
+};
 
+Library.prototype.getRandomAuthorName = function () {
+  if (this._bookShelf.length != 0){
+    uniqueAuthors = this.getAuthors();
+    return uniqueAuthors[this.genRandNo(uniqueAuthors.length) -1];
+  } else {
+    return null;
+  }
   return false;
 };
 
@@ -93,7 +147,7 @@ Library.prototype.getAuthors = function () {
 
 Library.prototype.getListOfTitles = function () {
   for (var i = 0; i < this._bookShelf.length; i++) {
-      console.log(this._bookShelf[i].title);
+      console.log(this._bookShelf[i].title + " - " + this._bookShelf[i].author);
     }
   return "-Complete book title listing-";
 }
