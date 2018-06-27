@@ -2,7 +2,6 @@ var Library = function(){
   this._bookShelf = new Array();
 };
 
-//var Book = function(){
 var Book = function(title,author,numberOfPages,publishDate){
   this.title = title;
   this.author = author;
@@ -20,7 +19,7 @@ Library.prototype.checkIfBookExists = function(title) {
 }
 
 Library.prototype.addBook = function (book) {
-  if (!this.checkIfBookExists(book.title)) {
+  if (book && !this.checkIfBookExists(book.title)) {
     this._bookShelf.push(book);
     return true;
     } else {
@@ -29,11 +28,14 @@ Library.prototype.addBook = function (book) {
 };
 
 Library.prototype.addBooks = function (books) {
-  var bookCt = 0;
-  for (var i = 0; i < books.length; i++) {
-    if(this.addBook(books[i])) {bookCt++};
+  if(books) {
+    var bookCt = 0;
+    for (var i = 0; i < books.length; i++) {
+      if(this.addBook(books[i])) {bookCt++};
+    }
+    return bookCt;
   }
-  return bookCt + " books successfully added.";
+  return 0;
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
@@ -121,20 +123,20 @@ Library.prototype.getBooksbyAuthor = function (author) {
   return bookSearch;
 };
 
-Library.prototype.getAuthors = function (authorName) {
+Library.prototype.getAuthors = function () {
   var authorList = [];
-  if (this._bookShelf.length != 0){
-    for (var i = 0; i < this._bookShelf.length; i++) {
-      authorList[i] = this._bookShelf[i].author;
+    if (this._bookShelf.length != 0){
+      for (var i = 0; i < this._bookShelf.length; i++) {
+        authorList[i] = this._bookShelf[i].author;
+      }
+      authorList = this.ftrArray(authorList);
     }
-    authorList = this.ftrArray(authorList);
-  }
   return authorList;
 };
 
 Library.prototype.getRandomAuthorName = function () {
   if (this._bookShelf.length != 0){
-    uniqueAuthors = this.getAuthors();
+    var uniqueAuthors = this.getAuthors();
     return uniqueAuthors[this.genRandNo(uniqueAuthors.length) -1];
   } else {
     return null;
@@ -145,7 +147,7 @@ Library.prototype.getRandomAuthorName = function () {
 //******************
 //Utility functions
 
-Library.prototype.getListOfTitles = function () {
+Library.prototype.list = function () {
   for (var i = 0; i < this._bookShelf.length; i++) {
       console.log(this._bookShelf[i].title + " - " + this._bookShelf[i].author);
     }
@@ -154,7 +156,7 @@ Library.prototype.getListOfTitles = function () {
 
 Library.prototype.init = function () {
   console.log(this.addBooks(bookList));
-  console.log(this.getListOfTitles());
+  console.log(this.list());
   return "Init script complete"
 }
 
