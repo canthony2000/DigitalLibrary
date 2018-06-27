@@ -144,6 +144,43 @@ Library.prototype.getRandomAuthorName = function () {
   return false;
 };
 
+
+//******************
+//Local Storage Methods
+
+Library.prototype._setLibState = function () {
+  if (typeof(Storage) !== "undefined" ? true : false){
+    var libDataLS = this._bookShelf;
+    localStorage.setItem('libData', JSON.stringify(libDataLS));
+    return true;
+  }
+  return false;
+}
+
+Library.prototype._getLibState= function () {
+  if (localStorage.length){
+    var bookShelfData = [];
+    var bookShelfObj = [];
+    var libData = localStorage.getItem('libData');
+    bookShelfData = ('bookshelfCopy: ', JSON.parse(libData));
+
+    for (var i = 0; i < bookShelfData.length; i++) {
+      var bookToInsert = new Book;
+      bookToInsert.title = bookShelfData[i].title;
+      bookToInsert.author= bookShelfData[i].author;
+      bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
+      bookToInsert.publishDate = bookShelfData[i].publishDate;
+      bookShelfObj.push(bookToInsert);
+      delete bookToInsert;
+    }
+
+    this._bookShelf = bookShelfObj;
+    return true;
+  }
+  return false;
+}
+
+
 //******************
 //Utility functions
 
@@ -171,4 +208,5 @@ document.addEventListener("DOMContentLoaded", function() {
   window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
+
 });
