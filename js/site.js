@@ -9,7 +9,7 @@ var Book = function(title,author,numberOfPages,publishDate){
   this.publishDate = new Date(publishDate);
 }
 
-Library.prototype.checkIfBookExists = function(title) {
+Library.prototype._checkIfBookExists = function(title) {
   if (this._bookShelf.length != 0 && title) {
     for (var i = 0; i < this._bookShelf.length; i++) {
       if (this._bookShelf[i].title.toLowerCase() == title.toLowerCase()) {return i+1;}
@@ -19,7 +19,7 @@ Library.prototype.checkIfBookExists = function(title) {
 }
 
 Library.prototype.addBook = function (book) {
-  if (book && !this.checkIfBookExists(book.title)) {
+  if (book && !this._checkIfBookExists(book.title)) {
     this._bookShelf.push(book);
     this._setLibState(); //update local storage
     return true;
@@ -40,7 +40,7 @@ Library.prototype.addBooks = function (books) {
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
-  var bkChk = this.checkIfBookExists(title);
+  var bkChk = this._checkIfBookExists(title);
   if(!bkChk){
     return false;
   } else {
@@ -173,11 +173,9 @@ Library.prototype._getLibState = function () {
       bookToInsert.author= bookShelfData[i].author;
       bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
       bookToInsert.publishDate = bookShelfData[i].publishDate;
-      bookShelfObj.push(bookToInsert);
+      this._bookShelf.push(bookToInsert);
       delete bookToInsert;
     }
-
-    this._bookShelf = bookShelfObj;
     return true;
   }
   return false;
