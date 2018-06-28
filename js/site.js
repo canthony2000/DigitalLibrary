@@ -21,6 +21,7 @@ Library.prototype.checkIfBookExists = function(title) {
 Library.prototype.addBook = function (book) {
   if (book && !this.checkIfBookExists(book.title)) {
     this._bookShelf.push(book);
+    this._setLibState(); //update local storage
     return true;
     } else {
     return false;
@@ -44,6 +45,7 @@ Library.prototype.removeBookbyTitle = function (title) {
     return false;
   } else {
     this._bookShelf.splice(bkChk - 1,1);
+    this._setLibState(); //update local storage
     return true;
   }
   return false;
@@ -57,6 +59,7 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
         this._bookShelf.splice(i,1);
         bookCt++;
         i--;
+        this._setLibState(); //update local storage
       }
     }
     if (bookCt === 0){
@@ -157,7 +160,7 @@ Library.prototype._setLibState = function () {
   return false;
 }
 
-Library.prototype._getLibState= function () {
+Library.prototype._getLibState = function () {
   if (localStorage.length){
     var bookShelfData = [];
     var bookShelfObj = [];
@@ -180,13 +183,12 @@ Library.prototype._getLibState= function () {
   return false;
 }
 
-
 //******************
 //Utility functions
 
 Library.prototype.list = function () {
   for (var i = 0; i < this._bookShelf.length; i++) {
-      console.log(this._bookShelf[i].title + " - " + this._bookShelf[i].author);
+    console.log(this._bookShelf[i]);
     }
   return "-Complete book title listing-";
 }
@@ -196,7 +198,6 @@ Library.prototype.init = function () {
   console.log(this.list());
   return "Init script complete"
 }
-
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
@@ -208,5 +209,5 @@ document.addEventListener("DOMContentLoaded", function() {
   window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
-
+  gLibrary._getLibState();
 });
