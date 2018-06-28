@@ -10,10 +10,6 @@
   }
 })();
 
-// var Library = function(){
-//   this._bookShelf = new Array();
-// };
-
 var Book = function(title,author,numberOfPages,publishDate){
   this.title = title;
   this.author = author;
@@ -85,11 +81,11 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
   return false;
 };
 
-Library.prototype.genRandNo = function (rangeTop){
+Library.prototype._genRandNo = function (rangeTop){
   return Math.floor(Math.random() * rangeTop + 1);
 }
 
-Library.prototype.ftrArray = function (arrayToFilter) {
+Library.prototype._ftrArray = function (arrayToFilter) {
   return arrayToFilter.filter(function (value, index, self) {
   return self.indexOf(value) === index;
   });
@@ -97,7 +93,7 @@ Library.prototype.ftrArray = function (arrayToFilter) {
 
 Library.prototype.getRandomBook = function () {
   if (this._bookShelf.length != 0){
-    return this._bookShelf[this.genRandNo(this._bookShelf.length) -1];
+    return this._bookShelf[this._genRandNo(this._bookShelf.length) -1];
   } else {
     return null;
   }
@@ -112,7 +108,7 @@ Library.prototype.getBooksbyTitle = function (title) {
     if (this._bookShelf.length != 0){
       for (var i = 0; i < this._bookShelf.length; i++) {
         if(this._bookShelf[i].title.toLowerCase().indexOf(titleLower) != -1){
-          titleSearch[tsIndex] = this._bookShelf[i].title;
+          titleSearch[tsIndex] = this._bookShelf[i];
           tsIndex++;
         }
       }
@@ -138,13 +134,50 @@ Library.prototype.getBooksbyAuthor = function (author) {
   return bookSearch;
 };
 
+Library.prototype.getBooksbyYear = function (year) {
+  var yearSearch = [];
+  if (typeof(searchTerm) === "number") {
+  //if(author){
+    var authorLower = author.toLowerCase();
+    var bkIndex = 0;
+    if (this._bookShelf.length != 0){
+      for (var i = 0; i < this._bookShelf.length; i++) {
+        if(this._bookShelf[i].author.toLowerCase().indexOf(authorLower) != -1){
+          bookSearch[bkIndex] = this._bookShelf[i];
+          bkIndex++;
+        }
+      }
+    }
+  }
+  return yearSearch;
+};
+
+//purpose: bonus more robust search function
+Library.prototype.getBookBySearchTerm = function(searchTerm){
+
+  if (typeof(searchTerm) === "number") {
+    return "number"
+  }
+  if (typeof(searchTerm) === "string") {
+    console.log(Date.parse(searchTerm));
+
+
+    var searchResults = this.getBooksbyAuthor(searchTerm);
+    searchResults = searchResults.concat(this.getBooksbyTitle(searchTerm));
+    searchResults = this._ftrArray(searchResults);
+    return searchResults;
+  }
+
+  return false;
+}
+
 Library.prototype.getAuthors = function () {
   var authorList = [];
     if (this._bookShelf.length != 0){
       for (var i = 0; i < this._bookShelf.length; i++) {
         authorList[i] = this._bookShelf[i].author;
       }
-      authorList = this.ftrArray(authorList);
+      authorList = this._ftrArray(authorList);
     }
   return authorList;
 };
@@ -152,7 +185,7 @@ Library.prototype.getAuthors = function () {
 Library.prototype.getRandomAuthorName = function () {
   if (this._bookShelf.length != 0){
     var uniqueAuthors = this.getAuthors();
-    return uniqueAuthors[this.genRandNo(uniqueAuthors.length) -1];
+    return uniqueAuthors[this._genRandNo(uniqueAuthors.length) -1];
   } else {
     return null;
   }
@@ -165,8 +198,7 @@ Library.prototype.getRandomAuthorName = function () {
 
 Library.prototype._setLibState = function () {
   if (typeof(Storage) !== "undefined" ? true : false){
-    var libDataLS = this._bookShelf;
-    localStorage.setItem('libData', JSON.stringify(libDataLS));
+    localStorage.setItem("libData", JSON.stringify(this._bookShelf));
     return true;
   }
   return false;
@@ -175,7 +207,6 @@ Library.prototype._setLibState = function () {
 Library.prototype._getLibState = function () {
   if (localStorage.length){
     var bookShelfData = [];
-    var bookShelfObj = [];
     var libData = localStorage.getItem('libData');
     bookShelfData = ('bookshelfCopy: ', JSON.parse(libData));
 
