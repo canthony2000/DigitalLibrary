@@ -1,6 +1,18 @@
-var Library = function(){
-  this._bookShelf = new Array();
-};
+(function() {
+  var instance;
+  Library = function() {
+    if (instance) {
+      return instance;
+    }
+
+    instance = this;
+    this._bookShelf = new Array();
+  }
+})();
+
+// var Library = function(){
+//   this._bookShelf = new Array();
+// };
 
 var Book = function(title,author,numberOfPages,publishDate){
   this.title = title;
@@ -199,6 +211,7 @@ Library.prototype.init = function () {
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
+  window.gLibrary2 = new Library(); // for checking singleton instance functionality
   window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
   window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
   window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945");
