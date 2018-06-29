@@ -137,14 +137,12 @@ Library.prototype.getBooksbyYear = function (searchYear) {
   var booksByYear = [];
   if(searchYear){
     if (typeof(searchYear) === "number") {searchYear = searchYear.toString();}
-
     if (typeof(searchYear) === "string") {
       if (searchYear = searchYear.match(/\d{4}/g)) { //see if can parse as a year
-        var chkYearTop = parseInt(searchYear) +10;
-        var chkYearBottom = chkYearTop - 20;
+        var chkYear = parseInt(searchYear);
         for (var i = 0; i < this._bookShelf.length; i++) {
           var pubYear = this._bookShelf[i].publishDate.getFullYear();
-          if (pubYear >= chkYearBottom && pubYear <= chkYearTop) {
+          if (pubYear >= chkYear - 10 && pubYear <= chkYear +10) {
             booksByYear.push(this._bookShelf[i]);
           }
         }
@@ -154,21 +152,33 @@ Library.prototype.getBooksbyYear = function (searchYear) {
   return booksByYear ;
 };
 
+Library.prototype.getBooksbyPageCt = function (pageCt) {
+  var booksInPageRange = [];
+  if(pageCt){
+    if (typeof(pageCt) === "number") {pageCt = pageCt.toString();}
+    if (typeof(pageCt) === "string") {
+      if (pageCt = pageCt.match(/\d+/)) { //use the first occurance of a number as basis for page range
+         var chkPage = parseInt(pageCt);
+         for (var i = 0; i < this._bookShelf.length; i++) {
+           if (this._bookShelf[i].numberOfPages <= chkPage +75 && this._bookShelf[i].numberOfPages >= chkPage -75) {
+             booksInPageRange.push(this._bookShelf[i]);
+          }
+        }
+      }
+    }
+  }
+  return booksInPageRange;
+};
+
 //purpose: bonus more robust search function
 Library.prototype.getBookBySearchTerm = function(searchTerm){
-
-  if (typeof(searchTerm) === "number") {searchYear = searchYear.toString();}
+  if (typeof(searchTerm) === "number") {searchTerm = searchTerm.toString();}
   if (typeof(searchTerm) === "string") {  // only allow input of string, any other return false
-    //console.log(Date.parse(searchTerm));
-
-
-
     var searchResults = this.getBooksbyAuthor(searchTerm);
-    searchResults = searchResults.concat(this.getBooksbyTitle(searchTerm));
+    searchResults = searchResults.concat(this.getBooksbyTitle(searchTerm),this.getBooksbyYear(searchTerm),this.getBooksbyPageCt(searchTerm));
     searchResults = this._ftrArray(searchResults);
     return searchResults;
   }
-
   return false;
 }
 
