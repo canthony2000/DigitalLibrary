@@ -47,13 +47,15 @@ Library.prototype.addBooks = function (books) {
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
-  var bkChk = this._checkIfBookExists(title);
-  if(!bkChk){
-    return false;
-  } else {
-    this._bookShelf.splice(bkChk - 1,1);
-    this._setLibState();
-    return true;
+  if(typeof(title) === "string"){
+    var bkChk = this._checkIfBookExists(title);
+    if(!bkChk){
+      return false;
+    } else {
+      this._bookShelf.splice(bkChk - 1,1);
+      this._setLibState();
+      return true;
+    }
   }
   return false;
 };
@@ -101,7 +103,7 @@ Library.prototype.getRandomBook = function () {
 
 Library.prototype.getBooksbyTitle = function (title) {
   var titleSearch = [];
-  if(title){
+  if(typeof(title) === "string"){
     var titleLower = title.toLowerCase();
     var tsIndex = 0;
     if (this._bookShelf.length != 0){
@@ -118,7 +120,7 @@ Library.prototype.getBooksbyTitle = function (title) {
 
 Library.prototype.getBooksbyAuthor = function (author) {
   var bookSearch = [];
-  if(author){
+  if(typeof(author) === "string"){
     var authorLower = author.toLowerCase();
     var bkIndex = 0;
     if (this._bookShelf.length != 0){
@@ -138,7 +140,7 @@ Library.prototype.getBooksbyYear = function (searchYear) {
   if(searchYear){
     if (typeof(searchYear) === "number") {searchYear = searchYear.toString();}
     if (typeof(searchYear) === "string") {
-      if (searchYear = searchYear.match(/\d{4}/g)) { //see if can parse as a year
+      if (searchYear = searchYear.match(/\d{4}/g)) {
         var chkYear = parseInt(searchYear);
         for (var i = 0; i < this._bookShelf.length; i++) {
           var pubYear = this._bookShelf[i].publishDate.getFullYear();
@@ -173,7 +175,7 @@ Library.prototype.getBooksbyPageCt = function (pageCt) {
 //purpose: bonus more robust search function
 Library.prototype.getBookBySearchTerm = function(searchTerm){
   if (typeof(searchTerm) === "number") {searchTerm = searchTerm.toString();}
-  if (typeof(searchTerm) === "string") {  // only allow input of string, any other return false
+  if (typeof(searchTerm) === "string") {
     var searchResults = this.getBooksbyAuthor(searchTerm);
     searchResults = searchResults.concat(this.getBooksbyTitle(searchTerm),this.getBooksbyYear(searchTerm),this.getBooksbyPageCt(searchTerm));
     searchResults = this._ftrArray(searchResults);
