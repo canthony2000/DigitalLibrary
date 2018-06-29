@@ -1,4 +1,4 @@
-#Digital Library Class
+# Digital Library Class
 
 Why in the singleton does Library not need a var in front of it, and if you add var it just creates an empty function called Library?  (Even though when not using singleton)
 
@@ -12,6 +12,7 @@ Discuss declaring new objects outside for loop and then assigning values to it i
 
 Advanced search criteria:
 
+```
 gLibrary.getBookBySearchTerm("kill") //books with kill in the title
 gLibrary.getBookBySearchTerm("sdfsdf1984sff1999gsfg") //books pulling out first occurrence of a year from a string
 gLibrary.getBookBySearchTerm("sdfsdf800sff300gsfg") //books pulling out first occurrence of page number from a string +- 75 pages
@@ -26,3 +27,4 @@ gLibrary.getRandomAuthorName()
 gLibrary.removeBookbyAuthor("George Orwell")
 gLibrary.addBooks()
 gLibrary.addBook(new Book("The Great Alone","Kristin Hannah", 435, "03/23/1974"));
+```
