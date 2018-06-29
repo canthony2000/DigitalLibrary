@@ -4,7 +4,6 @@
     if (instance) {
       return instance;
     }
-
     instance = this;
     this._bookShelf = new Array();
   }
@@ -134,32 +133,34 @@ Library.prototype.getBooksbyAuthor = function (author) {
   return bookSearch;
 };
 
-Library.prototype.getBooksbyYear = function (year) {
-  var yearSearch = [];
-  if (typeof(searchTerm) === "number") {
-  //if(author){
-    var authorLower = author.toLowerCase();
-    var bkIndex = 0;
-    if (this._bookShelf.length != 0){
-      for (var i = 0; i < this._bookShelf.length; i++) {
-        if(this._bookShelf[i].author.toLowerCase().indexOf(authorLower) != -1){
-          bookSearch[bkIndex] = this._bookShelf[i];
-          bkIndex++;
+Library.prototype.getBooksbyYear = function (searchYear) {
+  var booksByYear = [];
+  if(searchYear){
+    if (typeof(searchYear) === "number") {searchYear = searchYear.toString();}
+
+    if (typeof(searchYear) === "string") {
+      if (searchYear = searchYear.match(/\d{4}/g)) { //see if can parse as a year
+        var chkYearTop = parseInt(searchYear) +10;
+        var chkYearBottom = chkYearTop - 20;
+        for (var i = 0; i < this._bookShelf.length; i++) {
+          var pubYear = this._bookShelf[i].publishDate.getFullYear();
+          if (pubYear >= chkYearBottom && pubYear <= chkYearTop) {
+            booksByYear.push(this._bookShelf[i]);
+          }
         }
       }
     }
   }
-  return yearSearch;
+  return booksByYear ;
 };
 
 //purpose: bonus more robust search function
 Library.prototype.getBookBySearchTerm = function(searchTerm){
 
-  if (typeof(searchTerm) === "number") {
-    return "number"
-  }
-  if (typeof(searchTerm) === "string") {
-    console.log(Date.parse(searchTerm));
+  if (typeof(searchTerm) === "number") {searchYear = searchYear.toString();}
+  if (typeof(searchTerm) === "string") {  // only allow input of string, any other return false
+    //console.log(Date.parse(searchTerm));
+
 
 
     var searchResults = this.getBooksbyAuthor(searchTerm);
