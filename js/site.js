@@ -1,3 +1,4 @@
+var Library;
 (function() {
   var instance;
   Library = function() {
@@ -30,9 +31,8 @@ Library.prototype.addBook = function (book) {
     this._bookShelf.push(book);
     this._setLibState(); //update local storage
     return true;
-    } else {
-    return false;
   }
+  return false;
 };
 
 Library.prototype.addBooks = function (books) {
@@ -49,9 +49,7 @@ Library.prototype.addBooks = function (books) {
 Library.prototype.removeBookbyTitle = function (title) {
   if(typeof(title) === "string"){
     var bkChk = this._checkIfBookExists(title);
-    if(!bkChk){
-      return false;
-    } else {
+    if(bkChk){
       this._bookShelf.splice(bkChk - 1,1);
       this._setLibState();
       return true;
