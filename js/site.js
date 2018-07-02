@@ -1,6 +1,13 @@
-var Library = function(){
-  this._bookShelf = new Array();
-};
+(function() {
+  var instance;
+  Library = function() {
+    if (instance) {
+      return instance;
+    }
+    instance = this;
+    this._bookShelf = new Array();
+  }
+})();
 
 var Book = function(title,author,numberOfPages,publishDate){
   this.title = title;
@@ -9,7 +16,7 @@ var Book = function(title,author,numberOfPages,publishDate){
   this.publishDate = new Date(publishDate);
 }
 
-Library.prototype.checkIfBookExists = function(title) {
+Library.prototype._checkIfBookExists = function(title) {
   if (this._bookShelf.length != 0 && title) {
     for (var i = 0; i < this._bookShelf.length; i++) {
       if (this._bookShelf[i].title.toLowerCase() == title.toLowerCase()) {return i+1;}
@@ -19,8 +26,9 @@ Library.prototype.checkIfBookExists = function(title) {
 }
 
 Library.prototype.addBook = function (book) {
-  if (book && !this.checkIfBookExists(book.title)) {
+  if (typeof book === "object" && !this._checkIfBookExists(book.title)) {
     this._bookShelf.push(book);
+    this._setLibState(); //update local storage
     return true;
     } else {
     return false;
@@ -39,12 +47,15 @@ Library.prototype.addBooks = function (books) {
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
-  var bkChk = this.checkIfBookExists(title);
-  if(!bkChk){
-    return false;
-  } else {
-    this._bookShelf.splice(bkChk - 1,1);
-    return true;
+  if(typeof(title) === "string"){
+    var bkChk = this._checkIfBookExists(title);
+    if(!bkChk){
+      return false;
+    } else {
+      this._bookShelf.splice(bkChk - 1,1);
+      this._setLibState();
+      return true;
+    }
   }
   return false;
 };
@@ -57,6 +68,7 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
         this._bookShelf.splice(i,1);
         bookCt++;
         i--;
+        this._setLibState();
       }
     }
     if (bookCt === 0){
@@ -70,11 +82,11 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
   return false;
 };
 
-Library.prototype.genRandNo = function (rangeTop){
+Library.prototype._genRandNo = function (rangeTop){
   return Math.floor(Math.random() * rangeTop + 1);
 }
 
-Library.prototype.ftrArray = function (arrayToFilter) {
+Library.prototype._ftrArray = function (arrayToFilter) {
   return arrayToFilter.filter(function (value, index, self) {
   return self.indexOf(value) === index;
   });
@@ -82,7 +94,7 @@ Library.prototype.ftrArray = function (arrayToFilter) {
 
 Library.prototype.getRandomBook = function () {
   if (this._bookShelf.length != 0){
-    return this._bookShelf[this.genRandNo(this._bookShelf.length) -1];
+    return this._bookShelf[this._genRandNo(this._bookShelf.length) -1];
   } else {
     return null;
   }
@@ -91,13 +103,13 @@ Library.prototype.getRandomBook = function () {
 
 Library.prototype.getBooksbyTitle = function (title) {
   var titleSearch = [];
-  if(title){
+  if(typeof(title) === "string"){
     var titleLower = title.toLowerCase();
     var tsIndex = 0;
     if (this._bookShelf.length != 0){
       for (var i = 0; i < this._bookShelf.length; i++) {
         if(this._bookShelf[i].title.toLowerCase().indexOf(titleLower) != -1){
-          titleSearch[tsIndex] = this._bookShelf[i].title;
+          titleSearch[tsIndex] = this._bookShelf[i];
           tsIndex++;
         }
       }
@@ -108,7 +120,7 @@ Library.prototype.getBooksbyTitle = function (title) {
 
 Library.prototype.getBooksbyAuthor = function (author) {
   var bookSearch = [];
-  if(author){
+  if(typeof(author) === "string"){
     var authorLower = author.toLowerCase();
     var bkIndex = 0;
     if (this._bookShelf.length != 0){
@@ -123,13 +135,62 @@ Library.prototype.getBooksbyAuthor = function (author) {
   return bookSearch;
 };
 
+Library.prototype.getBooksbyYear = function (searchYear) {
+  var booksByYear = [];
+  if(searchYear){
+    if (typeof(searchYear) === "number") {searchYear = searchYear.toString();}
+    if (typeof(searchYear) === "string") {
+      if (searchYear = searchYear.match(/\d{4}/g)) {
+        var chkYear = parseInt(searchYear);
+        for (var i = 0; i < this._bookShelf.length; i++) {
+          var pubYear = this._bookShelf[i].publishDate.getFullYear();
+          if (pubYear >= chkYear - 10 && pubYear <= chkYear +10) {
+            booksByYear.push(this._bookShelf[i]);
+          }
+        }
+      }
+    }
+  }
+  return booksByYear ;
+};
+
+Library.prototype.getBooksbyPageCt = function (pageCt) {
+  var booksInPageRange = [];
+  if(pageCt){
+    if (typeof(pageCt) === "number") {pageCt = pageCt.toString();}
+    if (typeof(pageCt) === "string") {
+      if (pageCt = pageCt.match(/\d+/)) { //use the first occurance of a number as basis for page range
+         var chkPage = parseInt(pageCt);
+         for (var i = 0; i < this._bookShelf.length; i++) {
+           if (this._bookShelf[i].numberOfPages <= chkPage +75 && this._bookShelf[i].numberOfPages >= chkPage -75) {
+             booksInPageRange.push(this._bookShelf[i]);
+          }
+        }
+      }
+    }
+  }
+  return booksInPageRange;
+};
+
+//purpose: bonus more robust search function
+Library.prototype.getBookBySearchTerm = function(searchTerm){
+  if (typeof(searchTerm) === "number") {searchTerm = searchTerm.toString();}
+  if (typeof(searchTerm) === "string") {
+    var searchResults = this.getBooksbyAuthor(searchTerm);
+    searchResults = searchResults.concat(this.getBooksbyTitle(searchTerm),this.getBooksbyYear(searchTerm),this.getBooksbyPageCt(searchTerm));
+    searchResults = this._ftrArray(searchResults);
+    return searchResults;
+  }
+  return false;
+}
+
 Library.prototype.getAuthors = function () {
   var authorList = [];
     if (this._bookShelf.length != 0){
       for (var i = 0; i < this._bookShelf.length; i++) {
         authorList[i] = this._bookShelf[i].author;
       }
-      authorList = this.ftrArray(authorList);
+      authorList = this._ftrArray(authorList);
     }
   return authorList;
 };
@@ -137,19 +198,51 @@ Library.prototype.getAuthors = function () {
 Library.prototype.getRandomAuthorName = function () {
   if (this._bookShelf.length != 0){
     var uniqueAuthors = this.getAuthors();
-    return uniqueAuthors[this.genRandNo(uniqueAuthors.length) -1];
+    return uniqueAuthors[this._genRandNo(uniqueAuthors.length) -1];
   } else {
     return null;
   }
   return false;
 };
 
+
+//******************
+//Local Storage Methods
+
+Library.prototype._setLibState = function () {
+  if (typeof(Storage) !== "undefined" ? true : false){
+    localStorage.setItem("libData", JSON.stringify(this._bookShelf));
+    return true;
+  }
+  return false;
+}
+
+Library.prototype._getLibState = function () {
+  if (localStorage.length){
+    var bookShelfData = [];
+    var libData = localStorage.getItem('libData');
+    bookShelfData = ('bookshelfCopy: ', JSON.parse(libData));
+
+    for (var i = 0; i < bookShelfData.length; i++) {
+      var bookToInsert = new Book;
+      bookToInsert.title = bookShelfData[i].title;
+      bookToInsert.author= bookShelfData[i].author;
+      bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
+      bookToInsert.publishDate = new Date(bookShelfData[i].publishDate);
+      this._bookShelf.push(bookToInsert);
+      delete bookToInsert;
+    }
+    return true;
+  }
+  return false;
+}
+
 //******************
 //Utility functions
 
 Library.prototype.list = function () {
   for (var i = 0; i < this._bookShelf.length; i++) {
-      console.log(this._bookShelf[i].title + " - " + this._bookShelf[i].author);
+    console.log(this._bookShelf[i]);
     }
   return "-Complete book title listing-";
 }
@@ -160,9 +253,9 @@ Library.prototype.init = function () {
   return "Init script complete"
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
+  window.gLibrary2 = new Library(); // for checking singleton instance functionality
   window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
   window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
   window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945");
@@ -171,4 +264,5 @@ document.addEventListener("DOMContentLoaded", function() {
   window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
+  gLibrary._getLibState();
 });
