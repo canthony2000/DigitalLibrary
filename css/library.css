@@ -1,6 +1,12 @@
-/* green #009933 */
+/*
+green - #009933
+gold - #ffcc00
+*/
 
+header {
+background-color: #928467;
 
+}
 
 .lIcon {
   height: 16px;
