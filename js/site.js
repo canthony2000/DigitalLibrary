@@ -1,3 +1,7 @@
+//********************
+//library
+//20180703-0850
+
 (function() {
   var instance;
   Library = function() {
