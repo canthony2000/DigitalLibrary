@@ -6,24 +6,114 @@
     <title>Digital Library</title>
     <link rel="stylesheet" href="css/bootstrap.css"> <!-- bootstrap-4.1.1-dist -->
     <link rel="stylesheet" href="css/library.css">
-    <script src="js/site.js"></script>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-12">
-          <header>
-            
-          </header>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">
+            Add a Book
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-outline-secondary float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">
+            Delete a Book
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h1>The Library</h1>
+          <h2>Where does your adventure take you today?</h2>
         </div>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <main>
-            <h1>The Library</h1>
-          </main>
+          <header>
+            <div class="text-center">
+            <img src="assets/banner.jpg" class="img-fluid" alt="Responsive image">
+          </div>
+          </header>
         </div>
       </div>
+
+      <main>
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">
+              Show All Books
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">
+              Suggest a Book
+            </button>
+          </div>
+          <div class="col-md-5">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Search by Title or Author" aria-label="Search by Title or Author" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="float-xl-right">
+              <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                Show All Authors
+              </button>
+              <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                Suggest an Author
+              </button>
+            </div>
+          </div>
+        </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Author</th>
+              <th scope="col">Pages</th>
+              <th scope="col">Publication Date</th>
+              <th scope="col">Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">IT</th>
+              <td>Stephan King</td>
+              <td>800</td>
+              <td>12/24/1987</td>
+              <td>*****</td>
+            </tr>
+            <tr>
+              <th scope="row">Moby Dick</th>
+              <td>Herman Melville</td>
+              <td>754</td>
+              <td>06/02/1851</td>
+              <td>*****</td>
+            </tr>
+            <tr>
+              <th scope="row">To Kill a Mockingbird</th>
+              <td>Harper Lee</td>
+              <td>512</td>
+              <td>04/04/1965</td>
+              <td>*****</td>
+            </tr>
+            <tr>
+              <th scope="row">The Road to Wigan Pier</th>
+              <td>George Orwell</td>
+              <td>212</td>
+              <td>03/23/1937</td>
+              <td>****</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      </main>
       <div class="row">
         <div class="col-md-12">
           <footer>
@@ -32,11 +122,102 @@
         </div>
       </div>
 
-
-
-
-
-
     </div>
+
+<!-- *************** Model dialog boxes -->
+
+<!-- Modal Add a Book-->
+<div class="modal fade" id="addABook" tabindex="-1" role="dialog" aria-labelledby="addABookLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="Add Book" id="addABookLabel">Add a Book</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <label for="bookTitle">Title</label>
+                <input type="text" class="form-control" id="bookTitle" placeholder="Add a book title">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-8">
+                <label for="bookAuthor">Author</label>
+                <input type="text" class="form-control" id="bookAuthor" placeholder="Add an author name">
+              </div>
+              <div class="col-sm-4">
+                <label for="bookRating">Rating (stars)</label>
+                <select class="form-control" id="bookRating">
+                  <option>5</option>
+                  <option>4</option>
+                  <option>3</option>
+                  <option>2</option>
+                  <option>1</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6">
+                <label for="bookPages">Page Count</label>
+                <input type="text" class="form-control" id="bookPages" placeholder="example: 300">
+              </div>
+              <div class="col-sm-6">
+                <label for="bookPubDate">Publication Date</label>
+                <input type="date" class="form-control" id="bookPubDate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <label for="bookSynopsys">Synopsys</label>
+                <textarea class="form-control" id="bookSynopsys" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <!-- <label for="bookImage">Upload an Image</label> -->
+                <input type="file" class="form-control-file" id="bookImage">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <hr>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                Add to Queue
+              </button>
+            </div>
+            <div class="col-sm-9">
+              <div class="">
+              <label>0 Books ready to add!</label><img class="lIcon " alt="arrow" src="assets/arrowRight.svg"></img>
+              <button type="button" class="btn btn-outline-secondary btn-sm float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">Add Book(s) to Library</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Add a Book-->
+
+
+
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/site.js"></script>
   </body>
 </html>
+
+
+<!-- window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
+window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
+window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945");
+window.book04 = new Book("To Kill a Mockingbird","Harper Lee", 512, "04/04/1965");
+window.book05 = new Book("1984","George Orwell", 432, "07/01/1950");
+window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
+window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015"); -->

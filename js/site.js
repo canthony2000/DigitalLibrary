@@ -1,7 +1,10 @@
 //********************
 //library
+//Created by Corey Anthonhy
 //20180703-0850
+//Bootstrap-4.1.1
 
+var Library;
 (function() {
   var instance;
   Library = function() {
@@ -34,9 +37,8 @@ Library.prototype.addBook = function (book) {
     this._bookShelf.push(book);
     this._setLibState(); //update local storage
     return true;
-    } else {
-    return false;
   }
+  return false;
 };
 
 Library.prototype.addBooks = function (books) {
@@ -53,9 +55,7 @@ Library.prototype.addBooks = function (books) {
 Library.prototype.removeBookbyTitle = function (title) {
   if(typeof(title) === "string"){
     var bkChk = this._checkIfBookExists(title);
-    if(!bkChk){
-      return false;
-    } else {
+    if(bkChk){
       this._bookShelf.splice(bkChk - 1,1);
       this._setLibState();
       return true;
@@ -269,4 +269,5 @@ document.addEventListener("DOMContentLoaded", function() {
   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
   gLibrary._getLibState();
+  
 });
