@@ -4,7 +4,11 @@ gold - #ffcc00
 */
 
 header {
-background-color: #928467;
+  background-color: #928467;
+}
+
+footer {
+  background-color: #928467;
 }
 
 blockquote p{
@@ -26,4 +30,15 @@ blockquote p{
 
 .libBookModel{
   margin: 0 auto;
+}
+
+.lib-table-wrapper {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.lib-tbl-th{
+  height: 30px;
 }

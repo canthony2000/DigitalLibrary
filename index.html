@@ -11,22 +11,19 @@
     <div class="container-fluid">
       <div class="row mt-2">
         <div class="col-md-2">
-          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">
-            Add a Book
-          </button>
+          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">Add a Book</button>
         </div>
         <blockquote class="col-md-8 text-center">
           <h1>Adventuresome! - Digital Book Library</h1>
-          <p><i>Your adventure awaits your imagination and a good book!</i></p>
+          <p><i>Your adventure is your imagination and a good book!</i></p>
         </blockquote>
         <div class="col-md-2 mb-2">
-          <button type="button" class="btn btn-outline-secondary float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">
-            Delete a Book
-          </button>
+          <button type="button" class="btn btn-outline-secondary float-right" data-toggle="modal" data-target="#deleteBook">Delete a Book</button>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 pl-0 pr-0">
+        <!-- <div> -->
           <header>
             <div class="text-center">
             <img src="assets/banner.jpg" class="img-fluid" alt="Responsive image">
@@ -47,7 +44,6 @@
           </div>
           <div class="col-md-5 mt-2">
             <div class="input-group">
-            <!-- <div class="input-group mb-3"> -->
               <input type="text" class="form-control" placeholder="Search by Title or Author" aria-label="Search by Title or Author" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">Search</button>
@@ -65,60 +61,92 @@
             </div>
           </div>
         </div>
-
-      <div class="table-responsive mt-2">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Author</th>
-              <th scope="col">Pages</th>
-              <th scope="col">Publication Date</th>
-              <th scope="col">Rating</th>
-              <th scope="col">Delete <input type="checkbox" id="chckHead" class="ml-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">IT</th>
-              <td>Stephan King</td>
-              <td>800</td>
-              <td>12/24/1987</td>
-              <td><img class="lIcon" src="assets/rate5.svg"></img></td>
-              <td><input type="checkbox" class="chcktbl ml-4"></td>
-            </tr>
-            <tr>
-              <th scope="row">Moby Dick</th>
-              <td>Herman Melville</td>
-              <td>754</td>
-              <td>06/02/1851</td>
-              <td><img class="lIcon" src="assets/rate3.svg"></img></td>
-              <td><input type="checkbox" class="chcktbl ml-4"></td>
-            </tr>
-            <tr>
-              <th scope="row">To Kill a Mockingbird</th>
-              <td>Harper Lee</td>
-              <td>512</td>
-              <td>04/04/1965</td>
-              <td><img class="lIcon" src="assets/rate5.svg"></img></td>
-              <td><input type="checkbox" class="chcktbl ml-4"></td>
-            </tr>
-            <tr>
-              <th scope="row">The Road to Wigan Pier</th>
-              <td>George Orwell</td>
-              <td>212</td>
-              <td>03/23/1937</td>
-              <td><img class="lIcon" src="assets/rate2.svg"></img></td>
-              <td><input type="checkbox" class="chcktbl ml-4"></td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- <div class="table-responsive mt-2"> -->
+        <div class="lib-table-wrapper mt-2 mb-2">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Publication Date</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Delete <input type="checkbox" id="chckHead" class="ml-1"></th>
+                <th scope="col">Edit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class"p-0"><img class="lib-tbl-th" src="assets/it-th.jpg"></img></td>
+                <td scope="row">IT</td>
+                <td>Stephan King</td>
+                <td>800</td>
+                <td>12/24/1987</td>
+                <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+              <tr>
+                <td>th</td>
+                <td scope="row">Moby Dick</td>
+                <td>Herman Melville</td>
+                <td>754</td>
+                <td>06/02/1851</td>
+                <td><img class="lIcon" src="assets/rate3.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+              <tr>
+                <td>th</td>
+                <td scope="row">To Kill a Mockingbird</td>
+                <td>Harper Lee</td>
+                <td>512</td>
+                <td>04/04/1965</td>
+                <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+              <tr>
+                <td>th</td>
+                <td scope="row">The Road to Wigan Pier</td>
+                <td>George Orwell</td>
+                <td>212</td>
+                <td>03/23/1937</td>
+                <td><img class="lIcon" src="assets/rate2.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+              <tr>
+                <td>th</td>
+                <td scope="row">1984</td>
+                <td>George Orwell</td>
+                <td>432</td>
+                <td>07/01/1950</td>
+                <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+              <tr>
+                <td>th</td>
+                <td scope="row">Go Set a Watchman</td>
+                <td>Harper Lee</td>
+                <td>233</td>
+                <td>01/13/2015</td>
+                <td><img class="lIcon" src="assets/rate3.svg"></img></td>
+                <td><input type="checkbox" class="chcktbl ml-4"></td>
+                <td>Edit</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       </main>
       <div class="row">
-        <div class="col-md-12">
-          <footer>
-
+        <div class="col-md-12 pl-0 pr-0">
+          <footer class="">
+            <img src="assets/clear.png"></img>
           </footer>
         </div>
       </div>
@@ -141,7 +169,7 @@
         <form>
           <div class="form-group">
             <div class="form-group row">
-              <div class="col-sm-8">
+              <div class="col">
                 <label for="bookTitle">Title</label>
                 <input type="text" class="form-control" id="bookTitle" placeholder="Add a book title">
               </div>
@@ -207,6 +235,55 @@
 <!-- End Modal Add a Book-->
 
 <!-- Model Delete a Book -->
+<div class="modal fade" id="deleteBook" tabindex="-1" role="dialog" aria-labelledby="deleteBookLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="deleteBookLabel">Delete a Book</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div class="form-group row">
+              <div class="col">
+                <label for="bookTitle">Title</label>
+                <select class="custom-select" id="deletebookTitle">
+                  <option selected>Choose...</option>
+                  <option value="IT">IT</option>
+                  <option value="Moby Dick">Moby Dick</option>
+                  <option value="Animal Farm">Animal Farm</option>
+                  <option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
+                  <option value="1984">1984</option>
+                  <option value="The Road to Wigan Pier">The Road to Wigan Pier</option>
+                  <option value="Go Set a Watchman">Go Set a Watchman</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <label for="bookAuthor">Author</label>
+                <select class="custom-select" id="deletebookAuthor">
+                  <option selected>Choose...</option>
+                  <option value="Stephan King">Stephan King</option>
+                  <option value="Herman Melville">Herman Melville</option>
+                  <option value="George Orwell">George Orwell</option>
+                  <option value="Harper Lee">Harper Lee</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary">Delete Book</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End Model Delete a Book -->
 
 <!-- Model Suggest an Author-->
