@@ -1,7 +1,6 @@
 //********************
 //library
 //Created by Corey Anthonhy
-//20180703-0850
 //Bootstrap-4.1.1
 
 var Library;
