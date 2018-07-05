@@ -269,5 +269,19 @@ document.addEventListener("DOMContentLoaded", function() {
   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
   gLibrary._getLibState();
-  
+
 });
+
+
+//************table check All
+
+$('#chckHead').click(function () {
+        if (this.checked == false) {
+            $('.chcktbl:checked').attr('checked', false);
+        }
+        else {
+            $('.chcktbl:not(:checked)').attr('checked', true);
+        }
+    });
+    $('#chckHead').click(function () {
+    });

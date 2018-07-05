@@ -9,17 +9,17 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-3">
+      <div class="row mt-2">
+        <div class="col-md-2">
           <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">
             Add a Book
           </button>
         </div>
-        <div class="col-md-6 text-center">
+        <blockquote class="col-md-8 text-center">
           <h1>Adventuresome! - Digital Book Library</h1>
-          <h2>Where will your imagination take you today?</h2>
-        </div>
-        <div class="col-md-3">
+          <p><i>Your adventure awaits your imagination and a good book!</i></p>
+        </blockquote>
+        <div class="col-md-2 mb-2">
           <button type="button" class="btn btn-outline-secondary float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">
             Delete a Book
           </button>
@@ -37,34 +37,24 @@
 
       <main>
         <div class="row">
-          <div class="col">
-            <!-- <button type="button" class="btn btn-outline-secondary" data-toggle="button" aria-pressed="false" autocomplete="off">
-              Show All Books
-            </button> -->
-
+          <div class="col mt-2">
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#showAllBooks">
               Show All Books
             </button>
-
-
-
             <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestBook">
               Suggest a Book
             </button>
-
-
-
-
           </div>
-          <div class="col-md-5">
-            <div class="input-group mb-3">
+          <div class="col-md-5 mt-2">
+            <div class="input-group">
+            <!-- <div class="input-group mb-3"> -->
               <input type="text" class="form-control" placeholder="Search by Title or Author" aria-label="Search by Title or Author" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">Search</button>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col mt-2">
             <div class="float-xl-right">
               <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#listAuthors">
                 Show All Authors
@@ -76,7 +66,7 @@
           </div>
         </div>
 
-      <div class="table-responsive">
+      <div class="table-responsive mt-2">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -85,6 +75,7 @@
               <th scope="col">Pages</th>
               <th scope="col">Publication Date</th>
               <th scope="col">Rating</th>
+              <th scope="col">Delete <input type="checkbox" id="chckHead" class="ml-1"></th>
             </tr>
           </thead>
           <tbody>
@@ -94,6 +85,7 @@
               <td>800</td>
               <td>12/24/1987</td>
               <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+              <td><input type="checkbox" class="chcktbl ml-4"></td>
             </tr>
             <tr>
               <th scope="row">Moby Dick</th>
@@ -101,6 +93,7 @@
               <td>754</td>
               <td>06/02/1851</td>
               <td><img class="lIcon" src="assets/rate3.svg"></img></td>
+              <td><input type="checkbox" class="chcktbl ml-4"></td>
             </tr>
             <tr>
               <th scope="row">To Kill a Mockingbird</th>
@@ -108,6 +101,7 @@
               <td>512</td>
               <td>04/04/1965</td>
               <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+              <td><input type="checkbox" class="chcktbl ml-4"></td>
             </tr>
             <tr>
               <th scope="row">The Road to Wigan Pier</th>
@@ -115,12 +109,11 @@
               <td>212</td>
               <td>03/23/1937</td>
               <td><img class="lIcon" src="assets/rate2.svg"></img></td>
+              <td><input type="checkbox" class="chcktbl ml-4"></td>
             </tr>
           </tbody>
         </table>
       </div>
-
-
       </main>
       <div class="row">
         <div class="col-md-12">
@@ -216,6 +209,30 @@
 <!-- Model Delete a Book -->
 <!-- End Model Delete a Book -->
 
+<!-- Model Suggest an Author-->
+<div class="modal fade" id="suggestAuthor" tabindex="-1" role="dialog" aria-labelledby="suggestAuthorLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="suggestAuthorLabel">Author Suggestion</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Based on your book choices, the following author seems like a great suggestion!</p>
+        <ul>
+          <li>Stephan King</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End  Suggest an Author-->
+
 <!-- Model Display Authors-->
 <div class="modal fade" id="listAuthors" tabindex="-1" role="dialog" aria-labelledby="listAuthorsLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -242,7 +259,7 @@
 </div>
 <!-- End Model Display Authors -->
 
-<!-- Model Suggest a Book-->
+<!-- Model Suggest a Book (random book)-->
 <div class="modal fade" id="suggestBook" tabindex="-1" role="dialog" aria-labelledby="suggestBookLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -252,8 +269,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <label>To Kill a Mockingbird</label>
+      <div class="modal-body libBookModel">
+        <div class="card mb-2" style="width: 14rem;">
+          <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">To Kill a Mockingbird</h5>
+            <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
+            <img class="lIcon" src="assets/rate5.svg"></img>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -274,82 +298,73 @@
         </button>
       </div>
       <div class="modal-body">
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/moby-dick-th.jpeg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">Moby Dick</h5>
+                  <p class="card-text">By Herman Melville<br>Published in 1851<br>754 pages</p>
+                  <img class="lIcon" src="assets/rate3.svg"></img>
                 </div>
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/it-th.jpg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">IT</h5>
+                  <p class="card-text">By Stephan King<br>Published in 1987<br>800 pages</p>
+                  <img class="lIcon" src="assets/rate5.svg"></img>
                 </div>
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/animal-farm-th.jpeg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">Animal Farm</h5>
+                  <p class="card-text">By George Orwell<br>Published in 1945<br>322 pages</p>
+                  <img class="lIcon" src="assets/rate5.svg"></img>
                 </div>
               </div>
             </div>
           </div>
-
           <div class="row">
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">To Kill a Mockingbird</h5>
+                  <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
+                  <img class="lIcon" src="assets/rate5.svg"></img>
                 </div>
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/1984-th.jpeg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">1984</h5>
+                  <p class="card-text">By George Orwell<br>Published in 1950<br>432 pages</p>
+                  <img class="lIcon" src="assets/rate5.svg"></img>
                 </div>
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="card" style="width: 14rem;">
-                <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+              <div class="card mb-2" style="width: 14rem;">
+                <img class="card-img-top" src="assets/wigan-pier-th.jpeg" alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">The Road to Wigan Pier</h5>
+                  <p class="card-text">By George Orwell<br>Published in 1937<br>212 pages</p>
+                  <img class="lIcon" src="assets/rate2.svg"></img>
+                  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
-        <!-- <ul>
-          <li>IT ()</li>
-          <li>Herman Melville</li>
-          <li>George Orwell</li>
-          <li>Harper Lee</li>
-        </ul> -->
 
         <!-- window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
         window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
@@ -363,6 +378,8 @@
 
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary">Previous</button>
+        <button type="button" class="btn btn-outline-secondary">Next</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>

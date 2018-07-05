@@ -5,7 +5,11 @@ gold - #ffcc00
 
 header {
 background-color: #928467;
+}
 
+blockquote p{
+  font-size: 1.8rem;
+  font-family: "times";
 }
 
 .lIcon {
@@ -18,4 +22,8 @@ background-color: #928467;
   border-width: 1px;
   background-color: white;
   border-radius: 5px;
+}
+
+.libBookModel{
+  margin: 0 auto;
 }
