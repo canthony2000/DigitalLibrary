@@ -18,7 +18,8 @@ blockquote p{
 
 .lIcon {
   height: 16px;
-  padding-left: 3px;
+  padding-left: 8px;
+  padding-right: 6px;
 }
 
 .lImageUpload {
@@ -39,6 +40,24 @@ blockquote p{
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
-.lib-tbl-th{
-  height: 30px;
+.lib-tbl-th {
+  height: 42px;
+}
+
+tr .noPad{
+  padding: 0px;
+}
+
+tr .th-container{
+  padding-left: 6px;
+  padding-top: 3px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+tr .lib-edit-btn{
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.1;
 }
