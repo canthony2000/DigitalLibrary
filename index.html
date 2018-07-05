@@ -1,15 +1,566 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>Digital Library - Only the Greatest Books!</title>
     <meta charset="utf-8">
     <title>Digital Library</title>
-    <script src="js/site.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css"> <!-- bootstrap-4.1.1-dist -->
+    <link rel="stylesheet" href="css/library.css">
   </head>
   <body>
-    <p>Hello World</p>
+    <div class="container-fluid">
+      <div class="row mt-2">
+        <div class="col-md-2">
+          <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">Add a Book</button>
+        </div>
+        <blockquote class="col-md-8 text-center">
+          <h1>Adventuresome! - Digital Book Library</h1>
+          <!-- <p><i>Your adventure begins with your imagination and a good book!</i></p> -->
+          <p><i>Your imagination and a good book!</i></p>
+        </blockquote>
+        <div class="col-md-2 mb-2">
+          <button type="button" class="btn btn-outline-secondary float-right" data-toggle="modal" data-target="#deleteBook">Delete a Book</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0">
+        <!-- <div> -->
+          <header>
+            <div class="text-center">
+            <img src="assets/banner.jpg" class="img-fluid" alt="Responsive image">
+          </div>
+          </header>
+        </div>
+      </div>
+      <main>
+        <div class="row">
+          <div class="col mt-2">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#showAllBooks">
+              Show All Books
+            </button>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestBook">
+              Suggest a Book
+            </button>
+          </div>
+          <div class="col-md-5 mt-2">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search by Title or Author" aria-label="Search by Title or Author" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="col mt-2">
+            <div class="float-xl-right">
+              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#listAuthors">
+                Show All Authors
+              </button>
+              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestAuthor">
+                Suggest an Author
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="lib-table-wrapper mt-2 mb-2">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Pages</th>
+                  <th scope="col">Publication Date</th>
+                  <th scope="col">Rating</th>
+                  <th scope="col">Delete <input type="checkbox" id="chckHead" class="ml-1"></th>
+                  <th scope="col">Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="th-container"><img src="assets/it-th.jpg" class="lib-tbl-th"></img></td>
+                  <td scope="row">IT</td>
+                  <td>Stephan King</td>
+                  <td>800</td>
+                  <td>12/24/1987</td>
+                  <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th-container"><img src="assets/moby-dick-th.jpeg" class="lib-tbl-th"></img></td>
+                  <td scope="row">Moby Dick</td>
+                  <td>Herman Melville</td>
+                  <td>754</td>
+                  <td>06/02/1851</td>
+                  <td><img class="lIcon" src="assets/rate3.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th-container"><img src="assets/kill-mockingbird-th.jpeg" class="lib-tbl-th"></img></td>
+                  <td scope="row">To Kill a Mockingbird</td>
+                  <td>Harper Lee</td>
+                  <td>512</td>
+                  <td>04/04/1965</td>
+                  <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th-container"><img src="assets/wigan-pier-th.jpeg" class="lib-tbl-th"></img></td>
+                  <td scope="row">The Road to Wigan Pier</td>
+                  <td>George Orwell</td>
+                  <td>212</td>
+                  <td>03/23/1937</td>
+                  <td><img class="lIcon" src="assets/rate2.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th-container"><img src="assets/1984-th.jpeg" class="lib-tbl-th"></img></td>
+                  <td scope="row">1984</td>
+                  <td>George Orwell</td>
+                  <td>432</td>
+                  <td>07/01/1950</td>
+                  <td><img class="lIcon" src="assets/rate5.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="th-container"><img src="assets/set-watch-th.jpeg" class="lib-tbl-th"></img></td>
+                  <td scope="row">Go Set a Watchman</td>
+                  <td>Harper Lee</td>
+                  <td>233</td>
+                  <td>01/13/2015</td>
+                  <td><img class="lIcon" src="assets/rate3.svg"></img></td>
+                  <td><input type="checkbox" class="chcktbl ml-4"></td>
+                  <td>
+                    <button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0">
+          <footer class="">
+            <img src="assets/clear.png"></img>
+          </footer>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- *************** Model dialog boxes -->
+    <!-- Modal Edit Book Attributes-->
+    <div class="modal fade" id="editBookAttrib" tabindex="-1" role="dialog" aria-labelledby="editBookAttribLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="editBookAttribLabel">Edit Book Attributes</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Book Title</label>
+                    <select class="custom-select" id="editBookAttribTitle">
+                      <option selected>Choose a book title...</option>
+                      <option value="IT">IT</option>
+                      <option value="Moby Dick">Moby Dick</option>
+                      <option value="Animal Farm">Animal Farm</option>
+                      <option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
+                      <option value="1984">1984</option>
+                      <option value="The Road to Wigan Pier">The Road to Wigan Pier</option>
+                      <option value="Go Set a Watchman">Go Set a Watchman</option>
+                    </select>
+                  </div>
+                  <hr>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="editBookTitle">New Title</label>
+                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new book title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="editBookTitle">New Author Name</label>
+                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new author name">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6 mb-3">
+                    <label for="editBookPageCt">Page Count</label>
+                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new page count">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="editBookPubDate">PublicationDate</label>
+                    <input type="date" class="form-control" id="editBookPubDate" placeholder="Enter a new publish date">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" onclick="alert('Are you sure?','Delete Confirmation')">Submit Changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal End Edit Book Attributes-->
+
+    <!-- Modal Add a Book-->
+    <div class="modal fade" id="addABook" tabindex="-1" role="dialog" aria-labelledby="addABookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="Add Book" id="addABookLabel">Add books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Title</label>
+                    <input type="text" class="form-control" id="bookTitle" placeholder="Add a book title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" class="form-control" id="bookAuthor" placeholder="Add an author name">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="bookRating">Rating (stars)</label>
+                    <select class="form-control" id="bookRating">
+                      <option>5</option>
+                      <option>4</option>
+                      <option>3</option>
+                      <option>2</option>
+                      <option>1</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label for="bookPages">Page Count</label>
+                    <input type="text" class="form-control" id="bookPages" placeholder="example: 300">
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookPubDate">Publication Date</label>
+                    <input type="date" class="form-control" id="bookPubDate">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <label for="bookSynopsys">Synopsys</label>
+                    <textarea class="form-control" id="bookSynopsys" rows="3"></textarea>
+                  </div>
+                </div>
+                <!-- <div class="form-group row">
+                  <div class="col-sm-12">
+                    <input type="file" class="form-control-file" id="bookImage">
+                  </div>
+                </div> -->
+
+                <!-- <div class="input-group">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="uploadImageFile">
+                    <label class="custom-file-label" for="uploadImageFile">Choose file</label>
+                  </div>
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Upload</button>
+                  </div>
+                </div> -->
+
+                <div class="form-group">
+                  <div class="input-group input-file" name="Fichier1">
+                    <span class="input-group-btn">
+                      <button class="btn btn-outline-secondary btn-choose" type="button">Choose a File</button>
+                      <!-- <button class="btn btn-default btn-choose" type="button">Choose a File</button> -->
+                    </span>
+                    <input type="text" class="form-control" placeholder='Choose a file...' />
+                    <span class="input-group-btn">
+                      <button class="btn btn-outline-secondary btn-reset" type="button">Reset</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <hr>
+                <div class="col-sm-3">
+                  <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Add to Queue
+                  </button>
+                </div>
+                <div class="col-sm-9 pl-5">
+                  <!-- <div class=""> -->
+                  <label>0 Ready to add!</label><img class="lIcon " alt="arrow" src="assets/arrowRight.svg"></img>
+                  <button type="button" class="btn btn-outline-secondary btn-sm float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">Add Book(s) to Library</button>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Add a Book-->
+
+    <!-- Model Delete a Book -->
+    <div class="modal fade" id="deleteBook" tabindex="-1" role="dialog" aria-labelledby="deleteBookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="deleteBookLabel">Delete Books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Title</label>
+                    <select class="custom-select" id="deletebookTitle">
+                      <option selected>Choose...</option>
+                      <option value="IT">IT</option>
+                      <option value="Moby Dick">Moby Dick</option>
+                      <option value="Animal Farm">Animal Farm</option>
+                      <option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
+                      <option value="1984">1984</option>
+                      <option value="The Road to Wigan Pier">The Road to Wigan Pier</option>
+                      <option value="Go Set a Watchman">Go Set a Watchman</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookAuthor">Author</label>
+                    <select class="custom-select" id="deletebookAuthor">
+                      <option selected>Choose...</option>
+                      <option value="Stephan King">Stephan King</option>
+                      <option value="Herman Melville">Herman Melville</option>
+                      <option value="George Orwell">George Orwell</option>
+                      <option value="Harper Lee">Harper Lee</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" onclick="alert('Are you sure?','Delete Confirmation')">Delete Book(s)</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Delete a Book -->
+
+    <!-- Model Suggest an Author-->
+    <div class="modal fade" id="suggestAuthor" tabindex="-1" role="dialog" aria-labelledby="suggestAuthorLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="suggestAuthorLabel">Author Suggestion</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Based on your book choices, the following author seems like a great suggestion!</p>
+            <ul>
+              <li>Stephan King</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End  Suggest an Author-->
+
+    <!-- Model Display Authors-->
+    <div class="modal fade" id="listAuthors" tabindex="-1" role="dialog" aria-labelledby="listAuthorsLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="listAuthorsLabel">Author List</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>Stephan King</li>
+              <li>Herman Melville</li>
+              <li>George Orwell</li>
+              <li>Harper Lee</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Display Authors -->
+
+    <!-- Model Suggest a Book (random book)-->
+    <div class="modal fade" id="suggestBook" tabindex="-1" role="dialog" aria-labelledby="suggestBookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="suggestBookLabel">Book Suggestion</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body libBookModel">
+            <div class="card mb-2" style="width: 14rem;">
+              <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">To Kill a Mockingbird</h5>
+                <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
+                <img class="lIcon" src="assets/rate5.svg"></img>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Suggest a Book -->
+
+    <!-- Model Show All Books-->
+    <div class="modal fade" id="showAllBooks" tabindex="-1" role="dialog" aria-labelledby="showAllBooksLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="showAllBooksLabel">All Books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/moby-dick-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Moby Dick</h5>
+                      <p class="card-text">By Herman Melville<br>Published in 1851<br>754 pages</p>
+                      <img class="lIcon" src="assets/rate3.svg"></img>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/it-th.jpg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">IT</h5>
+                      <p class="card-text">By Stephan King<br>Published in 1987<br>800 pages</p>
+                      <img class="lIcon" src="assets/rate5.svg"></img>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/animal-farm-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Animal Farm</h5>
+                      <p class="card-text">By George Orwell<br>Published in 1945<br>322 pages</p>
+                      <img class="lIcon" src="assets/rate5.svg"></img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">To Kill a Mockingbird</h5>
+                      <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
+                      <img class="lIcon" src="assets/rate5.svg"></img>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/1984-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">1984</h5>
+                      <p class="card-text">By George Orwell<br>Published in 1950<br>432 pages</p>
+                      <img class="lIcon" src="assets/rate5.svg"></img>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="card mb-2" style="width: 14rem;">
+                    <img class="card-img-top" src="assets/wigan-pier-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">The Road to Wigan Pier</h5>
+                      <p class="card-text">By George Orwell<br>Published in 1937<br>212 pages</p>
+                      <img class="lIcon" src="assets/rate2.svg"></img>
+                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
+            window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
+            window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945");
+            window.book04 = new Book("To Kill a Mockingbird","Harper Lee", 512, "04/04/1965");
+            window.book05 = new Book("1984","George Orwell", 432, "07/01/1950");
+            window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
+            window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015"); -->
 
 
 
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary">Previous</button>
+            <button type="button" class="btn btn-outline-secondary">Next</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Show All Books--->
 
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/site.js"></script>
   </body>
 </html>
