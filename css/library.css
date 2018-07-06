@@ -7,6 +7,11 @@ header {
   background-color: #928467;
 }
 
+/* body {
+   background-image: url("../assets/books3.png");
+   background-color: #cccccc;
+} */
+
 footer {
   background-color: #928467;
 }
@@ -14,6 +19,7 @@ footer {
 blockquote p{
   font-size: 1.8rem;
   font-family: "times";
+  margin-bottom: 0px;
 }
 
 .lIcon {
@@ -60,4 +66,27 @@ tr .lib-edit-btn{
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .lib-header-buttons{
+    height: 45px;
+  }
+  .lib-del-btn{
+    float: right;
+  }
+  .lib-bnr-quote1{
+    visibility: hidden;
+    height: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lib-header-buttons{
+    margin-bottom: 8px;
+  }
+  .lib-bnr-quote2{
+    visibility: hidden;
+    height: 0px;
+  }
 }
