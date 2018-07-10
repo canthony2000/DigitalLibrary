@@ -11,32 +11,32 @@ AddBooksUI.prototype.init =function () {
 }
 
 AddBooksUI.prototype._bindEvents = function () {
-  $('#add-books-btn').on('click', $.proxy(this._handleModalOpen, this));
-  $('#add-to-queue-btn').on('click', $.proxy(this._addBooksToQueue, this));
+  $("#add-books-btn").on("click", $.proxy(this._handleModalOpen, this));
+  $("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
+  $("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
 }
 
 AddBooksUI.prototype._handleModalOpen = function () {
-    this.$container.modal('show');
+    this.$container.modal("show");
 }
 
 AddBooksUI.prototype._addBooksToQueue = function () {
-
-  var bTitle = $('#bookTitle');
-  var bAuthor = $('#bookAuthor');
-  var bPages = $('#bookPages');
-  var bPubDate = $('#bookPubDate');
+  var bTitle = $("#bookTitle");
+  var bAuthor = $("#bookAuthor");
+  var bPages = $("#bookPages");
+  var bPubDate = $("#bookPubDate");
+  var bRating = $("#bookRating");
+  var bSynopsys = $("#bookSynopsys");
+  var bCover = $("#bookImage");
 
   if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          var bookToQueue = new Book(bTitle.val(),bAuthor.val(),parseInt(bPages.val()),bPubDate.val());
+          var bookToQueue = new Book(bTitle.val(),bAuthor.val(),parseInt(bPages.val()),bPubDate.val(),bRating.val(),bSynopsys.val(),bCover.val());
           this._tempBookShelf.push(bookToQueue);
-          $('#readyToAddBkCt').html(this._tempBookShelf.length + " Ready to add!");
-          bTitle.val("");
-          bAuthor.val("");
-          bPages.val("");
-          bPubDate.val("");
+          $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!");
+          $("#add-books-frm")[0].reset();
         } else {
           alert("Please enter a date.")
           bPubDate.val("");
@@ -59,13 +59,15 @@ AddBooksUI.prototype._addBooksToQueue = function () {
   }
 }
 
-
-
+AddBooksUI.prototype._addBooksToLibrary = function () {
+  if (this._tempBookShelf.length > 0){
+   alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
+   $("#readyToAddBkCt").text("0 Ready to add!");
+  } else { alert("You have not yet added books to the Queue.")}
+}
 
 // find the add books Model
 $(function() {
-  window.gAddBooksUI = new AddBooksUI($('#addABook'))
+  window.gAddBooksUI = new AddBooksUI($("#addABook"))
   window.gAddBooksUI.init();
 })
-
-//remove the HTML attribute that fires the model on the button that opens the model

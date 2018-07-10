@@ -1,15 +1,8 @@
 var _bookShelf = new Array();
 
-
-//format date
-
-// var tryLibrary = new Library;
-
-
-
+//Add format date function
 
 //************table check All
-
 $('#chckHead').click(function () {
   if (this.checked == false) {
       $('.chcktbl:checked').attr('checked', false);
