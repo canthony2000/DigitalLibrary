@@ -190,6 +190,17 @@ Library.prototype.getAuthors = function () {
   return authorList;
 };
 
+Library.prototype.getTitles = function () {
+  var titleList = [];
+    if (window._bookShelf.length != 0){
+      for (var i = 0; i < window._bookShelf.length; i++) {
+        titleList[i] = window._bookShelf[i].title;
+      }
+      titleList = this._ftrArray(titleList);
+    }
+  return titleList;
+};
+
 Library.prototype.getRandomAuthorName = function () {
   if (window._bookShelf.length != 0){
     var uniqueAuthors = this.getAuthors();

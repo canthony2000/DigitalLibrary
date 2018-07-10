@@ -21,14 +21,14 @@
       <div class="row lib-header-buttons">
       <!-- <div class="row mt-2"> -->
         <div class="col-md-2">
-          <!-- <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addABook">Add a Book</button> -->
           <button type="button" id="add-books-btn" class="btn btn-outline-secondary">Add Some Books</button>
         </div>
         <blockquote class="col-md-8 text-center lib-bnr-quote2">
           <p ><i>Your imagination and a good book!</i></p>
         </blockquote>
         <div class="col-md-2">
-          <button type="button" class="btn btn-outline-secondary lib-del-btn" data-toggle="modal" data-target="#deleteBook">Delete a Book</button>
+          <!--          <button type="button" class="btn btn-outline-secondary lib-del-btn" data-toggle="modal" data-target="#deleteBook">Delete a Book</button>-->
+          <button type="button" id="del-book-btn" class="btn btn-outline-secondary lib-del-btn">Delete a Book</button>
         </div>
       </div>
 
@@ -342,28 +342,17 @@
               <div class="form-group">
                 <div class="form-group row">
                   <div class="col">
-                    <label for="bookTitle">Title</label>
+                    <label for="bookTitle">Delete a book by title</label>
                     <select class="custom-select" id="deletebookTitle">
                       <option selected>Choose...</option>
-                      <option value="IT">IT</option>
-                      <option value="Moby Dick">Moby Dick</option>
-                      <option value="Animal Farm">Animal Farm</option>
-                      <option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
-                      <option value="1984">1984</option>
-                      <option value="The Road to Wigan Pier">The Road to Wigan Pier</option>
-                      <option value="Go Set a Watchman">Go Set a Watchman</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col">
-                    <label for="bookAuthor">Author</label>
+                    <label for="bookAuthor">Delete books by author</label>
                     <select class="custom-select" id="deletebookAuthor">
                       <option selected>Choose...</option>
-                      <option value="Stephan King">Stephan King</option>
-                      <option value="Herman Melville">Herman Melville</option>
-                      <option value="George Orwell">George Orwell</option>
-                      <option value="Harper Lee">Harper Lee</option>
                     </select>
                   </div>
                 </div>
@@ -371,7 +360,7 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" onclick="alert('Are you sure?','Delete Confirmation')">Delete Book(s)</button>
+            <button type="button" id="del-selected-books-btn" class="btn btn-outline-secondary">Delete Book(s)</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
@@ -550,5 +539,6 @@
     <script src="js/Util.js" charset="utf-8"></script>
     <script src="js/AddBooks.js" charset="utf-8"></script>
     <script src="js/ShowAuthorsUI.js" charset="utf-8"></script>
+    <script src="js/DeleteBooksUI.js" charset="utf-8"></script>
   </body>
 </html>

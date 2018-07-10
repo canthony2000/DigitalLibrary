@@ -6,7 +6,7 @@ Created by Corey Anthony
 
 
 
-## Advanced search function testing:
+## UI Classes:
 
 UI super classes that prototype Library
 
@@ -18,5 +18,6 @@ AddBooksUI
 ## Other:
 
 ```
+_getLibState is called from ShowAuthorsUI to load the books from local storage.
 Util.js instantiates the _bookShelf arrau.
 ```
