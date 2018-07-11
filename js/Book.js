@@ -7,3 +7,15 @@ var Book = function(title,author,numberOfPages,publishDate,rating,synopsys,bookC
   this.synopsys = synopsys;
   this.bookCover = bookCover;
 }
+
+
+
+// var Book = function(oArgs){
+//   this.title = oArgs.title;
+//   this.author = oArgs.author;
+//   this.numberOfPages = oArgs.numberOfPages;
+//   this.publishDate = new Date(oArgs.publishDate);
+//   this.rating = oArgs.rating;
+//   this.synopsys = oArgs.synopsys;
+//   this.bookCover = oArgs.bookCover;
+// }

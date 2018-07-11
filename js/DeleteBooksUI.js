@@ -72,7 +72,6 @@ DeleteBooksUI.prototype._deleteSelectedBooks = function (status) {
   } else {
     alert("Please select a Title or an Author")
   }
-
 }
 
 $(function(){

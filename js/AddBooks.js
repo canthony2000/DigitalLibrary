@@ -12,8 +12,8 @@ AddBooksUI.prototype.init =function () {
 
 AddBooksUI.prototype._bindEvents = function () {
   $("#add-books-btn").on("click", $.proxy(this._handleModalOpen, this));
-  $("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
-  $("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
+  this.$container.find("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
+  this.$container.find("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
 }
 
 AddBooksUI.prototype._handleModalOpen = function () {
@@ -21,6 +21,10 @@ AddBooksUI.prototype._handleModalOpen = function () {
 }
 
 AddBooksUI.prototype._addBooksToQueue = function () {
+  //could use .serializeArray to get the form fields without hardcoding it.
+  //need name="title (or whatever)" attribute on each field which becomes the key
+  //make sure book is not in library before adding to queue.
+  //use .find to get the node from the container and not from the whole dom
   var bTitle = $("#bookTitle");
   var bAuthor = $("#bookAuthor");
   var bPages = $("#bookPages");
@@ -62,6 +66,7 @@ AddBooksUI.prototype._addBooksToQueue = function () {
 AddBooksUI.prototype._addBooksToLibrary = function () {
   if (this._tempBookShelf.length > 0){
    alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
+   //this._updateMainBookListing();
    $("#readyToAddBkCt").text("0 Ready to add!");
   } else { alert("You have not yet added books to the Queue.")}
 }

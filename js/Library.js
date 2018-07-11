@@ -14,6 +14,15 @@ var Library;
   }
 })();
 
+Library.prototype._handleEventTrigger = function(sEvent, oData) {
+  var oData = oData || {}; //sets oData to an empty object if it does not have data
+  if (sEvent) {
+    var event = new CustomEvent(sEvent, oData);
+    document.dispatchEvent(event);
+  }
+}
+
+//custom dispatch if data changes.  This decouples AddBooksUI from DataTable.
 Library.prototype._checkIfBookExists = function(title) {
   if (window._bookShelf.length != 0 && title) {
     for (var i = 0; i < window._bookShelf.length; i++) {
@@ -38,6 +47,9 @@ Library.prototype.addBooks = function (books) {
     for (var i = 0; i < books.length; i++) {
       if(this.addBook(books[i])) {bookCt++};
     }
+    this._handleEventTrigger("objUpdate2", {
+      detail: {data: "bookCt"}
+    });
     return bookCt;
   }
   return 0;
@@ -235,6 +247,9 @@ Library.prototype._getLibState = function () {
       bookToInsert.author= bookShelfData[i].author;
       bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
       bookToInsert.publishDate = new Date(bookShelfData[i].publishDate);
+      bookToInsert.rating = bookShelfData[i].rating;
+      bookToInsert.synopsys = bookShelfData[i].synopsys;
+      bookToInsert.bookCover = bookShelfData[i].bookCover;
       window._bookShelf.push(bookToInsert);
       delete bookToInsert;
     }
@@ -246,26 +261,21 @@ Library.prototype._getLibState = function () {
 //******************
 //Utility functions
 
-// Library.prototype.list = function () {
+// Library.prototype._updateMainBookListing = function () {
+//   var myTable = document.createElement("table");
+//   myTable.innerHTML = $("#main-books-listing").html();
+//   $(myTable.getElementsByTagName('tbody')).remove();
+//   var newTBody = document.createElement("tbody");
+//
 //   for (var i = 0; i < window._bookShelf.length; i++) {
-//     console.log(window._bookShelf[i]);
-//     }
-//   return "-Complete book title listing-";
+//     var tr = document.createElement("tr");
+//     newTBody.append(tr);
+//   }
+//   myTable.append(newTBody);
+//   console.log(newTBody.innerHTML);
+//   console.log(myTable);
 // }
-//
-// Library.prototype.init2 = function () {
-//   console.log(this.addBooks(bookList));
-//   console.log(this.list());
-//   return "Init script complete"
-// }
-//
+
+
 // document.addEventListener("DOMContentLoaded", function() {
-//   window.book01 = new Book("IT","Stephan King", 800, "12/24/1987");
-//   window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851");
-//   window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945");
-//   window.book04 = new Book("To Kill a Mockingbird","Harper Lee", 512, "04/04/1965");
-//   window.book05 = new Book("1984","George Orwell", 432, "07/01/1950");
-//   window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937");
-//   window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015");
-//   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
 // });
