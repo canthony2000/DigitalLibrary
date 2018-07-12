@@ -37,7 +37,7 @@ AddBooksUI.prototype._addBooksToQueue = function () {
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          var bookToQueue = new Book(bTitle.val(),bAuthor.val(),parseInt(bPages.val()),bPubDate.val(),bRating.val(),bSynopsys.val(),bCover.val());
+          var bookToQueue = new Book(bCover.val(),bTitle.val(),bAuthor.val(),parseInt(bPages.val()),bPubDate.val(),bRating.val(),bSynopsys.val());
           this._tempBookShelf.push(bookToQueue);
           $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!");
           $("#add-books-frm")[0].reset();
@@ -68,6 +68,7 @@ AddBooksUI.prototype._addBooksToLibrary = function () {
    alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
    //this._updateMainBookListing();
    $("#readyToAddBkCt").text("0 Ready to add!");
+   this._tempBookShelf = [];
   } else { alert("You have not yet added books to the Queue.")}
 }
 

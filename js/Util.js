@@ -1,13 +1,13 @@
 var _bookShelf = new Array();
 
 
-  window.book01 = new Book("IT","Stephan King", 800, "12/24/1987",5,"great book","cover");
-  window.book02 = new Book("Moby Dick","Herman Melville", 754, "06/02/1851",4,"great book","cover");
-  window.book03 = new Book("Animal Farm","George Orwell", 322, "02/04/1945",3,"great book","cover");
-  window.book04 = new Book("To Kill a Mockingbird","Harper Lee", 512, "04/04/1965",2,"great book","cover");
-  window.book05 = new Book("1984","George Orwell", 432, "07/01/1950",5,"great book","cover");
-  window.book06 = new Book("The Road to Wigan Pier","George Orwell", 212, "03/23/1937",5,"great book","cover");
-  window.book07 = new Book("Go Set a Watchman","Harper Lee", 223, "01/13/2015",5,"great book","cover");
+  window.book01 = new Book("cover","IT","Stephan King", 800, "12/24/1987",5,"great book");
+  window.book02 = new Book("cover","Moby Dick","Herman Melville", 754, "06/02/1851",4,"Not Sure");
+  window.book03 = new Book("cover","Animal Farm","George Orwell", 322, "02/04/1945",3,"Gotta go");
+  window.book04 = new Book("cover","To Kill a Mockingbird","Harper Lee", 512, "04/04/1965",2,"Nope");
+  window.book05 = new Book("cover","1984","George Orwell", 432, "07/01/1950",5,"great book","Yeah");
+  window.book06 = new Book("cover","The Road to Wigan Pier","George Orwell", 212, "03/23/1937",5,"Sorta good");
+  window.book07 = new Book("cover","Go Set a Watchman","Harper Lee", 223, "01/13/2015",5,"Nice");
   window.bookList = [book01,book02,book03,book04,book05,book06,book07]
 
 //Add format date function

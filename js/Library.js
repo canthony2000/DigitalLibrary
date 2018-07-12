@@ -23,17 +23,17 @@ Library.prototype._handleEventTrigger = function(sEvent, oData) {
 }
 
 //custom dispatch if data changes.  This decouples AddBooksUI from DataTable.
-Library.prototype._checkIfBookExists = function(title) {
-  if (window._bookShelf.length != 0 && title) {
+Library.prototype._checkIfBookExists = function(Title) {
+  if (window._bookShelf.length != 0 && Title) {
     for (var i = 0; i < window._bookShelf.length; i++) {
-      if (window._bookShelf[i].title.toLowerCase() == title.toLowerCase()) {return i+1;}
+      if (window._bookShelf[i].Title.toLowerCase() == Title.toLowerCase()) {return i+1;}
     }
   }
   return false;
 }
 
 Library.prototype.addBook = function (book) {
-  if (typeof book === "object" && !this._checkIfBookExists(book.title)) {
+  if (typeof book === "object" && !this._checkIfBookExists(book.Title)) {
     window._bookShelf.push(book);
     this._setLibState(); //update local storage
     return true;
@@ -55,12 +55,15 @@ Library.prototype.addBooks = function (books) {
   return 0;
 };
 
-Library.prototype.removeBookbyTitle = function (title) {
-  if(typeof(title) === "string"){
-    var bkChk = this._checkIfBookExists(title);
+Library.prototype.removeBookbyTitle = function (Title) {
+  if(typeof(Title) === "string"){
+    var bkChk = this._checkIfBookExists(Title);
     if(bkChk){
       window._bookShelf.splice(bkChk - 1,1);
       this._setLibState();
+      this._handleEventTrigger("objUpdate2", {
+        detail: {data: "bookCt"}
+      });
       return true;
     }
   }
@@ -76,6 +79,9 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
         bookCt++;
         i--;
         this._setLibState();
+        this._handleEventTrigger("objUpdate2", {
+          detail: {data: "bookCt"}
+        });
       }
     }
     if (bookCt === 0){
@@ -108,21 +114,21 @@ Library.prototype.getRandomBook = function () {
   return false;
 };
 
-Library.prototype.getBooksbyTitle = function (title) {
-  var titleSearch = [];
-  if(typeof(title) === "string"){
-    var titleLower = title.toLowerCase();
+Library.prototype.getBooksbyTitle = function (Title) {
+  var TitleSearch = [];
+  if(typeof(Title) === "string"){
+    var TitleLower = Title.toLowerCase();
     var tsIndex = 0;
     if (window._bookShelf.length != 0){
       for (var i = 0; i < window._bookShelf.length; i++) {
-        if(window._bookShelf[i].title.toLowerCase().indexOf(titleLower) != -1){
-          titleSearch[tsIndex] = window._bookShelf[i];
+        if(window._bookShelf[i].Title.toLowerCase().indexOf(TitleLower) != -1){
+          TitleSearch[tsIndex] = window._bookShelf[i];
           tsIndex++;
         }
       }
     }
   }
-  return titleSearch;
+  return TitleSearch;
 };
 
 Library.prototype.getBooksbyAuthor = function (author) {
@@ -203,14 +209,14 @@ Library.prototype.getAuthors = function () {
 };
 
 Library.prototype.getTitles = function () {
-  var titleList = [];
+  var TitleList = [];
     if (window._bookShelf.length != 0){
       for (var i = 0; i < window._bookShelf.length; i++) {
-        titleList[i] = window._bookShelf[i].title;
+        TitleList[i] = window._bookShelf[i].Title;
       }
-      titleList = this._ftrArray(titleList);
+      TitleList = this._ftrArray(TitleList);
     }
-  return titleList;
+  return TitleList;
 };
 
 Library.prototype.getRandomAuthorName = function () {
@@ -243,7 +249,7 @@ Library.prototype._getLibState = function () {
 
     for (var i = 0; i < bookShelfData.length; i++) {
       var bookToInsert = new Book;
-      bookToInsert.title = bookShelfData[i].title;
+      bookToInsert.Title = bookShelfData[i].Title;
       bookToInsert.author= bookShelfData[i].author;
       bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
       bookToInsert.publishDate = new Date(bookShelfData[i].publishDate);
