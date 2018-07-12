@@ -12,18 +12,6 @@ var _bookShelf = new Array();
 
 //Add format date function
 
-
-//************table check All
-$('#chckHead').click(function () {
-  if (this.checked == false) {
-      $('.chcktbl:checked').attr('checked', false);
-  } else {
-      $('.chcktbl:not(:checked)').attr('checked', true);
-  }
-});
-  $('#chckHead').click(function () {
-});
-
 //************File Upload
 
 function bs_input_file() {

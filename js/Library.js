@@ -74,7 +74,7 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
   var bookCt = 0;
   if (window._bookShelf.length != 0 && authorName) {
     for (var i = 0; i < window._bookShelf.length; i++) {
-      if(window._bookShelf[i].author == authorName){
+      if(window._bookShelf[i].Author == authorName){
         window._bookShelf.splice(i,1);
         bookCt++;
         i--;
@@ -134,11 +134,11 @@ Library.prototype.getBooksbyTitle = function (Title) {
 Library.prototype.getBooksbyAuthor = function (author) {
   var bookSearch = [];
   if(typeof(author) === "string"){
-    var authorLower = author.toLowerCase();
+    var authorLower = Author.toLowerCase();
     var bkIndex = 0;
     if (window._bookShelf.length != 0){
       for (var i = 0; i < window._bookShelf.length; i++) {
-        if(window._bookShelf[i].author.toLowerCase().indexOf(authorLower) != -1){
+        if(window._bookShelf[i].Author.toLowerCase().indexOf(authorLower) != -1){
           bookSearch[bkIndex] = window._bookShelf[i];
           bkIndex++;
         }
@@ -156,7 +156,7 @@ Library.prototype.getBooksbyYear = function (searchYear) {
       if (searchYear = searchYear.match(/\d{4}/g)) {
         var chkYear = parseInt(searchYear);
         for (var i = 0; i < window._bookShelf.length; i++) {
-          var pubYear = window._bookShelf[i].publishDate.getFullYear();
+          var pubYear = window._bookShelf[i].Publish_Date.getFullYear();
           if (pubYear >= chkYear - 10 && pubYear <= chkYear +10) {
             booksByYear.push(window._bookShelf[i]);
           }
@@ -175,7 +175,7 @@ Library.prototype.getBooksbyPageCt = function (pageCt) {
       if (pageCt = pageCt.match(/\d+/)) { //use the first occurance of a number as basis for page range
          var chkPage = parseInt(pageCt);
          for (var i = 0; i < window._bookShelf.length; i++) {
-           if (window._bookShelf[i].numberOfPages <= chkPage +75 && window._bookShelf[i].numberOfPages >= chkPage -75) {
+           if (window._bookShelf[i].Number_Of_Pages <= chkPage +75 && window._bookShelf[i].Number_Of_Pages >= chkPage -75) {
              booksInPageRange.push(window._bookShelf[i]);
           }
         }
@@ -201,7 +201,7 @@ Library.prototype.getAuthors = function () {
   var authorList = [];
     if (window._bookShelf.length != 0){
       for (var i = 0; i < window._bookShelf.length; i++) {
-        authorList[i] = window._bookShelf[i].author;
+        authorList[i] = window._bookShelf[i].Author;
       }
       authorList = this._ftrArray(authorList);
     }
@@ -250,11 +250,11 @@ Library.prototype._getLibState = function () {
     for (var i = 0; i < bookShelfData.length; i++) {
       var bookToInsert = new Book;
       bookToInsert.Title = bookShelfData[i].Title;
-      bookToInsert.author= bookShelfData[i].author;
-      bookToInsert.numberOfPages = bookShelfData[i].numberOfPages;
-      bookToInsert.publishDate = new Date(bookShelfData[i].publishDate);
-      bookToInsert.rating = bookShelfData[i].rating;
-      bookToInsert.synopsys = bookShelfData[i].synopsys;
+      bookToInsert.Author= bookShelfData[i].Author;
+      bookToInsert.Number_Of_Pages = bookShelfData[i].Number_Of_Pages;
+      bookToInsert.Publish_Date = new Date(bookShelfData[i].Publish_Date);
+      bookToInsert.Rating = bookShelfData[i].Rating;
+      bookToInsert.Synopsys = bookShelfData[i].Synopsys;
       bookToInsert.bookCover = bookShelfData[i].bookCover;
       window._bookShelf.push(bookToInsert);
       delete bookToInsert;
