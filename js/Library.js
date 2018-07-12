@@ -248,14 +248,27 @@ Library.prototype._getLibState = function () {
     bookShelfData = ('bookshelfCopy: ', JSON.parse(libData));
 
     for (var i = 0; i < bookShelfData.length; i++) {
-      var bookToInsert = new Book;
-      bookToInsert.Title = bookShelfData[i].Title;
-      bookToInsert.Author= bookShelfData[i].Author;
-      bookToInsert.Number_Of_Pages = bookShelfData[i].Number_Of_Pages;
-      bookToInsert.Publish_Date = new Date(bookShelfData[i].Publish_Date);
-      bookToInsert.Rating = bookShelfData[i].Rating;
-      bookToInsert.Synopsys = bookShelfData[i].Synopsys;
-      bookToInsert.bookCover = bookShelfData[i].bookCover;
+      // var bookToInsert = new Book
+
+      var bookToInsert = new Book({
+        bookCover : bookShelfData[i].bookCover,
+        Title : bookShelfData[i].Title,
+        Author : bookShelfData[i].Author,
+        Number_Of_Pages : bookShelfData[i].Number_Of_Pages,
+        Publish_Date : new Date(bookShelfData[i].Publish_Date),
+        Rating : bookShelfData[i].Rating,
+        Synopsys : bookShelfData[i].Synopsys,
+      });
+
+      // bookToInsert.Title = bookShelfData[i].Title;
+      // bookToInsert.Author= bookShelfData[i].Author;
+      // bookToInsert.Number_Of_Pages = bookShelfData[i].Number_Of_Pages;
+      // bookToInsert.Publish_Date = new Date(bookShelfData[i].Publish_Date);
+      // bookToInsert.Rating = bookShelfData[i].Rating;
+      // bookToInsert.Synopsys = bookShelfData[i].Synopsys;
+      // bookToInsert.bookCover = bookShelfData[i].bookCover;
+
+
       window._bookShelf.push(bookToInsert);
       delete bookToInsert;
     }

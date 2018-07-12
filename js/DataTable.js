@@ -42,7 +42,18 @@ DataTable.prototype._updateTable = function (e) {
 
 DataTable.prototype._createHeader = function () {
 
-  var getBookProps = new Book;
+  // var getBookProps = new Book;
+
+  var getBookProps = new Book({
+  bookCover : "",
+  Title : "",
+  Author : "",
+  Number_Of_Pages : "",
+  Publish_Date : "",
+  Rating : "",
+  Synopsys : ""
+  });
+
   var keys = Object.getOwnPropertyNames(getBookProps);
   var tr = document.createElement('tr');
 

@@ -179,17 +179,17 @@
                 <div class="form-group row">
                   <div class="col">
                     <label for="bookTitle">Title</label>
-                    <input type="text" id="bookTitle" class="form-control" placeholder="Add a book title">
+                    <input type="text" id="bookTitle" name="Title" class="form-control" placeholder="Add a book title">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-8">
                     <label for="bookAuthor">Author</label>
-                    <input type="text" class="form-control" id="bookAuthor" placeholder="Add an author name">
+                    <input type="text" class="form-control" id="bookAuthor" name="Author" placeholder="Add an author name">
                   </div>
                   <div class="col-sm-4">
                     <label for="bookRating">Rating (stars)</label>
-                    <select class="form-control" id="bookRating">
+                    <select class="form-control" name="Rating" id="bookRating">
                       <option value = "5" selected>5</option>
                       <option value = "4">4</option>
                       <option value = "3">3</option>
@@ -201,17 +201,17 @@
                 <div class="form-group row">
                   <div class="col-sm-6">
                     <label for="bookPages">Page Count</label>
-                    <input type="number" class="form-control" id="bookPages" placeholder="example: 300">
+                    <input type="number" class="form-control" id="bookPages" name="Number_Of_Pages" placeholder="example: 300">
                   </div>
                   <div class="col-sm-6">
                     <label for="bookPubDate">Publication Date</label>
-                    <input type="date" class="form-control" id="bookPubDate">
+                    <input type="date" class="form-control" id="bookPubDate" name="Publish_Date">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <label for="bookSynopsys">Synopsys</label>
-                    <textarea class="form-control" id="bookSynopsys" rows="3"></textarea>
+                    <textarea class="form-control" id="bookSynopsys" name="Synopsys" rows="3"></textarea>
                   </div>
                 </div>
                 <div class="form-group">
@@ -220,7 +220,7 @@
                       <button class="btn btn-outline-secondary btn-choose" type="button">Choose a File</button>
                       <!-- <button class="btn btn-default btn-choose" type="button">Choose a File</button> -->
                     </span>
-                    <input type="text" id="bookImage" class="form-control" placeholder='Choose a file...' />
+                    <input type="text" id="bookImage" name="bookCover" class="form-control" placeholder='Choose a file...' />
                     <span class="input-group-btn">
                       <button class="btn btn-outline-secondary btn-reset" type="button">Reset</button>
                     </span>

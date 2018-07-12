@@ -37,7 +37,15 @@ AddBooksUI.prototype._addBooksToQueue = function () {
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          var bookToQueue = new Book(bCover.val(),bTitle.val(),bAuthor.val(),parseInt(bPages.val()),bPubDate.val(),bRating.val(),bSynopsys.val());
+          var bookToQueue = new Book({
+            bookCover : bCover.val(),
+            Title : bTitle.val(),
+            Author : bAuthor.val(),
+            Number_Of_Pages : parseInt(bPages.val()),
+            Publish_Date : bPubDate.val(),
+            Rating : bRating.val(),
+            Synopsys : bSynopsys.val()
+          });
           this._tempBookShelf.push(bookToQueue);
           $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!");
           $("#add-books-frm")[0].reset();
@@ -70,6 +78,22 @@ AddBooksUI.prototype._addBooksToLibrary = function () {
    $("#readyToAddBkCt").text("0 Ready to add!");
    this._tempBookShelf = [];
   } else { alert("You have not yet added books to the Queue.")}
+}
+
+AddBooksUI.prototype._tryit = function () {
+//debugger;
+//console.log("hji");
+//console.log($(this.$container).html());
+var x = $("form").serializeArray();
+var y = [];
+$.each(x, function(i, field){
+    $(y).append(field.name + ":" + field.value + " ");
+});
+console.log(x);
+console.log(y);
+
+  //console.log( $( this ).serializeArray() );
+
 }
 
 // find the add books Model
