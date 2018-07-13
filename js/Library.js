@@ -230,7 +230,6 @@ Library.prototype.getRandomAuthorName = function () {
   return false;
 };
 
-
 //******************
 //Local Storage Methods
 
@@ -240,7 +239,7 @@ Library.prototype._setLibState = function () {
     return true;
   }
   return false;
-}
+};
 
 Library.prototype._getLibState = function () {
   if (localStorage.length){
@@ -260,42 +259,10 @@ Library.prototype._getLibState = function () {
         Rating : bookShelfData[i].Rating,
         Synopsys : bookShelfData[i].Synopsys,
       });
-
-      // bookToInsert.Title = bookShelfData[i].Title;
-      // bookToInsert.Author= bookShelfData[i].Author;
-      // bookToInsert.Number_Of_Pages = bookShelfData[i].Number_Of_Pages;
-      // bookToInsert.Publish_Date = new Date(bookShelfData[i].Publish_Date);
-      // bookToInsert.Rating = bookShelfData[i].Rating;
-      // bookToInsert.Synopsys = bookShelfData[i].Synopsys;
-      // bookToInsert.bookCover = bookShelfData[i].bookCover;
-
-
       window._bookShelf.push(bookToInsert);
       delete bookToInsert;
     }
     return true;
   }
   return false;
-}
-
-//******************
-//Utility functions
-
-// Library.prototype._updateMainBookListing = function () {
-//   var myTable = document.createElement("table");
-//   myTable.innerHTML = $("#main-books-listing").html();
-//   $(myTable.getElementsByTagName('tbody')).remove();
-//   var newTBody = document.createElement("tbody");
-//
-//   for (var i = 0; i < window._bookShelf.length; i++) {
-//     var tr = document.createElement("tr");
-//     newTBody.append(tr);
-//   }
-//   myTable.append(newTBody);
-//   console.log(newTBody.innerHTML);
-//   console.log(myTable);
-// }
-
-
-// document.addEventListener("DOMContentLoaded", function() {
-// });
+};

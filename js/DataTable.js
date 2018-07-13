@@ -9,17 +9,17 @@ DataTable.prototype.init = function() {
   this._getLibState();
   this._updateTable();
   this._bindEvents();
-  this._bindCustomListeners();
   this._TableRowButtons();
+  this._bindCustomListeners();
 };
 
 DataTable.prototype._bindEvents = function () {
   //add native events here
-
 };
 
 DataTable.prototype._bindCustomListeners = function () {
   $(document).on('objUpdate2', $.proxy(this._updateTable, this));
+  this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
 };
 
 DataTable.prototype._updateTable = function (e) {
@@ -29,6 +29,7 @@ DataTable.prototype._updateTable = function (e) {
   //generate the table header
  $thead.append(_self._createHeader());
 
+//append additional columns
   if (_bookShelf.length) {
     var $tbody = this.$container.find('tbody');
     $tbody.empty();
@@ -47,6 +48,7 @@ DataTable.prototype._updateTable = function (e) {
     tr.append(td);
     $tbody.append(tr);
   }
+  this._TableRowButtons();
   return;
 };
 
@@ -74,10 +76,17 @@ DataTable.prototype._createHeader = function () {
       tr.append(th);
   }
 
-var textinsert = "Delete  <input type='checkbox' id='chckHead' class='ml-1'>";
+var textinsert = "<span>Delete</span><input type='checkbox' id='chckHead' class='ml-1'>";
   $(tr).find('th:eq(0)').text("");
   $(tr).find('th:eq(6)').empty();
   $(tr).find('th:eq(6)').html(textinsert);
+
+  var th = document.createElement('th');
+  //$th = $(tr).find('th:eq(6)');
+  //$th.attr("class","lib-del-label");
+  $span = $(tr).find('span');
+  $span.attr("class","lib-del-label");
+
   var th = document.createElement('th');
   th.innerHTML="Edit";
   tr.append(th);
@@ -118,20 +127,42 @@ DataTable.prototype._createRow = function (book) {
   var aDate = td.html();
   d = new Date(aDate);
   td.text(d.getFullYear());
+  var td = $(tr).find('td:eq(5)');
+  var imgSrc = "<img class='lIcon' src='assets/rate" + td.text() + ".svg'>"
+  td.html(imgSrc);
 
   return tr;
 };
 
 DataTable.prototype._TableRowButtons = function (book) {
   $('#chckHead').click(function () {
-  if (this.checked == false) {
+    if (this.checked == false) {
       $('.chcktbl:checked').attr('checked', false);
-  } else {
+    } else {
       $('.chcktbl:not(:checked)').attr('checked', true);
-  }
+    }
   });
-  $('#chckHead').click(function () {
+    $('#chckHead').click(function () {
   });
+  return true;
+};
+
+DataTable.prototype._delClick = function () {
+  //var titlesToDelete = [];
+  this.$container.find('.chcktbl').each(function(i, ckBox) {
+    var cBox = ckBox;
+    if($(cBox).is(':checked')){
+      var $tr = $(cBox).closest('tr');
+      var td = $tr.find('td:eq(1)');
+      var bookTitle = td.text();
+      //this.removeBookbyTitle(td.val());
+      this.removeBookbyTitle(bookTitle);
+      //console.log(bookTitle);
+    }
+  })
+  //console.log(titlesToDelete);
+  //this.removeBookbyTitle(titlesToDelete);
+  return true;
 };
 
 $(function(){

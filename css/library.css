@@ -12,13 +12,6 @@ header {
    background-color: #cccccc;
 } */
 
-.sprite {
-  background: url('assets/rate5.svg') no-repeat 20px 20px;
-  width: 20px;
-  height: 20px;
-}
-/*use sprite to show 1-5 stars  */
-
 footer {
   background-color: #928467;
 }
@@ -31,7 +24,6 @@ blockquote p{
 
 .lIcon {
   height: 16px;
-  padding-left: 8px;
   padding-right: 6px;
 }
 
@@ -55,6 +47,11 @@ blockquote p{
 
 .lib-tbl-th {
   height: 42px;
+}
+
+.lib-del-label:hover{
+  color: blue;
+  cursor: pointer;
 }
 
 tr .noPad{
