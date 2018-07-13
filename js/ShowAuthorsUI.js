@@ -1,14 +1,14 @@
 var ShowAuthorsUI = function(container){
   Library.call(this);
   this.$container = container;
+  return true;
 };
 
 ShowAuthorsUI.prototype = Object.create(Library.prototype);
 
 ShowAuthorsUI.prototype.init = function () {
-  //this._getLibState();
   this._bindEvents();
-  return false;
+  return true;
 };
 
 ShowAuthorsUI.prototype._handleShowAuthors = function () {
@@ -24,7 +24,7 @@ ShowAuthorsUI.prototype._handleShowAuthors = function () {
 
 ShowAuthorsUI.prototype._bindEvents = function () {
   $("#show-authors-btn").on("click", $.proxy(this._handleShowAuthors, this));
-  return false;
+  return true;
 };
 
 ShowAuthorsUI.prototype._createUlOfAuthors = function (authors) {
@@ -40,4 +40,5 @@ ShowAuthorsUI.prototype._createUlOfAuthors = function (authors) {
 $(function(){
   window.gShowAuthUI = new ShowAuthorsUI($("#listAuthors"));
   window.gShowAuthUI.init();
+  return true;
 });

@@ -2,51 +2,41 @@ var AddBooksUI = function(container){
   Library.call(this);
   this._tempBookShelf = new Array();
   this.$container = container;
-}
+  return true;
+};
 
 AddBooksUI.prototype = Object.create(Library.prototype);
 
 AddBooksUI.prototype.init =function () {
   this._bindEvents();
-}
+  return true;
+};
 
 AddBooksUI.prototype._bindEvents = function () {
   $("#add-books-btn").on("click", $.proxy(this._handleModalOpen, this));
   this.$container.find("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
   this.$container.find("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
-}
+  return true;
+};
 
 AddBooksUI.prototype._handleModalOpen = function () {
     this.$container.modal("show");
-}
+    return true;
+};
 
 AddBooksUI.prototype._addBooksToQueue = function () {
-  //could use .serializeArray to get the form fields without hardcoding it.
-  //need name="title (or whatever)" attribute on each field which becomes the key
   //make sure book is not in library before adding to queue.
-  //use .find to get the node from the container and not from the whole dom
-  var bTitle = $("#bookTitle");
-  var bAuthor = $("#bookAuthor");
-  var bPages = $("#bookPages");
-  var bPubDate = $("#bookPubDate");
-  var bRating = $("#bookRating");
-  var bSynopsys = $("#bookSynopsys");
-  var bCover = $("#bookImage");
+
+  var bTitle = this.$container.find("#bookTitle");
+  var bAuthor = this.$container.find("#bookAuthor");
+  var bPages = this.$container.find("#bookPages");
+  var bPubDate = this.$container.find("#bookPubDate");
 
   if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          var bookToQueue = new Book({
-            bookCover : bCover.val(),
-            Title : bTitle.val(),
-            Author : bAuthor.val(),
-            Number_Of_Pages : parseInt(bPages.val()),
-            Publish_Date : bPubDate.val(),
-            Rating : bRating.val(),
-            Synopsys : bSynopsys.val()
-          });
-          this._tempBookShelf.push(bookToQueue);
+          this._tempBookShelf.push(this._collectBookInfo());
           $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!");
           $("#add-books-frm")[0].reset();
         } else {
@@ -69,35 +59,35 @@ AddBooksUI.prototype._addBooksToQueue = function () {
     bTitle.val("");
     bTitle.focus();
   }
-}
+  return true;
+};
 
 AddBooksUI.prototype._addBooksToLibrary = function () {
   if (this._tempBookShelf.length > 0){
    alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
-   //this._updateMainBookListing();
    $("#readyToAddBkCt").text("0 Ready to add!");
    this._tempBookShelf = [];
   } else { alert("You have not yet added books to the Queue.")}
+  return true;
+};
+
+AddBooksUI.prototype._collectBookInfo = function () {
+  var bookObj = new Object();
+    var queueBook = this.$container.find("form").serializeArray();
+    $.each(queueBook, function(i, objProp) {
+      bookObj[objProp.name] = objProp.value;
+    });
+  var bookToAdd = new Book(bookObj);
+  return bookToAdd;
+
+  // $.each(x, function(i, field){
+  //     $(y).append(field.name + ":" + field.value + " ");
+  // });
+
 }
 
-AddBooksUI.prototype._tryit = function () {
-//debugger;
-//console.log("hji");
-//console.log($(this.$container).html());
-var x = $("form").serializeArray();
-var y = [];
-$.each(x, function(i, field){
-    $(y).append(field.name + ":" + field.value + " ");
-});
-console.log(x);
-console.log(y);
-
-  //console.log( $( this ).serializeArray() );
-
-}
-
-// find the add books Model
 $(function() {
   window.gAddBooksUI = new AddBooksUI($("#addABook"))
   window.gAddBooksUI.init();
-})
+  return true;
+});

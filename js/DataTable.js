@@ -36,6 +36,16 @@ DataTable.prototype._updateTable = function (e) {
     $.each(window._bookShelf, function(index, book){
       $tbody.append(_self._createRow(book));
     });
+  } else { // if bookshelf becomes empty by deleting books
+    var $tbody = this.$container.find('tbody');
+    $tbody.empty();
+    var tr = document.createElement('tr');
+    var td = document.createElement('td');
+    td.setAttribute("class", "text-center");
+    td.setAttribute("colspan", "8");
+    $(td).text("Your bookshelf is empty.")
+    tr.append(td);
+    $tbody.append(tr);
   }
   return;
 };
@@ -88,7 +98,7 @@ DataTable.prototype._createRow = function (book) {
     td.setAttribute("scope","row");
     $(td).text(book[key]);
     tr.append(td);
-  }
+  };
 
   //table adjustments
   $(tr).find('td:eq(0)').remove();
