@@ -1,6 +1,6 @@
 var DataTable = function(container){
   Library.call(this);
-  this.$container = $("#main-books-listing");
+  this.$container = container;
 };
 
 DataTable.prototype = Object.create(Library.prototype);
@@ -11,6 +11,7 @@ DataTable.prototype.init = function() {
   this._bindEvents();
   this._TableRowButtons();
   this._bindCustomListeners();
+  return true;
 };
 
 DataTable.prototype._bindEvents = function () {
@@ -19,7 +20,7 @@ DataTable.prototype._bindEvents = function () {
 
 DataTable.prototype._bindCustomListeners = function () {
   $(document).on('objUpdate2', $.proxy(this._updateTable, this));
-  this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
+  //this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
 };
 
 DataTable.prototype._updateTable = function (e) {
@@ -82,8 +83,6 @@ var textinsert = "<span>Delete</span><input type='checkbox' id='chckHead' class=
   $(tr).find('th:eq(6)').html(textinsert);
 
   var th = document.createElement('th');
-  //$th = $(tr).find('th:eq(6)');
-  //$th.attr("class","lib-del-label");
   $span = $(tr).find('span');
   $span.attr("class","lib-del-label");
 
@@ -144,28 +143,27 @@ DataTable.prototype._TableRowButtons = function (book) {
   });
     $('#chckHead').click(function () {
   });
+  this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
   return true;
+
 };
 
 DataTable.prototype._delClick = function () {
-  //var titlesToDelete = [];
+  var _self = this; //Example of how Jquery hijacks this. context
   this.$container.find('.chcktbl').each(function(i, ckBox) {
-    var cBox = ckBox;
-    if($(cBox).is(':checked')){
-      var $tr = $(cBox).closest('tr');
-      var td = $tr.find('td:eq(1)');
-      var bookTitle = td.text();
-      //this.removeBookbyTitle(td.val());
-      this.removeBookbyTitle(bookTitle);
-      //console.log(bookTitle);
-    }
+     var cBox = ckBox;
+     if($(cBox).is(':checked')){
+       var $tr = $(cBox).closest('tr');
+       var td = $tr.find('td:eq(1)');
+       var bookTitle = td.text();
+       _self.removeBookbyTitle(bookTitle)
+     }
   })
-  //console.log(titlesToDelete);
-  //this.removeBookbyTitle(titlesToDelete);
   return true;
 };
 
 $(function(){
-  window.gDataTable = new DataTable();
+  window.gDataTable = new DataTable($("#main-books-listing"));
   window.gDataTable.init();
+  return true;
 });

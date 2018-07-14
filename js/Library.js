@@ -76,7 +76,7 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
     for (var i = 0; i < window._bookShelf.length; i++) {
       if(window._bookShelf[i].Author == authorName){
         window._bookShelf.splice(i,1);
-          console.log(window._bookShelf);
+          //console.log(window._bookShelf);
         bookCt++;
         i--;
         this._setLibState();
