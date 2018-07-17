@@ -135,7 +135,7 @@ Library.prototype.getBooksbyTitle = function (Title) {
 Library.prototype.getBooksbyAuthor = function (author) {
   var bookSearch = [];
   if(typeof(author) === "string"){
-    var authorLower = Author.toLowerCase();
+    var authorLower = author.toLowerCase();
     var bkIndex = 0;
     if (window._bookShelf.length != 0){
       for (var i = 0; i < window._bookShelf.length; i++) {

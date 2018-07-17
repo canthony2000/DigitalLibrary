@@ -21,7 +21,5 @@ AddBooksUI
 
 ## Other:
 
-```
-_getLibState is called from ShowAuthorsUI to load the books from local storage.
-Util.js instantiates the _bookShelf arrau.
-```
+-add a reset/toggle button for resetting the home page book table after a search.
+-perform a check when adding books to see if a book is in the library before adding it to the add queue.

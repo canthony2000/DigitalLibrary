@@ -25,20 +25,31 @@ DataTable.prototype._bindCustomListeners = function () {
 };
 
 DataTable.prototype._updateTable = function (e) {
+  // if(e){
+  //   console.log(e.detail.data);
+  // };
+
   var _self = this;
   var $thead = this.$container.find('thead');
   $thead.empty();
   //generate the table header
- $thead.append(_self._createHeader());
-
-//append additional columns
+  $thead.append(_self._createHeader());
+  //append additional columns
   if (_bookShelf.length) {
     var $tbody = this.$container.find('tbody');
     $tbody.empty();
     //generate the table body
-    $.each(window._bookShelf, function(index, book){
-      $tbody.append(_self._createRow(book));
-    });
+
+    if(e && e.detail.data === "search"){
+      $.each(window._bookSearchResults, function(index, book){
+        $tbody.append(_self._createRow(book));
+      });
+
+    } else {
+      $.each(window._bookShelf, function(index, book){
+        $tbody.append(_self._createRow(book));
+      });
+    };
   } else { // if bookshelf becomes empty by deleting books
     var $tbody = this.$container.find('tbody');
     $tbody.empty();
@@ -49,25 +60,14 @@ DataTable.prototype._updateTable = function (e) {
     $(td).text("Your bookshelf is empty.")
     tr.append(td);
     $tbody.append(tr);
-  }
+  };
   this._TableRowButtons();
   return;
 };
 
 DataTable.prototype._createHeader = function () {
 
-  // var getBookProps = new Book;
-
-  var getBookProps = new Book({
-  bookCover : "",
-  Title : "",
-  Author : "",
-  Number_Of_Pages : "",
-  Publish_Date : "",
-  Rating : "",
-  Synopsys : ""
-  });
-
+  var getBookProps = new Book("");
   var keys = Object.getOwnPropertyNames(getBookProps);
   var tr = document.createElement('tr');
 

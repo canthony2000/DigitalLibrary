@@ -1,4 +1,5 @@
 var _bookShelf = new Array();
+var _bookSearchResults = new Array();
 
 window.book01 = new Book({bookCover : "cover",Title : "IT",Author : "Stephan King",Number_Of_Pages : 800,Publish_Date : "12/24/1987",Rating : 5,Synopsys : "great book"});
 window.book02 = new Book({bookCover : "cover",Title : "Moby Dick",Author : "Herman Melville",Number_Of_Pages : 754,Publish_Date : "06/02/1851",Rating : 4,Synopsys : "Not Sure"});
