@@ -27,7 +27,6 @@
           <p ><i>Your imagination and a good book!</i></p>
         </blockquote>
         <div class="col-md-2">
-          <!--          <button type="button" class="btn btn-outline-secondary lib-del-btn" data-toggle="modal" data-target="#deleteBook">Delete a Book</button>-->
           <button type="button" id="del-book-btn" class="btn btn-outline-secondary lib-del-btn">Delete a Book</button>
         </div>
       </div>
@@ -45,12 +44,10 @@
       <main>
         <div class="row">
           <div class="col mt-2">
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#showAllBooks">
-              Show All Books
-            </button>
-            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestBook">
-              Suggest a Book
-            </button>
+            <!-- <button type="button" id="show-books-btn" class="btn btn-outline-secondary" data-toggle="modal" data-target="#showAllBooks"> -->
+            <button type="button" id="show-books-btn" class="btn btn-outline-secondary">Show All Books</button>
+            <!-- <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestBook">Suggest a Book</button> -->
+            <button type="button" id="suggest-book-btn" class="btn btn-outline-secondary">Suggest a Book</button>
           </div>
           <div class="col-md-5 mt-2">
             <div class="input-group">
@@ -340,7 +337,7 @@
     <!-- End Model Display Authors -->
 
     <!-- Model Suggest a Book (random book)-->
-    <div class="modal fade" id="suggestBook" tabindex="-1" role="dialog" aria-labelledby="suggestBookLabel" aria-hidden="true">
+    <div id="suggestBook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="suggestBookLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -368,7 +365,7 @@
     <!-- End Model Suggest a Book -->
 
     <!-- Model Show All Books-->
-    <div class="modal fade" id="showAllBooks" tabindex="-1" role="dialog" aria-labelledby="showAllBooksLabel" aria-hidden="true">
+    <div id="showAllBooks" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="showAllBooksLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -390,66 +387,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
-                    <img class="card-img-top" src="assets/it-th.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">IT</h5>
-                      <p class="card-text">By Stephan King<br>Published in 1987<br>800 pages</p>
-                      <img class="lIcon" src="assets/rate5.svg"></img>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
-                    <img class="card-img-top" src="assets/animal-farm-th.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Animal Farm</h5>
-                      <p class="card-text">By George Orwell<br>Published in 1945<br>322 pages</p>
-                      <img class="lIcon" src="assets/rate5.svg"></img>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
-                    <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">To Kill a Mockingbird</h5>
-                      <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
-                      <img class="lIcon" src="assets/rate5.svg"></img>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
-                    <img class="card-img-top" src="assets/1984-th.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">1984</h5>
-                      <p class="card-text">By George Orwell<br>Published in 1950<br>432 pages</p>
-                      <img class="lIcon" src="assets/rate5.svg"></img>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
-                    <img class="card-img-top" src="assets/wigan-pier-th.jpeg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">The Road to Wigan Pier</h5>
-                      <p class="card-text">By George Orwell<br>Published in 1937<br>212 pages</p>
-                      <img class="lIcon" src="assets/rate2.svg"></img>
-                      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary">Previous</button>
-            <button type="button" class="btn btn-outline-secondary">Next</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="show-all-prev-btn" class="btn btn-outline-secondary">Previous</button>
+            <button type="button" id="show-all-next-btn" class="btn btn-outline-secondary">Next</button>
+            <!-- <button type="button" id="show-all-close-btn" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" id="show-all-close-btn" class="btn btn-secondary">Close</button>
           </div>
         </div>
       </div>
@@ -463,6 +408,8 @@
     <script src="js/Util.js" charset="utf-8"></script>
     <script src="js/AddBooks.js" charset="utf-8"></script>
     <script src="js/ShowAuthorsUI.js" charset="utf-8"></script>
+    <script src="js/ShowBooksUI.js" charset="utf-8"></script>
+    <script src="js/SuggestBookUI.js" charset="utf-8"></script>
     <script src="js/DeleteBooksUI.js" charset="utf-8"></script>
     <script src="js/DataTable.js" charset="utf-8"></script>
   </body>

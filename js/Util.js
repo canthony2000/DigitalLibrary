@@ -11,6 +11,10 @@ window.bookList = [book01,book02,book03,book04,book05,book06,book07];
 
 //Add format date function
 
+//var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+//d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+//https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+
 //************File Upload
 
 function bs_input_file() {
