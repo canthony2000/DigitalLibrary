@@ -79,11 +79,6 @@ AddBooksUI.prototype._collectBookInfo = function () {
     });
   var bookToAdd = new Book(bookObj);
   return bookToAdd;
-
-  // $.each(x, function(i, field){
-  //     $(y).append(field.name + ":" + field.value + " ");
-  // });
-
 }
 
 $(function() {

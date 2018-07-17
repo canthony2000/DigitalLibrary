@@ -54,11 +54,7 @@ ShowBooksUI.prototype._closeSuggestBook = function () {
 
 ShowBooksUI.prototype._createBooksGrid = function () {
 
-
   var $grid = document.createElement('div');
-  //var bookRow = this.$container.find(".col-lg-4")[0];
-  //var bookCardHTML = bookRow.innerHTML;
-
   var booksMade = 0;
   var rangeSize = _bookShelf.length - this.gridRange;
 
@@ -73,34 +69,23 @@ ShowBooksUI.prototype._createBooksGrid = function () {
       div2.innerHTML = bookCardHTML;
       rowDiv.append(div2)
       booksMade++;
-      if (rangeSize < 6) {
-        if (booksMade === rangeSize){
-          i=2; j=3;
-        }
-      }
-    }
-  }
+
+      var bkObj = _bookShelf[this.gridRange + booksMade - 1];
+      d = new Date(bkObj.Publish_Date);
+      var $targetField = $(div2).find('.card-body');
+      $targetField.find(".card-title").text(bkObj.Title);
+      var elemHTML = "by " + bkObj.Author + "<br> Published in " + d.getFullYear() + "<br>" + bkObj.Number_Of_Pages + " Pages";
+      $targetField.find("p").html(elemHTML);
+      elemHTML = "assets/rate" + bkObj.Rating + ".svg";
+      $targetField.find("img").attr("src",elemHTML);
+
+      if (rangeSize < 6) {if (booksMade === rangeSize){i=2; j=3;}
+      };
+    };
+  };
 
   $grid.append(rowDiv);
-  console.log($grid.innerHTML);
   return $grid.innerHTML;
-
-    // <div class="container-fluid">
-    //   <div class="row">
-    //     <div class="col-lg-4">
-    //       <div class="card mb-2" style="width: 14rem;">
-    //         <img class="card-img-top" src="assets/moby-dick-th.jpeg" alt="Card image cap">
-    //         <div class="card-body">
-    //           <h5 class="card-title">Moby Dick</h5>
-    //           <p class="card-text">By Herman Melville<br>Published in 1851<br>754 pages</p>
-    //           <img class="lIcon" src="assets/rate3.svg"></img>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
-
-
  };
 
 $(function(){

@@ -12,14 +12,19 @@ SuggestBookUI.prototype.init = function () {
 };
 
 SuggestBookUI.prototype._handleSuggestBooks = function () {
-  //var books = this.getTitles();
+
   if(window._bookShelf.length){
     this.$container.modal("show");
-    //do stuff here, example:
-    //this.$container.find(".modal-body").html(this._createUlOfAuthors(authors));
+    var bkObj = this.getRandomBook();
+    var $targetField = this.$container.find('.card-body');
+    $targetField.find(".card-title").text(bkObj.Title);
+    var elemHTML = "by " + bkObj.Author + "<br> Published in " + d.getFullYear() + "<br>" + bkObj.Number_Of_Pages + " Pages";
+    $targetField.find("p").html(elemHTML);
+    elemHTML = "assets/rate" + bkObj.Rating + ".svg";
+    $targetField.find("img").attr("src",elemHTML);
   } else {
     alert("Nothing in library!");
-  }
+  };
   return false;
 };
 
@@ -27,16 +32,6 @@ SuggestBookUI.prototype._bindEvents = function () {
   $("#suggest-book-btn").on("click", $.proxy(this._handleSuggestBooks, this));
   return true;
 };
-
-// ShowBooksUI.prototype._createUlOfAuthors = function (authors) {
-//   var ul = document.createElement("ul");
-//   for (var i = 0; i < authors.length; i++) {
-//     var li = document.createElement("li");
-//     $(li).text(authors[i]);
-//     ul.append(li)
-//   }
-//   return ul;
-// };
 
 $(function(){
   window.gSuggestBookUI = new SuggestBookUI($("#suggestBook"));

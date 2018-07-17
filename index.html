@@ -44,9 +44,7 @@
       <main>
         <div class="row">
           <div class="col mt-2">
-            <!-- <button type="button" id="show-books-btn" class="btn btn-outline-secondary" data-toggle="modal" data-target="#showAllBooks"> -->
             <button type="button" id="show-books-btn" class="btn btn-outline-secondary">Show All Books</button>
-            <!-- <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestBook">Suggest a Book</button> -->
             <button type="button" id="suggest-book-btn" class="btn btn-outline-secondary">Suggest a Book</button>
           </div>
           <div class="col-md-5 mt-2">
@@ -59,11 +57,9 @@
           </div>
           <div class="col mt-2">
             <div class="float-xl-right">
-              <!-- <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#listAuthors"> -->
-              <button type="button" id="show-authors-btn" class="btn btn-outline-secondary" data-toggle="modal">
-                Show All Authors
-              </button>
-              <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestAuthor">
+              <button type="button" id="show-authors-btn" class="btn btn-outline-secondary">Show All Authors</button>
+              <!-- <button type="button" id="suggest-authors-btn" class="btn btn-outline-secondary" data-toggle="modal" data-target="#suggestAuthor"> -->
+              <button type="button" id="suggest-authors-btn" class="btn btn-outline-secondary">
                 Suggest an Author
               </button>
             </div>
@@ -233,7 +229,7 @@
                 </div>
                 <div class="col-sm-9 pl-5">
                   <!-- <div class=""> -->
-                  <label id="readyToAddBkCt">0 Ready to add!</label><img class="lIcon " alt="arrow" src="assets/arrowRight.svg"></img>
+                  <label id="readyToAddBkCt">0 Ready to add!&nbsp;</label><img class="lIcon " alt="arrow" src="assets/arrowRight.svg"></img>
                   <button type="button" id="add-to-lib-btn" class="btn btn-outline-secondary btn-sm float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">Add Book(s) to Library</button>
                   <!-- </div> -->
                 </div>
@@ -410,6 +406,7 @@
     <script src="js/ShowAuthorsUI.js" charset="utf-8"></script>
     <script src="js/ShowBooksUI.js" charset="utf-8"></script>
     <script src="js/SuggestBookUI.js" charset="utf-8"></script>
+    <script src="js/SuggestAuthorUI.js" charset="utf-8"></script>
     <script src="js/DeleteBooksUI.js" charset="utf-8"></script>
     <script src="js/DataTable.js" charset="utf-8"></script>
   </body>

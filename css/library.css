@@ -25,6 +25,7 @@ blockquote p{
 .lIcon {
   height: 16px;
   padding-right: 6px;
+  /* padding-left: 3px; */
 }
 
 .lImageUpload {
