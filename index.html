@@ -101,48 +101,57 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>
+
+            <form id="edit-books-frm">
               <div class="form-group">
                 <div class="form-group row">
                   <div class="col">
-                    <label for="bookTitle">Book Title</label>
-                    <select class="custom-select" id="editBookAttribTitle">
-                      <option selected>Choose a book title...</option>
-                      <option value="IT">IT</option>
-                      <option value="Moby Dick">Moby Dick</option>
-                      <option value="Animal Farm">Animal Farm</option>
-                      <option value="To Kill a Mockingbird">To Kill a Mockingbird</option>
-                      <option value="1984">1984</option>
-                      <option value="The Road to Wigan Pier">The Road to Wigan Pier</option>
-                      <option value="Go Set a Watchman">Go Set a Watchman</option>
+                    <label for="bookTitle">Title</label>
+                    <input type="text" id="editbookTitle" name="Title" class="form-control" placeholder="Add a book title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <label for="editbookAuthor">Author</label>
+                    <input type="text" class="form-control" id="editbookAuthor" name="Author" placeholder="Add an author name">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="editbookRating">Rating (stars)</label>
+                    <select class="form-control" name="Rating" id="editbookRating">
+                      <option value = "5" selected>5</option>
+                      <option value = "4">4</option>
+                      <option value = "3">3</option>
+                      <option value = "2">2</option>
+                      <option value = "1">1</option>
                     </select>
                   </div>
-                  <hr>
                 </div>
                 <div class="form-group row">
-                  <div class="col">
-                    <label for="editBookTitle">New Title</label>
-                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new book title">
+                  <div class="col-sm-6">
+                    <label for="editbookPages">Page Count</label>
+                    <input type="number" class="form-control" id="editbookPages" name="Number_Of_Pages" placeholder="example: 300">
                   </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col">
-                    <label for="editBookTitle">New Author Name</label>
-                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new author name">
+                  <div class="col-sm-6">
+                    <label for="editbookPubDate">Publication Date</label>
+                    <input type="date" class="form-control" id="editbookPubDate" name="Publish_Date">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-md-6 mb-3">
-                    <label for="editBookPageCt">Page Count</label>
-                    <input type="text" class="form-control" id="editBookTitle" placeholder="Enter a new page count">
+                  <div class="col-sm-12">
+                    <label for="editbookSynopsys">Synopsys</label>
+                    <textarea class="form-control" id="editbookSynopsys" name="Synopsys" rows="3"></textarea>
                   </div>
-                  <div class="col-md-6">
-                    <label for="editBookPubDate">PublicationDate</label>
-                    <input type="date" class="form-control" id="editBookPubDate" placeholder="Enter a new publish date">
-                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="file" id="editfileUpload">
+                  <img id="editimgPreview" src="assets/defaultBook.jpg" height="200" alt="Image preview...">
                 </div>
               </div>
+              <div class="form-group row">
+              </div>
             </form>
+
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" onclick="alert('Are you sure?','Delete Confirmation')">Submit Changes</button>
@@ -419,5 +428,6 @@
     <script src="js/DeleteBooksUI.js" charset="utf-8"></script>
     <script src="js/SearchBooksUI.js" charset="utf-8"></script>
     <script src="js/DataTable.js" charset="utf-8"></script>
+    <script src="js/EditBookAttribUI.js" charset="utf-8"></script>
   </body>
 </html>

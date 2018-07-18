@@ -100,12 +100,12 @@ DataTable.prototype._createRow = function (book) {
   var colContent = [
     '<img src=' + imgText + ' class="lib-tbl-th"></img>',
     '<td><input type="checkbox" class="chcktbl ml-4"></td>',
-    '<button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>',
+    //'<button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>',
+    '<button type="button" id="book-edit-btn" class="btn btn-outline-secondary btn-sm lib-edit-btn">Edit</button>',
   ];
 
   for(var key in book){
     var td = document.createElement('td');
-    //console.log("col_" + key + "_key");
     td.setAttribute("scope","row");
     td.setAttribute("class","lib_" + key + "_key");
     $(td).text(book[key]);
