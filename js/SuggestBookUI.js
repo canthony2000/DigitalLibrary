@@ -17,6 +17,7 @@ SuggestBookUI.prototype._handleSuggestBooks = function () {
     this.$container.modal("show");
     var bkObj = this.getRandomBook();
     var $targetField = this.$container.find('.card-body');
+    $(this.$container).find(".card-img-top").attr("src",bkObj.bookCover);
     $targetField.find(".card-title").text(bkObj.Title);
     var elemHTML = "by " + bkObj.Author + "<br> Published in " + d.getFullYear() + "<br>" + bkObj.Number_Of_Pages + " Pages";
     $targetField.find("p").html(elemHTML);

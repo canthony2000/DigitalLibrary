@@ -18,6 +18,13 @@ UI super classes that prototype Library
 ShowAuthorsUI
 AddBooksUI
 ```
+## Features:
+-Table headers are pulled from the book property names
+-custom event handlers updates the table when changes are made
+-form serialization is used from add books form into the book object.  Local storage and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and adding a property to the books class.
+-event properties are used to change the behavior of the search button to toggle between search results and default book listing on the books table.
+
+
 
 ## Other:
 

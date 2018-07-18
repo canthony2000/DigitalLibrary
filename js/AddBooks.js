@@ -2,6 +2,7 @@ var AddBooksUI = function(container){
   Library.call(this);
   this._tempBookShelf = new Array();
   this.$container = container;
+  this.Base64Result;
   return true;
 };
 
@@ -16,11 +17,13 @@ AddBooksUI.prototype._bindEvents = function () {
   $("#add-books-btn").on("click", $.proxy(this._handleModalOpen, this));
   this.$container.find("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
   this.$container.find("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
+  this.$container.on("change", ':file', $.proxy(this._coverFileUpload, this));
   return true;
 };
 
 AddBooksUI.prototype._handleModalOpen = function () {
     this.$container.modal("show");
+    this.Base64Result = "assets/defaultBook.jpg";
     return true;
 };
 
@@ -37,7 +40,8 @@ AddBooksUI.prototype._addBooksToQueue = function () {
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
           this._tempBookShelf.push(this._collectBookInfo());
-          $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!");
+          this._tempBookShelf[this._tempBookShelf.length - 1].bookCover = this.Base64Result;
+          $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
           $("#add-books-frm")[0].reset();
         } else {
           alert("Please enter a date.")
@@ -77,9 +81,29 @@ AddBooksUI.prototype._collectBookInfo = function () {
     $.each(queueBook, function(i, objProp) {
       bookObj[objProp.name] = objProp.value;
     });
+
+
   var bookToAdd = new Book(bookObj);
   return bookToAdd;
-}
+};
+
+AddBooksUI.prototype._coverFileUpload = function () {
+
+  var preview = this.$container.find('#imgPreview');
+  var file = document.querySelector('input[type=file]').files[0];
+  var reader = new FileReader();
+  var _self = this;
+
+  reader.addEventListener("load", function () {
+    _self.Base64Result = reader.result;
+    preview.attr("src",_self.Base64Result);
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  };
+  return true;
+};
 
 $(function() {
   window.gAddBooksUI = new AddBooksUI($("#addABook"))

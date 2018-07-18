@@ -98,7 +98,7 @@ DataTable.prototype._createRow = function (book) {
 
   var tr = document.createElement('tr');
   var colContent = [
-    '<img src="assets/it-th.jpg" class="lib-tbl-th"></img>',
+    '<img src=' + imgText + ' class="lib-tbl-th"></img>',
     '<td><input type="checkbox" class="chcktbl ml-4"></td>',
     '<button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>',
   ];
@@ -113,12 +113,11 @@ DataTable.prototype._createRow = function (book) {
   };
 
   //table adjustments
-  $(tr).find('.lib_bookCover_key').remove();
-  var td = document.createElement('td');
-  td.setAttribute("class", "th-container",);
-  td.setAttribute("scope", "row",);
-  td.innerHTML=colContent[0];
-  tr.prepend(td);
+  var td = $(tr).find('.lib_bookCover_key');
+  td.attr("class", "th-container",);
+  td.attr("scope", "row",);
+  var imgText = '<img src=' + td.text() + ' class="lib-tbl-th"></img>';
+  td.html(imgText);
   $(tr).find('.lib_Synopsys_key').remove();
   var td = document.createElement('td');
   td.innerHTML=colContent[1];

@@ -73,6 +73,7 @@ ShowBooksUI.prototype._createBooksGrid = function () {
       var bkObj = _bookShelf[this.gridRange + booksMade - 1];
       d = new Date(bkObj.Publish_Date);
       var $targetField = $(div2).find('.card-body');
+      $(div2).find(".card-img-top").attr("src",bkObj.bookCover);
       $targetField.find(".card-title").text(bkObj.Title);
       var elemHTML = "by " + bkObj.Author + "<br> Published in " + d.getFullYear() + "<br>" + bkObj.Number_Of_Pages + " Pages";
       $targetField.find("p").html(elemHTML);

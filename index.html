@@ -91,7 +91,7 @@
 
     <!-- *************** Model dialog boxes -->
     <!-- Modal Edit Book Attributes-->
-    <div class="modal fade" id="editBookAttrib" tabindex="-1" role="dialog" aria-labelledby="editBookAttribLabel" aria-hidden="true">
+    <div id="editBookAttrib" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editBookAttribLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -205,16 +205,28 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="input-group input-file" name="Fichier1">
+                  <!-- <div class="input-group input-file" name="Fichier1">
                     <span class="input-group-btn">
-                      <button class="btn btn-outline-secondary btn-choose" type="button">Choose a File</button>
-                      <!-- <button class="btn btn-default btn-choose" type="button">Choose a File</button> -->
+                      <button class="btn btn-outline-secondary btn-choose" id="cover-upload-btn" type="button">Choose a File</button>
                     </span>
                     <input type="text" id="bookImage" name="bookCover" class="form-control" placeholder='Choose a file...' />
                     <span class="input-group-btn">
                       <button class="btn btn-outline-secondary btn-reset" type="button">Reset</button>
                     </span>
-                  </div>
+                  </div> -->
+                  <!-- <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                  </div> -->
+                  <input type="file" id="fileUpload">
+                  <img id="imgPreview" src="assets/defaultBook.jpg" height="200" alt="Image preview...">
+
+
                 </div>
               </div>
               <div class="form-group row">
