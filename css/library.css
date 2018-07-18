@@ -24,8 +24,8 @@ blockquote p{
 
 .lIcon {
   height: 16px;
-  padding-left: 8px;
   padding-right: 6px;
+  /* padding-left: 3px; */
 }
 
 .lImageUpload {
@@ -48,6 +48,11 @@ blockquote p{
 
 .lib-tbl-th {
   height: 42px;
+}
+
+.lib-del-label:hover{
+  color: blue;
+  cursor: pointer;
 }
 
 tr .noPad{

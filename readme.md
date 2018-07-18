@@ -4,37 +4,29 @@ Created by Corey Anthony
 
 ## Points for discussion during code review:
 
-Why when in the singleton does Library not need a var in front of it, and if you add var it just creates an empty function called Library?  (Even though when not using singleton)
+Bind event on delete checkbox quits working when table rows deleted and table is updated.  Had to redo the bind event in the function that updates the row to re-attach it.  So it is bound wwhen the buttons are created and not in the custom bind events method.  Is there a better way?
 
-Because as declared originally, 'var Library' was in scope, and in the singleton using var limits Library declaration to the scope of the singleton self-envoking function, but with no ‘var’ in the declaration, Library is global and all of its properties and methods are included when it is declared.
+Kyle suggested a delegation so that when the table changes it re-binds the buttons.
 
-Is there a way to declare a variable that will only be visible to the parent and not global (having the window as parent)?
+Created keys on each td to reference with find so that adjusting columns is completely detached (not hard) coded
 
-JSON stringify function - is it part of JavaScript?  How does the browser know about it?
+## UI Classes:
 
-Discuss declaring new objects outside for loop and then assigning values to it in an array.  The array holds only references to the variable declared outside the loop.
-
-## Advanced search function testing:
-
-Advanced search criteria:
+UI super classes that prototype Library
 
 ```
-gLibrary.getBookBySearchTerm("kill") //books with kill in the title
-gLibrary.getBookBySearchTerm("sdfsdf1984sff1999gsfg") //books pulling out first occurrence of a year from a string
-gLibrary.getBookBySearchTerm("sdfsdf800sff300gsfg") //books pulling out first occurrence of page number from a string +- 75 pages
-gLibrary.getBookBySearchTerm(800) // books with 800 pages +- 75 pages passing a number
-gLibrary.getBookBySearchTerm(1984) //books with title 1984 and pub year 1987 +- 10 years passing number
-gLibrary.getBooksbyYear("1984") //books with title 1984 and pub year 1987 +- 10 years passing a string
-gLibrary.getBookBySearchTerm("el") //get books from authors and titles
+ShowAuthorsUI
+AddBooksUI
 ```
+## Features:
+-Table headers are pulled from the book property names
+-custom event handlers updates the table when changes are made
+-form serialization is used from add books form into the book object.  Local storage and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and adding a property to the books class.
+-event properties are used to change the behavior of the search button to toggle between search results and default book listing on the books table.
 
-## Other methods:
 
-```
-gLibrary.list()
-gLibrary.getAuthors()
-gLibrary.getRandomAuthorName()
-gLibrary.removeBookbyAuthor("George Orwell")
-gLibrary.addBooks()
-gLibrary.addBook(new Book("The Great Alone","Kristin Hannah", 435, "03/23/1974"));
-```
+
+## Other:
+
+-add a reset/toggle button for resetting the home page book table after a search.
+-perform a check when adding books to see if a book is in the library before adding it to the add queue.
