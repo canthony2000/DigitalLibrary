@@ -49,7 +49,7 @@ EditBookAttribUI.prototype._bindEvents = function () {
 
 EditBookAttribUI.prototype._coverFileUpload = function () {
   var preview = this.$container.find('#editimgPreview');
-  var file = document.querySelector('input[type=file]').files[0];
+  var file = document.querySelector('#editfileUpload').files[0];
   var reader = new FileReader();
   var _self = this;
 
