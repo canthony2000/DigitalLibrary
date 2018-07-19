@@ -88,10 +88,9 @@ AddBooksUI.prototype._collectBookInfo = function () {
 
 AddBooksUI.prototype._coverFileUpload = function () {
   var preview = this.$container.find('#imgPreview');
-  var file = document.querySelector('input[type=file]').files[0];
+  var file = document.querySelector('#fileUpload').files[0];
   var reader = new FileReader();
   var _self = this;
-
   reader.addEventListener("load", function () {
     _self.Base64Result = reader.result;
     preview.attr("src",_self.Base64Result);
