@@ -19,36 +19,31 @@ EditBookAttribUI.prototype._handleEditBook = function (e) {
   var key = $tr.find(".lib_Title_key").text();
   var book = this.getBooksbyTitle(key);
 
+  this.$container.find("p").text(key);
+
   this.Base64Result = book[0].bookCover;
-  $("#editbookTitle").val(book[0].Title);
-  $("#editbookAuthor").val(book[0].Author);
-  $("#editbookRating").val(book[0].Rating);
-  $("#editbookPages").val(book[0].Number_Of_Pages);
-  $("#editbookSynopsys").val(book[0].Synopsys);
+  this.$container.find("#editbookTitle").val(book[0].Title);
+  this.$container.find("#editbookAuthor").val(book[0].Author);
+  this.$container.find("#editbookRating").val(book[0].Rating);
+  this.$container.find("#editbookPages").val(book[0].Number_Of_Pages);
   var d = new Date(book[0].Publish_Date);
-  console.log(d);
-  $("#editbookPubDate").val(d);
-  var preview = $('#editimgPreview');
+  var dateStr = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +  ("0" + d.getDate()).slice(-2);
+  this.$container.find("#editbookPubDate").val(dateStr);
+  this.$container.find("#editbookSynopsys").val(book[0].Synopsys);
+
+  var preview = this.$container.find('#editimgPreview');
   preview.attr("src",this.Base64Result)
 
-console.log(book);
-
-  //this.$container.find("#editbookAuthor").text(arr.Author);
-
-  // var suggestedAuthor = this.getRandomAuthorName();
-  // if(suggestedAuthor.length){
-  //   this.$container.modal("show");
-  //   this.$container.find("li").html(suggestedAuthor);
-  // } else {
-  //   alert("Nothing in library!");
-  // }
- return false;
+  return false;
 };
 
 EditBookAttribUI.prototype._bindEvents = function () {
   $("#main-books-listing").on("click", "#book-edit-btn", $.proxy(this._handleEditBook, this));
   this.$container.on("change", ':file', $.proxy(this._coverFileUpload, this));
-  this.$container.on('hidden.bs.modal',$.proxy(this._resetForm,this))
+  this.$container.on('hidden.bs.modal', $.proxy(this._resetForm,this))
+  this.$container.on('click', "#update-book-btn", $.proxy(this._updateBook,this))
+
+
   return true;
 };
 
@@ -67,11 +62,91 @@ EditBookAttribUI.prototype._coverFileUpload = function () {
   return true;
 };
 
+EditBookAttribUI.prototype._updateBook = function () {
+
+  var bTitle = this.$container.find("#editbookTitle");
+  var bAuthor = this.$container.find("#editbookAuthor");
+  var bPages = this.$container.find("#editbookPages");
+  var bPubDate = this.$container.find("#editbookPubDate");
+
+  if(bTitle.val().length > 0){
+    if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
+      if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
+        if($.isNumeric(Date.parse(bPubDate.val()))){
+          var originalTitle = this.$container.find("p").text();
+
+          var orgBkIndex;
+          for (var i = 0; i < window._bookShelf.length; i++) {
+            if (originalTitle === window._bookShelf[i].Title){
+              orgBkIndex = i;
+              i = window._bookShelf.length;
+            }
+          }
+
+          //check if new title exists, skipping index of the original book
+          var newTitle = this.$container.find("#editbookTitle").val();
+          if(this._checkChangedTitleExist(newTitle,orgBkIndex)){
+            alert("The new book title matches another existing title.  Please enter a new title.")
+            bTitle.focus();
+            return false;
+          } else {
+            window._bookShelf[orgBkIndex] = this._collectBookInfo();
+            this._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}});
+            this._setLibState();
+            this.$container.find("p").text(newTitle);
+            alert("Book information updated.")
+          }
+        } else {
+          alert("Please enter a date.")
+          bPubDate.val("");
+          bPubDate.focus();
+        }
+      } else {
+        alert("Please enter the number of pages as a number.")
+        bPages.val("");
+        bPages.focus();
+      }
+    } else {
+      alert("Please enter a book author.")
+      bAuthor.val("");
+      bAuthor.focus();
+    }
+  } else {
+    alert("Please enter a book title.");
+    bTitle.val("");
+    bTitle.focus();
+  }
+
+return false;
+};
+
+EditBookAttribUI.prototype._checkChangedTitleExist = function (bkTitle, indexToSkip) {
+  for (var i = 0; i < window._bookShelf.length; i++) {
+    if (i != indexToSkip) {
+      if (window._bookShelf[i].Title.toLowerCase() === bkTitle.toLowerCase()) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+EditBookAttribUI.prototype._collectBookInfo = function () {
+  var bookObj = new Object();
+  var queueBook = this.$container.find("form").serializeArray();
+  $.each(queueBook, function(i, objProp) {
+    bookObj[objProp.name] = objProp.value;
+  });
+  bookObj.bookCover = this.Base64Result;
+  var bookToAdd = new Book(bookObj);
+  return bookToAdd;
+};
+
 EditBookAttribUI.prototype._resetForm = function () {
   $("#edit-books-frm")[0].reset();
   $("#edit-books-frm").find("#editimgPreview").attr("src","assets/defaultBook.jpg");
   return false;
-}
+};
 
 $(function(){
   window.gEditBookAttribUI = new EditBookAttribUI($("#editBookAttrib"));
