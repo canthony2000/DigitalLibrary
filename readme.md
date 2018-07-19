@@ -28,5 +28,5 @@ AddBooksUI
 
 ## Other:
 
--add a reset/toggle button for resetting the home page book table after a search.
+-refine reset/toggle button for resetting the home page book table after a search.  Needs reset search field after resetting to default results and setting label to search after deleting a book from search results.
 -perform a check when adding books to see if a book is in the library before adding it to the add queue.

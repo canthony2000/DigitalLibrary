@@ -18,6 +18,7 @@ AddBooksUI.prototype._bindEvents = function () {
   this.$container.find("#add-to-queue-btn").on("click", $.proxy(this._addBooksToQueue, this));
   this.$container.find("#add-to-lib-btn").on("click", $.proxy(this._addBooksToLibrary, this));
   this.$container.on("change", ':file', $.proxy(this._coverFileUpload, this));
+  this.$container.on('hidden.bs.modal',$.proxy(this._resetForm,this))
   return true;
 };
 
@@ -40,9 +41,8 @@ AddBooksUI.prototype._addBooksToQueue = function () {
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
           this._tempBookShelf.push(this._collectBookInfo());
-          this._tempBookShelf[this._tempBookShelf.length - 1].bookCover = this.Base64Result;
           $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
-          $("#add-books-frm")[0].reset();
+          this._resetForm();
         } else {
           alert("Please enter a date.")
           bPubDate.val("");
@@ -77,18 +77,16 @@ AddBooksUI.prototype._addBooksToLibrary = function () {
 
 AddBooksUI.prototype._collectBookInfo = function () {
   var bookObj = new Object();
-    var queueBook = this.$container.find("form").serializeArray();
-    $.each(queueBook, function(i, objProp) {
-      bookObj[objProp.name] = objProp.value;
-    });
-
-
+  var queueBook = this.$container.find("form").serializeArray();
+  $.each(queueBook, function(i, objProp) {
+    bookObj[objProp.name] = objProp.value;
+  });
+  bookObj.bookCover = this.Base64Result;
   var bookToAdd = new Book(bookObj);
   return bookToAdd;
 };
 
 AddBooksUI.prototype._coverFileUpload = function () {
-
   var preview = this.$container.find('#imgPreview');
   var file = document.querySelector('input[type=file]').files[0];
   var reader = new FileReader();
@@ -99,11 +97,15 @@ AddBooksUI.prototype._coverFileUpload = function () {
     preview.attr("src",_self.Base64Result);
   }, false);
 
-  if (file) {
-    reader.readAsDataURL(file);
-  };
+  if (file) {reader.readAsDataURL(file);};
   return true;
 };
+
+AddBooksUI.prototype._resetForm = function () {
+  $("#add-books-frm")[0].reset();
+  $("#add-books-frm").find("#imgPreview").attr("src","assets/defaultBook.jpg");
+  return false;
+}
 
 $(function() {
   window.gAddBooksUI = new AddBooksUI($("#addABook"))

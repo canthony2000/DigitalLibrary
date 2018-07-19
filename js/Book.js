@@ -5,5 +5,5 @@ var Book = function(oArgs){
   this.Number_Of_Pages = Number(oArgs.Number_Of_Pages);
   this.Publish_Date = new Date(oArgs.Publish_Date);
   this.Rating = Number(oArgs.Rating);
-  this.Synopsys = oArgs.synopsys;
+  this.Synopsys = oArgs.Synopsys;
 }
