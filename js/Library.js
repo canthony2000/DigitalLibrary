@@ -3,6 +3,7 @@
 //Created by Corey Anthonhy
 //Bootstrap-4.1.1
 
+//class Library;
 var Library;
 (function() {
   var instance;
@@ -34,7 +35,8 @@ Library.prototype._checkIfBookExists = function(Title) {
 
 Library.prototype.addBook = function (book) {
   if (typeof book === "object" && !this._checkIfBookExists(book.Title)) {
-    window._bookShelf.push(book);
+    window._bookShelf.push(book); //update bookshelf array
+    this._handleAddBookDb(book); //update mongo database
     this._setLibState(); //update local storage
     return true;
   }
@@ -59,6 +61,7 @@ Library.prototype.removeBookbyTitle = function (Title) {
   if(typeof(Title) === "string"){
     var bkChk = this._checkIfBookExists(Title);
     if(bkChk){
+      this._handleDeleteBookDb(window._bookShelf[bkChk - 1]._id);
       window._bookShelf.splice(bkChk - 1,1);
       this._setLibState();
       this._handleEventTrigger("objUpdate2", {
@@ -75,8 +78,9 @@ Library.prototype.removeBookbyAuthor = function (authorName) {
   if (window._bookShelf.length != 0 && authorName) {
     for (var i = 0; i < window._bookShelf.length; i++) {
       if(window._bookShelf[i].Author == authorName){
+
+        //this._handleDeleteBookDb(window._bookShelf[i]._id);
         window._bookShelf.splice(i,1);
-          //console.log(window._bookShelf);
         bookCt++;
         i--;
         this._setLibState();
@@ -228,6 +232,62 @@ Library.prototype.getRandomAuthorName = function () {
     return null;
   }
   return false;
+};
+
+//******************
+//CRUD Routes
+
+Library.prototype._handleGetBooksDb = function (){
+  $.ajax({
+    url: window.libraryURL,
+    dataType:'json',
+    method: 'GET',
+    success: data => {
+      window._bookShelf = [];
+
+      for (var i = 0; i < data.length; i++) {
+
+        var bookToInsert = new Book({
+          _id : data[i]._id,
+          bookCover : data[i].bookCover,
+          Title : data[i].Title,
+          Author : data[i].Author,
+          Number_Of_Pages : data[i].Number_Of_Pages,
+          Publish_Date : new Date(data[i].Publish_Date),
+          Rating : data[i].Rating,
+          Synopsys : data[i].Synopsys,
+        });
+        window._bookShelf.push(bookToInsert);
+        delete bookToInsert;
+      }
+      this._handleEventTrigger("objUpdate2", {detail: {data: "_handleGetBooksDb"}});
+    }
+  })
+  return false;
+};
+
+Library.prototype._handleAddBookDb = function (book){
+  $.ajax({
+    url: window.libraryURL,
+    dataType:'json',
+    method:'POST',
+    data: book,
+    success: data => {
+      console.log(data);
+    }
+  })
+  return false;
+};
+
+Library.prototype._handleDeleteBookDb = function (bookId){
+  $.ajax({
+    url: window.libraryURL + "/" + bookId,
+    dataType:'json',
+    method:'DELETE',
+    data: bookId,
+    success: data => {
+    }
+  })
 };
 
 //******************

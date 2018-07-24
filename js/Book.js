@@ -1,4 +1,5 @@
 var Book = function(oArgs){
+  this._id = oArgs._id;
   this.bookCover = oArgs.bookCover;
   this.Title = oArgs.Title;
   this.Author = oArgs.Author;

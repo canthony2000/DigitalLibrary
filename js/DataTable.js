@@ -1,16 +1,19 @@
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
+  _self = this;
 };
 
 DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function() {
-  this._getLibState();
+  //this._getLibState();
+  this._handleGetBooksDb();
   this._updateTable();
   this._bindEvents();
   this._TableRowButtons();
   this._bindCustomListeners();
+
   return true;
 };
 
@@ -25,9 +28,6 @@ DataTable.prototype._bindCustomListeners = function () {
 };
 
 DataTable.prototype._updateTable = function (e) {
-  // if(e){
-  //   console.log(e.detail.data);
-  // };
 
   var _self = this;
   var $thead = this.$container.find('thead');
@@ -80,9 +80,11 @@ DataTable.prototype._createHeader = function () {
   }
 
   var textinsert = "<span>Delete</span><input type='checkbox' id='chckHead' class='ml-1'>";
-   $(tr).find('.lib_bookCover_key').text("");
-   $(tr).find('.lib_Synopsys_key').empty();
-   $(tr).find('.lib_Synopsys_key').html(textinsert);
+
+  $(tr).find('.lib__id_key').remove();
+  $(tr).find('.lib_bookCover_key').text("");
+  $(tr).find('.lib_Synopsys_key').empty();
+  $(tr).find('.lib_Synopsys_key').html(textinsert);
 
   var th = document.createElement('th');
   $span = $(tr).find('span');
@@ -113,6 +115,7 @@ DataTable.prototype._createRow = function (book) {
   };
 
   //table adjustments
+  $(tr).find('.lib__id_key').remove();
   var td = $(tr).find('.lib_bookCover_key');
   td.attr("class", "th-container",);
   td.attr("scope", "row",);
