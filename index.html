@@ -339,12 +339,18 @@
             </button>
           </div>
           <div class="modal-body libBookModel">
-            <div class="card mb-2" style="width: 14rem;">
+            <div class="card mb-2">
               <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">To Kill a Mockingbird</h5>
-                <p class="card-text">By Harper Lee<br>Published in 1965<br>512 pages</p>
+                <p class="card-text .bkInfo">By Harper Lee<br>Published in 1965<br>512 pages</p>
                 <img class="lIcon" src="assets/rate5.svg"></img>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+              <p class="card-text">Response with single book from DB as GET:ID</p>
+              <textarea id="mongoDbResponse"  readonly name="BookObjFromDb" rows="10" cols="20"></textarea>
               </div>
             </div>
           </div>
@@ -370,7 +376,8 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-lg-4">
-                  <div class="card mb-2" style="width: 14rem;">
+                  <!-- <div class="card mb-2" style="width: 14rem;"> -->
+                  <div class="card mb-2">
                     <img class="card-img-top" src="assets/moby-dick-th.jpeg" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">Moby Dick</h5>

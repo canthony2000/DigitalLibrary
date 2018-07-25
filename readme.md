@@ -22,11 +22,22 @@ AddBooksUI
 -Node server and CRUD routes are in use
 -Async/await used when books are updated
 -Table headers are pulled from the book property names
+-jQuery init(), bindEvents(), and eventHandlers()
+-Local Storage
+-Singleton design pattern
+-observer design pattern
+-Mongodb using mLabs mongo database in cloud
 -custom event handlers updates the table when changes are made
 -form serialization is used from add books form into the book object.  Local storage and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and adding a property to the books class.
 -event properties are used to change the behavior of the search button to toggle between search results and default book listing on the books table.
 
-
+## Tools used:
+Atom IDE - for code editor
+Postman - for sending requests to Mongodb
+Robo 3T - for administering mLabs mongodb instance
+Node server - ReST layer
+Git/Git Hub - Code repository
+Sourcetree - Git repository management
 
 ## Other:
 

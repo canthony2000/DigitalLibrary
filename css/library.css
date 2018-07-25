@@ -22,6 +22,10 @@ blockquote p{
   margin-bottom: 0px;
 }
 
+.card {
+  width: 14rem;
+}
+
 .lIcon {
   height: 16px;
   padding-right: 6px;

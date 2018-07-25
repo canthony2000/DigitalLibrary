@@ -296,6 +296,7 @@ Library.prototype._handleAddBookDb = function (book){
         for (var i = _bookShelf.length; i > 0; i--) {
           if (_bookShelf[i-1].Title === bkTitle){
             _bookShelf[i-1]._id = data._id;
+            i=0;
           }
         }
       }
@@ -320,13 +321,26 @@ Library.prototype._handleUpdateBookDb = function (bookId, bookParems){
     url: window.libraryURL + "/" + bookId,
     dataType:'text',
     method:'PUT',
-    //data: bookId,
     data: bookParems,
     success: data => {
       console.log("Updated book id " + bookId);
     }
   })
 };
+
+Library.prototype._handleGetSingleBookDb = function (bookId){
+  $.ajax({
+    url: window.libraryURL + "/" + bookId,
+    dataType:'text',
+    method:'GET',
+    data: bookId,
+    success: data => {
+      $("#mongoDbResponse").text(data);
+      //console.log(data);
+    }
+  })
+};
+
 
 //******************
 //Local Storage Methods

@@ -20,9 +20,12 @@ SuggestBookUI.prototype._handleSuggestBooks = function () {
     $(this.$container).find(".card-img-top").attr("src",bkObj.bookCover);
     $targetField.find(".card-title").text(bkObj.Title);
     var elemHTML = "by " + bkObj.Author + "<br> Published in " + d.getFullYear() + "<br>" + bkObj.Number_Of_Pages + " Pages";
-    $targetField.find("p").html(elemHTML);
+    $targetField.find("p.bkInfo").html(elemHTML);
     elemHTML = "assets/rate" + bkObj.Rating + ".svg";
     $targetField.find("img").attr("src",elemHTML);
+    //show response from the db
+    this._handleGetSingleBookDb(bkObj._id)
+
   } else {
     alert("Nothing in library!");
   };

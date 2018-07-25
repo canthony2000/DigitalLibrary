@@ -7,7 +7,15 @@ var DataTable = function(container){
 DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function() {
+
+  //****************
+  //
+  //    Local storage functionality disabled
+  //    to demonstrate Mongodb functioality
+  //
+  //****************
   //this._getLibState();
+
   this._handleGetBooksDb();
   this._updateTable();
   this._bindEvents();
@@ -24,7 +32,6 @@ DataTable.prototype._bindEvents = function () {
 DataTable.prototype._bindCustomListeners = function () {
   $(document).on('objUpdate2', $.proxy(this._updateTable, this));
   this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
-  //this.$container.on('click','.lib-del-label', $.proxy(this._delClick, this));
 };
 
 DataTable.prototype._updateTable = function (e) {
@@ -102,7 +109,6 @@ DataTable.prototype._createRow = function (book) {
   var colContent = [
     '<img src=' + imgText + ' class="lib-tbl-th"></img>',
     '<td><input type="checkbox" class="chcktbl ml-4"></td>',
-    //'<button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>',
     '<button type="button" id="book-edit-btn" class="btn btn-outline-secondary btn-sm lib-edit-btn">Edit</button>',
   ];
 
