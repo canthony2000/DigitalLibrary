@@ -6,7 +6,7 @@ var router = express.Router();
 //router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.urlencoded({ extended: true,limit: '2tb' }));
 
-// CREATES A NEW BOOK IN LIBRARY
+// CREATES A NEW BOOK IN THE DATABASE
 router.post('/', function (req, res) {
   Library.create({
       bookCover: req.body.bookCover,
@@ -31,11 +31,19 @@ router.get('/', function (req, res) {
  });
 });
 
-//DELETES A COMMENT FROM THE DATABASE
+//DELETES A BOOK FROM THE DATABASE
 router.delete('/:id', function (req, res) {
     Library.findByIdAndRemove(req.params.id, function (err, book) {
         if (err) return res.status(500).send("There was a problem deleting the book.");
         res.status(200).send("Book "+ book.title+" was deleted.");
+    });
+});
+
+//UPDATES A BOOK IN THE DATABASE
+router.put('/:id', function (req, res) {
+    Library.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, book) {
+        if (err) return res.status(500).send("There was a problem updating the book.");
+        res.status(200).send("Book "+ book.title+" was updated.");
     });
 });
 

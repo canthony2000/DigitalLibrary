@@ -34,34 +34,49 @@ Library.prototype._checkIfBookExists = function(Title) {
 }
 
 Library.prototype.addBook = function (book) {
+  //var _self = this;
   if (typeof book === "object" && !this._checkIfBookExists(book.Title)) {
-    window._bookShelf.push(book); //update bookshelf array
-    this._handleAddBookDb(book); //update mongo database
+    window._bookShelf.push(book);
+    this._handleAddBookDb(book);
+    // async function addBookdbAsync(state){
+    //   var bkID = await state._handleAddBookDb(book); //update mongo database
+    //   book._id = bkID;
+    //   window._bookShelf.push(book);
+    // }
+    // addBookdbAsync(_self);
     this._setLibState(); //update local storage
     return true;
   }
   return false;
 };
-
+//
 Library.prototype.addBooks = function (books) {
+  //var _self = this;
   if(books) {
     var bookCt = 0;
     for (var i = 0; i < books.length; i++) {
+
       if(this.addBook(books[i])) {bookCt++};
+      // async function addBookCallAsync(state){
+      //   if(await state.addBook(books[i])) {bookCt++};
+      // };
+      // addBookCallAsync(_self);
     }
-    this._handleEventTrigger("objUpdate2", {
-      detail: {data: "bookCt"}
-    });
+    this._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}});
     return bookCt;
   }
   return 0;
 };
 
 Library.prototype.removeBookbyTitle = function (Title) {
+  var _self = this;
   if(typeof(Title) === "string"){
     var bkChk = this._checkIfBookExists(Title);
     if(bkChk){
-      this._handleDeleteBookDb(window._bookShelf[bkChk - 1]._id);
+      async function delBookdb(state){
+        state._handleDeleteBookDb(window._bookShelf[bkChk - 1]._id);
+      }
+      delBookdb(_self);
       window._bookShelf.splice(bkChk - 1,1);
       this._setLibState();
       this._handleEventTrigger("objUpdate2", {
@@ -74,12 +89,15 @@ Library.prototype.removeBookbyTitle = function (Title) {
 };
 
 Library.prototype.removeBookbyAuthor = function (authorName) {
+  var _self = this;
   var bookCt = 0;
   if (window._bookShelf.length != 0 && authorName) {
     for (var i = 0; i < window._bookShelf.length; i++) {
       if(window._bookShelf[i].Author == authorName){
-
-        //this._handleDeleteBookDb(window._bookShelf[i]._id);
+        async function delBookdb(state){
+          await state._handleDeleteBookDb(window._bookShelf[i]._id);
+        }
+        delBookdb(_self);
         window._bookShelf.splice(i,1);
         bookCt++;
         i--;
@@ -267,25 +285,45 @@ Library.prototype._handleGetBooksDb = function (){
 };
 
 Library.prototype._handleAddBookDb = function (book){
-  $.ajax({
-    url: window.libraryURL,
-    dataType:'json',
-    method:'POST',
-    data: book,
-    success: data => {
-      console.log(data);
-    }
-  })
+    $.ajax({
+      url: window.libraryURL,
+      dataType:'json',
+      method:'POST',
+      data: book,
+      success: data => {
+        var bkKey = data._id;
+        var bkTitle = data.Title;
+        for (var i = _bookShelf.length; i > 0; i--) {
+          if (_bookShelf[i-1].Title === bkTitle){
+            _bookShelf[i-1]._id = data._id;
+          }
+        }
+      }
+    })
   return false;
 };
 
 Library.prototype._handleDeleteBookDb = function (bookId){
   $.ajax({
     url: window.libraryURL + "/" + bookId,
-    dataType:'json',
+    dataType:'text',
     method:'DELETE',
     data: bookId,
     success: data => {
+      console.log("Deleted book id " + bookId);
+    }
+  })
+};
+
+Library.prototype._handleUpdateBookDb = function (bookId, bookParems){
+  $.ajax({
+    url: window.libraryURL + "/" + bookId,
+    dataType:'text',
+    method:'PUT',
+    //data: bookId,
+    data: bookParems,
+    success: data => {
+      console.log("Updated book id " + bookId);
     }
   })
 };
@@ -308,8 +346,6 @@ Library.prototype._getLibState = function () {
     bookShelfData = ('bookshelfCopy: ', JSON.parse(libData));
 
     for (var i = 0; i < bookShelfData.length; i++) {
-      // var bookToInsert = new Book
-
       var bookToInsert = new Book({
         bookCover : bookShelfData[i].bookCover,
         Title : bookShelfData[i].Title,

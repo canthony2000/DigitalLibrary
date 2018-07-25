@@ -19,6 +19,8 @@ ShowAuthorsUI
 AddBooksUI
 ```
 ## Features:
+-Node server and CRUD routes are in use
+-Async/await used when books are updated
 -Table headers are pulled from the book property names
 -custom event handlers updates the table when changes are made
 -form serialization is used from add books form into the book object.  Local storage and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and adding a property to the books class.

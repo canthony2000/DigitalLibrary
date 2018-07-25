@@ -42,8 +42,6 @@ EditBookAttribUI.prototype._bindEvents = function () {
   this.$container.on("change", ':file', $.proxy(this._coverFileUpload, this));
   this.$container.on('hidden.bs.modal', $.proxy(this._resetForm,this))
   this.$container.on('click', "#update-book-btn", $.proxy(this._updateBook,this))
-
-
   return true;
 };
 
@@ -90,7 +88,12 @@ EditBookAttribUI.prototype._updateBook = function () {
             bTitle.focus();
             return false;
           } else {
-            window._bookShelf[orgBkIndex] = this._collectBookInfo();
+            var updateBookJSON = this._collectBookInfo();
+            var updateBookId = window._bookShelf[orgBkIndex]._id;
+            updateBookJSON["_id"]= updateBookId;
+
+            window._bookShelf[orgBkIndex] = updateBookJSON;
+            this._handleUpdateBookDb(updateBookId, updateBookJSON);
             this._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}});
             this._setLibState();
             this.$container.find("p").text(newTitle);
