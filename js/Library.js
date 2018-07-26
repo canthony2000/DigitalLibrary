@@ -34,33 +34,20 @@ Library.prototype._checkIfBookExists = function(Title) {
 }
 
 Library.prototype.addBook = function (book) {
-  //var _self = this;
   if (typeof book === "object" && !this._checkIfBookExists(book.Title)) {
     window._bookShelf.push(book);
-    this._handleAddBookDb(book);
-    // async function addBookdbAsync(state){
-    //   var bkID = await state._handleAddBookDb(book); //update mongo database
-    //   book._id = bkID;
-    //   window._bookShelf.push(book);
-    // }
-    // addBookdbAsync(_self);
+    this._handleAddBookDb(book); //update mongodb
     this._setLibState(); //update local storage
     return true;
   }
   return false;
 };
-//
+
 Library.prototype.addBooks = function (books) {
-  //var _self = this;
   if(books) {
     var bookCt = 0;
     for (var i = 0; i < books.length; i++) {
-
       if(this.addBook(books[i])) {bookCt++};
-      // async function addBookCallAsync(state){
-      //   if(await state.addBook(books[i])) {bookCt++};
-      // };
-      // addBookCallAsync(_self);
     }
     this._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}});
     return bookCt;
@@ -262,9 +249,7 @@ Library.prototype._handleGetBooksDb = function (){
     method: 'GET',
     success: data => {
       window._bookShelf = [];
-
       for (var i = 0; i < data.length; i++) {
-
         var bookToInsert = new Book({
           _id : data[i]._id,
           bookCover : data[i].bookCover,
@@ -336,7 +321,6 @@ Library.prototype._handleGetSingleBookDb = function (bookId){
     data: bookId,
     success: data => {
       $("#mongoDbResponse").text(data);
-      //console.log(data);
     }
   })
 };

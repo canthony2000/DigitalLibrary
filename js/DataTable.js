@@ -35,7 +35,6 @@ DataTable.prototype._bindCustomListeners = function () {
 };
 
 DataTable.prototype._updateTable = function (e) {
-
   var _self = this;
   var $thead = this.$container.find('thead');
   $thead.empty();
@@ -157,11 +156,11 @@ DataTable.prototype._TableRowButtons = function (book) {
   });
   this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
   return true;
-
 };
 
 DataTable.prototype._delClick = function () {
-  var _self = this; //Example of how Jquery hijacks this. context
+  $("#search-btn").html("Search");
+  var _self = this;
   this.$container.find('.chcktbl').each(function(i, ckBox) {
      var cBox = ckBox;
      if($(cBox).is(':checked')){

@@ -36,13 +36,28 @@ AddBooksUI.prototype._addBooksToQueue = function () {
   var bPages = this.$container.find("#bookPages");
   var bPubDate = this.$container.find("#bookPubDate");
 
-  if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
+  //if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
+  if(bTitle.val().length > 0){
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          this._tempBookShelf.push(this._collectBookInfo());
-          $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
-          this._resetForm("staying");
+
+          function checkIfInBkShelf(){
+            for (var i = 0; i < _bookShelf.length; i++) {
+              if (_bookShelf[i].Title === bTitle.val()){return true;};
+            }
+            return false;
+          };
+
+          if(checkIfInBkShelf()){
+            alert("The title of your new book matches an existing title in your bookshelf.  Please enter a new book title.");
+            bTitle.focus();
+          } else {
+            this._tempBookShelf.push(this._collectBookInfo());
+            $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
+            this._resetForm("staying");
+          }
+
         } else {
           alert("Please enter a date.")
           bPubDate.val("");
