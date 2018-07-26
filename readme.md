@@ -28,7 +28,7 @@ AddBooksUI
 -observer design pattern
 -Mongodb using mLabs mongo database in cloud
 -custom event handlers updates the table when changes are made
--form serialization is used from add books form into the book object.  Local storage and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and adding a property to the books class.
+-form serialization is used from add books form into the book object.  Mongodb updates, local storage, and dynamic table generation will automatically compensate if a new data point is added.  The only changes needed are adding a field to the add books form and addition of the corresponding property to the books object constructor.
 -event properties are used to change the behavior of the search button to toggle between search results and default book listing on the books table.
 
 ## Tools used:
@@ -38,5 +38,11 @@ Robo 3T - for administering mLabs mongodb instance
 Node server - ReST layer
 Git/Git Hub - Code repository
 Sourcetree - Git repository management
+
+## Node packages used:
+body-parser
+cors
+express
+mongoose
 
 ## Other:
