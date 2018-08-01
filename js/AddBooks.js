@@ -83,10 +83,17 @@ AddBooksUI.prototype._addBooksToQueue = function () {
 
 AddBooksUI.prototype._addBooksToLibrary = function () {
   if (this._tempBookShelf.length > 0){
-   alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
-   $("#readyToAddBkCt").text("0 Ready to add!");
-   this._tempBookShelf = [];
-  } else { alert("You have not yet added books to the Queue.")}
+    this.addBooks(this._tempBookShelf).then(function(data){
+      // console.log(data);
+      alert(data.insertedCount + " book(s) were added to the library.");
+
+      if(data.insertedCount) {
+        $("#readyToAddBkCt").text("0 Ready to add!");
+        this._tempBookShelf = [];
+      } else { alert("You have not yet added books to the Queue.")}
+    });
+  }
+
   return true;
 };
 

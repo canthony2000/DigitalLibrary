@@ -24,7 +24,7 @@ SuggestBookUI.prototype._handleSuggestBooks = function () {
     elemHTML = "assets/rate" + bkObj.Rating + ".svg";
     $targetField.find("img").attr("src",elemHTML);
     //show response from the db
-    this._handleGetSingleBookDb(bkObj._id)
+    this._handleGetSingleBookDb(bkObj._id);
 
   } else {
     alert("Nothing in library!");

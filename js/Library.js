@@ -3,17 +3,7 @@
 //Created by Corey Anthonhy
 //Bootstrap-4.1.1
 
-//class Library;
-var Library;
-(function() {
-  var instance;
-  Library = function() {
-    if (instance) {
-      return instance;
-    }
-    instance = this;
-  }
-})();
+const Library = function(){};
 
 Library.prototype._handleEventTrigger = function(sEvent, oData) {
   var oData = oData || {}; //sets oData to an empty object if it does not have data
@@ -33,26 +23,20 @@ Library.prototype._checkIfBookExists = function(Title) {
   return false;
 }
 
-Library.prototype.addBook = function (book) {
-  if (typeof book === "object" && !this._checkIfBookExists(book.Title)) {
-    window._bookShelf.push(book);
-    this._handleAddBookDb(book); //update mongodb
-    this._setLibState(); //update local storage
-    return true;
-  }
-  return false;
-};
-
 Library.prototype.addBooks = function (books) {
-  if(books) {
-    var bookCt = 0;
-    for (var i = 0; i < books.length; i++) {
-      if(this.addBook(books[i])) {bookCt++};
+  var _self = this;
+  return $.ajax({
+    url: window.libraryURL,
+    dataType:'json',
+    method:'POST',
+    data: { books: JSON.stringify(books) },
+    success: function(data){
+      window._bookShelf = window._bookShelf.concat(window.bookify(data.ops));
+      _self._handleEventTrigger("objUpdate2", {
+        detail: {data: "bookCt"}
+      });
     }
-    this._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}});
-    return bookCt;
-  }
-  return 0;
+  });
 };
 
 Library.prototype.removeBookbyTitle = function (Title) {
@@ -269,26 +253,6 @@ Library.prototype._handleGetBooksDb = function (){
   return false;
 };
 
-Library.prototype._handleAddBookDb = function (book){
-    $.ajax({
-      url: window.libraryURL,
-      dataType:'json',
-      method:'POST',
-      data: book,
-      success: data => {
-        var bkKey = data._id;
-        var bkTitle = data.Title;
-        for (var i = _bookShelf.length; i > 0; i--) {
-          if (_bookShelf[i-1].Title === bkTitle){
-            _bookShelf[i-1]._id = data._id;
-            i=0;
-          }
-        }
-      }
-    })
-  return false;
-};
-
 Library.prototype._handleDeleteBookDb = function (bookId){
   $.ajax({
     url: window.libraryURL + "/" + bookId,
@@ -324,7 +288,6 @@ Library.prototype._handleGetSingleBookDb = function (bookId){
     }
   })
 };
-
 
 //******************
 //Local Storage Methods
