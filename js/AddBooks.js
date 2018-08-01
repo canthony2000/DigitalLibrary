@@ -36,13 +36,28 @@ AddBooksUI.prototype._addBooksToQueue = function () {
   var bPages = this.$container.find("#bookPages");
   var bPubDate = this.$container.find("#bookPubDate");
 
-  if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
+  //if(bTitle.val().length > 0 && !$.isNumeric(bTitle.val())){
+  if(bTitle.val().length > 0){
     if(bAuthor.val().length > 0 && !$.isNumeric(bAuthor.val())){
       if($.isNumeric(bPages.val()) && !(bPages.val() % 1)){
         if($.isNumeric(Date.parse(bPubDate.val()))){
-          this._tempBookShelf.push(this._collectBookInfo());
-          $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
-          this._resetForm();
+
+          function checkIfInBkShelf(){
+            for (var i = 0; i < _bookShelf.length; i++) {
+              if (_bookShelf[i].Title === bTitle.val()){return true;};
+            }
+            return false;
+          };
+
+          if(checkIfInBkShelf()){
+            alert("The title of your new book matches an existing title in your bookshelf.  Please enter a new book title.");
+            bTitle.focus();
+          } else {
+            this._tempBookShelf.push(this._collectBookInfo());
+            $("#readyToAddBkCt").text(this._tempBookShelf.length + " Ready to add!\u00a0");
+            this._resetForm("staying");
+          }
+
         } else {
           alert("Please enter a date.")
           bPubDate.val("");
@@ -68,10 +83,17 @@ AddBooksUI.prototype._addBooksToQueue = function () {
 
 AddBooksUI.prototype._addBooksToLibrary = function () {
   if (this._tempBookShelf.length > 0){
-   alert(this.addBooks(this._tempBookShelf) + " book(s) were added to the library.");
-   $("#readyToAddBkCt").text("0 Ready to add!");
-   this._tempBookShelf = [];
-  } else { alert("You have not yet added books to the Queue.")}
+    this.addBooks(this._tempBookShelf).then(function(data){
+      // console.log(data);
+      alert(data.insertedCount + " book(s) were added to the library.");
+
+      if(data.insertedCount) {
+        $("#readyToAddBkCt").text("0 Ready to add!");
+        this._tempBookShelf = [];
+      } else { alert("You have not yet added books to the Queue.")}
+    });
+  }
+
   return true;
 };
 
@@ -81,7 +103,8 @@ AddBooksUI.prototype._collectBookInfo = function () {
   $.each(queueBook, function(i, objProp) {
     bookObj[objProp.name] = objProp.value;
   });
-  bookObj.bookCover = this.Base64Result;
+  //bookObj.bookCover = this.Base64Result;
+  bookObj.bookCover = this.$container.find("#imgPreview").attr("src");
   var bookToAdd = new Book(bookObj);
   return bookToAdd;
 };
@@ -100,9 +123,13 @@ AddBooksUI.prototype._coverFileUpload = function () {
   return true;
 };
 
-AddBooksUI.prototype._resetForm = function () {
+AddBooksUI.prototype._resetForm = function (status) {
   $("#add-books-frm")[0].reset();
   $("#add-books-frm").find("#imgPreview").attr("src","assets/defaultBook.jpg");
+  if (status != "staying"){
+    this._tempBookShelf = [];
+    this.$container.find("#readyToAddBkCt").text("0 Ready to Add!");
+  }
   return false;
 }
 

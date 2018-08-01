@@ -21,9 +21,11 @@ SearchBookUI.prototype._handleSearchBook = function (e) {
     return false;
   };
 
-  if($("input").val()){
+  var $searchInput = $("input");
+  if($searchInput.val()){
     window._bookSearchResults = this.getBookBySearchTerm($("input").val());
     this._handleEventTrigger("objUpdate2", {detail: {data: "search"}});
+    $searchInput.val("");
   } else {
     alert("Please enter a search term");
     e.target.innerHTML = "Search"

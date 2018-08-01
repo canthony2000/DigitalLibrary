@@ -1,0 +1,35 @@
+{
+  "name": "digital-library-service",
+  "version": "1.0.0",
+  "description": "Service layer for Digital Library",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.4",
+    "nodemon": "^1.18.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "start",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/canthony2000/DigitalLibrary.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "ES5",
+    "Mongoose",
+    "Express",
+    "CORs"
+  ],
+  "author": "Corey Anthony",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/canthony2000/DigitalLibrary/issues"
+  },
+  "homepage": "https://github.com/canthony2000/DigitalLibrary#readme"
+}

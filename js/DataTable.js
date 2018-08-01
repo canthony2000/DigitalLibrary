@@ -1,16 +1,27 @@
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
+  _self = this;
 };
 
 DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function() {
-  this._getLibState();
+
+  //****************
+  //
+  //    Local storage functionality disabled
+  //    to demonstrate Mongodb functioality
+  //
+  //****************
+  //this._getLibState();
+
+  this._handleGetBooksDb();
   this._updateTable();
   this._bindEvents();
   this._TableRowButtons();
   this._bindCustomListeners();
+
   return true;
 };
 
@@ -21,14 +32,9 @@ DataTable.prototype._bindEvents = function () {
 DataTable.prototype._bindCustomListeners = function () {
   $(document).on('objUpdate2', $.proxy(this._updateTable, this));
   this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
-  //this.$container.on('click','.lib-del-label', $.proxy(this._delClick, this));
 };
 
 DataTable.prototype._updateTable = function (e) {
-  // if(e){
-  //   console.log(e.detail.data);
-  // };
-
   var _self = this;
   var $thead = this.$container.find('thead');
   $thead.empty();
@@ -80,9 +86,11 @@ DataTable.prototype._createHeader = function () {
   }
 
   var textinsert = "<span>Delete</span><input type='checkbox' id='chckHead' class='ml-1'>";
-   $(tr).find('.lib_bookCover_key').text("");
-   $(tr).find('.lib_Synopsys_key').empty();
-   $(tr).find('.lib_Synopsys_key').html(textinsert);
+
+  $(tr).find('.lib__id_key').remove();
+  $(tr).find('.lib_bookCover_key').text("");
+  $(tr).find('.lib_Synopsys_key').empty();
+  $(tr).find('.lib_Synopsys_key').html(textinsert);
 
   var th = document.createElement('th');
   $span = $(tr).find('span');
@@ -100,7 +108,6 @@ DataTable.prototype._createRow = function (book) {
   var colContent = [
     '<img src=' + imgText + ' class="lib-tbl-th"></img>',
     '<td><input type="checkbox" class="chcktbl ml-4"></td>',
-    //'<button type="button" class="btn btn-outline-secondary btn-sm lib-edit-btn" data-toggle="modal" data-target="#editBookAttrib">Edit</button>',
     '<button type="button" id="book-edit-btn" class="btn btn-outline-secondary btn-sm lib-edit-btn">Edit</button>',
   ];
 
@@ -113,6 +120,7 @@ DataTable.prototype._createRow = function (book) {
   };
 
   //table adjustments
+  $(tr).find('.lib__id_key').remove();
   var td = $(tr).find('.lib_bookCover_key');
   td.attr("class", "th-container",);
   td.attr("scope", "row",);
@@ -148,11 +156,11 @@ DataTable.prototype._TableRowButtons = function (book) {
   });
   this.$container.find('.lib-del-label').on('click', $.proxy(this._delClick, this));
   return true;
-
 };
 
 DataTable.prototype._delClick = function () {
-  var _self = this; //Example of how Jquery hijacks this. context
+  $("#search-btn").html("Search");
+  var _self = this;
   this.$container.find('.chcktbl').each(function(i, ckBox) {
      var cBox = ckBox;
      if($(cBox).is(':checked')){
