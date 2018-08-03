@@ -32,8 +32,7 @@ Library.prototype.addBooks = function (books) {
     data: { books: JSON.stringify(books) },
     success: function(data){
       window._bookShelf = window._bookShelf.concat(window.bookify(data.ops));
-      _self._handleEventTrigger("objUpdate2", {
-        detail: {data: "bookCt"}
+      _self._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}
       });
     }
   });
@@ -226,9 +225,22 @@ Library.prototype.getRandomAuthorName = function () {
 //******************
 //CRUD Routes
 
-Library.prototype._handleGetBooksDb = function (){
+Library.prototype._handleGetBookCountDb = function (){
   $.ajax({
-    url: window.libraryURL,
+    url: window.libraryURL + "/count",
+    method:'GET',
+    success: count => {
+      console.log(count);
+    }
+  })
+};
+
+Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //numResults 0 = end of data set (req.body.limit).
+
+  this._handleGetBookCountDb();
+  
+  $.ajax({
+    url:`${window.libraryURL}/pages/${start}/${window._booksPerPage}`,
     dataType:'json',
     method: 'GET',
     success: data => {
@@ -247,9 +259,14 @@ Library.prototype._handleGetBooksDb = function (){
         window._bookShelf.push(bookToInsert);
         delete bookToInsert;
       }
+      //console.log(data.length);
+      //console.log({setLength: data.length, start:start});
+
       this._handleEventTrigger("objUpdate2", {detail: {data: "_handleGetBooksDb"}});
     }
   })
+
+//)
   return false;
 };
 

@@ -3,16 +3,12 @@ green - #009933
 gold - #ffcc00
 */
 
-header {
-  background-color: #928467;
-}
-
 /* body {
    background-image: url("../assets/books3.png");
    background-color: #cccccc;
 } */
 
-footer {
+header, footer {
   background-color: #928467;
 }
 
@@ -45,7 +41,7 @@ blockquote p{
 
 .lib-table-wrapper {
     display: block;
-    max-height: 300px;
+    max-height: 350px;
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
@@ -57,6 +53,10 @@ blockquote p{
 .lib-del-label:hover{
   color: blue;
   cursor: pointer;
+}
+
+.lib-page-results{
+  color: red;
 }
 
 tr .noPad{
