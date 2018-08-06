@@ -24,6 +24,7 @@ Library.prototype._checkIfBookExists = function(Title) {
 }
 
 Library.prototype.addBooks = function (books) {
+  //need to put back validation preventing duplicate books from being added
   var _self = this;
   return $.ajax({
     url: window.libraryURL,
@@ -226,19 +227,19 @@ Library.prototype.getRandomAuthorName = function () {
 //CRUD Routes
 
 Library.prototype._handleGetBookCountDb = function (){
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL + "/count",
     method:'GET',
     success: count => {
-      console.log(count);
+      return count
     }
   })
 };
 
 Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //numResults 0 = end of data set (req.body.limit).
 
-  this._handleGetBookCountDb();
-  
+  //this._handleGetBookCountDb();
+
   $.ajax({
     url:`${window.libraryURL}/pages/${start}/${window._booksPerPage}`,
     dataType:'json',

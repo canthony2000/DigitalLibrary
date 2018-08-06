@@ -2,6 +2,7 @@ var _bookShelf = new Array();
 var _bookSearchResults = new Array();
 var libraryURL = 'http://127.0.0.1:3002/Library';
 var _booksPerPage = 5;
+//var _appendDefBookTitle = "1";
 
 var bookify = function(books){
 	var tempArr = [];
