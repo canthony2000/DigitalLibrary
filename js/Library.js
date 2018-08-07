@@ -238,8 +238,6 @@ Library.prototype._handleGetBookCountDb = function (){
 
 Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //numResults 0 = end of data set (req.body.limit).
 
-  //this._handleGetBookCountDb();
-
   $.ajax({
     url:`${window.libraryURL}/pages/${start}/${window._booksPerPage}`,
     dataType:'json',
@@ -260,9 +258,6 @@ Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //n
         window._bookShelf.push(bookToInsert);
         delete bookToInsert;
       }
-      //console.log(data.length);
-      //console.log({setLength: data.length, start:start});
-
       this._handleEventTrigger("objUpdate2", {detail: {data: "_handleGetBooksDb"}});
     }
   })
@@ -272,6 +267,7 @@ Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //n
 };
 
 Library.prototype._handleDeleteBookDb = function (bookId){
+  //let _self = this;
   $.ajax({
     url: window.libraryURL + "/" + bookId,
     dataType:'text',
@@ -279,6 +275,7 @@ Library.prototype._handleDeleteBookDb = function (bookId){
     data: bookId,
     success: data => {
       console.log("Deleted book id " + bookId);
+      this._handleEventTrigger("booksDeleted", {detail: {data: "booksDeleted"}});
     }
   })
 };

@@ -31,6 +31,7 @@ router.get('/pages/:start/:numResults', function (req, res) {
   if (pNumResults === 0){pNumResults = req.body.limit};
 
   Library.find({})
+  .lean()
   .skip(pstart)
   .limit(pNumResults)
   .sort([['Title', 1]])

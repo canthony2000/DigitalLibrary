@@ -55,7 +55,7 @@ blockquote p{
   cursor: pointer;
 }
 
-.lib-page-results{
+.lib-page-start, .lib-page-end, .lib-page-total{
   color: red;
 }
 
