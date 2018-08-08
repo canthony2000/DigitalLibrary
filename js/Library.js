@@ -25,6 +25,7 @@ Library.prototype._checkIfBookExists = function(Title) {
 
 Library.prototype.addBooks = function (books) {
   //need to put back validation preventing duplicate books from being added
+  //Try using index with no duplicates in mongodb
   var _self = this;
   return $.ajax({
     url: window.libraryURL,
@@ -33,8 +34,7 @@ Library.prototype.addBooks = function (books) {
     data: { books: JSON.stringify(books) },
     success: function(data){
       window._bookShelf = window._bookShelf.concat(window.bookify(data.ops));
-      _self._handleEventTrigger("objUpdate2", {detail: {data: "bookCt"}
-      });
+      _self._handleEventTrigger("booksAddOrDel", {detail: {data: "addBooks"}});
     }
   });
 };
@@ -275,7 +275,7 @@ Library.prototype._handleDeleteBookDb = function (bookId){
     data: bookId,
     success: data => {
       console.log("Deleted book id " + bookId);
-      this._handleEventTrigger("booksDeleted", {detail: {data: "booksDeleted"}});
+      this._handleEventTrigger("booksAddOrDel", {detail: {data: "handleDeleteBookDb"}});
     }
   })
 };

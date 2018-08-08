@@ -22,21 +22,15 @@ PaginationUI.prototype._bindEvents = function () {
 };
 
 PaginationUI.prototype._bindCustomListeners = function () {
-  $(document).on('objUpdate2', $.proxy(this._updateTable, this));
-  //$(document).on('booksDeleted', $.proxy(this._tryitt, this, this));
+  $(document).on('booksAddOrDel', $.proxy(this._resetAddDel, this));
 };
 
-PaginationUI.prototype._tryitt = async function(){
+PaginationUI.prototype._resetAddDel = async function(){
   this.bkCount = await this._handleGetBookCountDb();
-  var trystart = this.$container.find('.lib-page-start').text();
-  var trythrough = +trystart + window._booksPerPage - 1;
-  console.log(`Results ${trystart} Through ${trythrough} of ${this.bkCount} Books`);
-  //console.log(this._handleResultsInfo());
-  //this.bkCount = await this._handleGetBookCountDb();
-  //this._handleResultsInfo();
+  this.$container.find('.col-md-3').eq(0).html(this._handleResultsInfo(1,window._booksPerPage,this.bkCount));
+  this._handlePageSelectors();
+  this._handleGetBooksDb();
 };
-
-
 
 PaginationUI.prototype._handleResultsInfo = function (ctStart = 0, ctEnd = 0, ctTotal = 0) {
 
