@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
     });
 });
 
-// RETURNS ALL BOOKS IN THE DATABASE (GET)
+//RETURNS ALL BOOKS IN THE DATABASE (GET)
 router.get('/', function (req, res) {
  Library.find({}, function (err, books) {
      if (err) return res.status(500).send('There was a problem finding books in library.');
@@ -24,12 +24,38 @@ router.get('/', function (req, res) {
  });
 });
 
+//PAGINATION SET
+router.get('/pages/:start/:numResults', function (req, res) {
+  let pstart = parseInt(req.params.start);
+  let pNumResults = parseInt(req.params.numResults);
+  if (pNumResults === 0){pNumResults = req.body.limit};
+
+  Library.find({})
+  .lean()
+  .skip(pstart)
+  .limit(pNumResults)
+  .sort([['Title', 1]])
+  .exec(function (err, books)
+  {
+    if (err) return res.status(500).send('There was a problem finding books in library.');
+    res.status(200).send(books);
+  });
+});
+
+//GETS DOCUMENT COUNT (book count)
+router.get('/count', function (req, res) {
+  Library.estimatedDocumentCount(function(err, count){
+    if (err) return res.status(500).send('There was a problem getting the book count.');
+    res.status(200).send(count.toString());
+  });
+});
+
 //GETS A SINGLE BOOK FROM THE DATABASE (GET:ID)
 router.get('/:id', function (req, res) {
-    Library.findById(req.params.id, function (err, book) {
-        if (err) return res.status(500).send("There was a problem getting the book.");
-        res.status(200).send(book);
-    });
+  Library.findById(req.params.id, function (err, book) {
+    if (err) return res.status(500).send("There was a problem getting the book.");
+    res.status(200).send(book);
+  });
 });
 
 //DELETES A BOOK FROM THE DATABASE (DELETE:ID)

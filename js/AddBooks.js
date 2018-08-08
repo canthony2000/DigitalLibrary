@@ -84,7 +84,6 @@ AddBooksUI.prototype._addBooksToQueue = function () {
 AddBooksUI.prototype._addBooksToLibrary = function () {
   if (this._tempBookShelf.length > 0){
     this.addBooks(this._tempBookShelf).then(function(data){
-      // console.log(data);
       alert(data.insertedCount + " book(s) were added to the library.");
 
       if(data.insertedCount) {
@@ -103,7 +102,6 @@ AddBooksUI.prototype._collectBookInfo = function () {
   $.each(queueBook, function(i, objProp) {
     bookObj[objProp.name] = objProp.value;
   });
-  //bookObj.bookCover = this.Base64Result;
   bookObj.bookCover = this.$container.find("#imgPreview").attr("src");
   var bookToAdd = new Book(bookObj);
   return bookToAdd;

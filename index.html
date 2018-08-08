@@ -62,6 +62,40 @@
             </div>
           </div>
         </div>
+
+        <div class="row" id="paginationInfo">
+          <div class="col-md-3 mt-2">
+            <p></p>
+          </div>
+          <div class="col-md-2 mt-2">
+            <select class="custom-select" id="pageSetSelect">
+              <option selected>Choose...</option>
+            </select>
+          </div>
+          <div class="col-md-7 mt-2">
+            <nav aria-label="Book Navigation">
+            <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            </ul>
+            </nav>
+          </div>
+        </div>
+
+
+
+
         <div class="lib-table-wrapper mt-2 mb-2">
           <div class="table-responsive">
             <table id="main-books-listing" class="table table-striped">
@@ -423,5 +457,6 @@
     <script src="js/SearchBooksUI.js" charset="utf-8"></script>
     <script src="js/DataTable.js" charset="utf-8"></script>
     <script src="js/EditBookAttribUI.js" charset="utf-8"></script>
+    <script src="js/PaginationUI.js" charset="utf-8"></script>
   </body>
 </html>

@@ -24,6 +24,8 @@ Library.prototype._checkIfBookExists = function(Title) {
 }
 
 Library.prototype.addBooks = function (books) {
+  //need to put back validation preventing duplicate books from being added
+  //Try using index with no duplicates in mongodb
   var _self = this;
   return $.ajax({
     url: window.libraryURL,
@@ -32,9 +34,7 @@ Library.prototype.addBooks = function (books) {
     data: { books: JSON.stringify(books) },
     success: function(data){
       window._bookShelf = window._bookShelf.concat(window.bookify(data.ops));
-      _self._handleEventTrigger("objUpdate2", {
-        detail: {data: "bookCt"}
-      });
+      _self._handleEventTrigger("booksAddOrDel", {detail: {data: "addBooks"}});
     }
   });
 };
@@ -226,9 +226,20 @@ Library.prototype.getRandomAuthorName = function () {
 //******************
 //CRUD Routes
 
-Library.prototype._handleGetBooksDb = function (){
+Library.prototype._handleGetBookCountDb = function (){
+  return $.ajax({
+    url: window.libraryURL + "/count",
+    method:'GET',
+    success: count => {
+      return count
+    }
+  })
+};
+
+Library.prototype._handleGetBooksDb = function (start = 0, dbDocsTotal = 0){ //numResults 0 = end of data set (req.body.limit).
+
   $.ajax({
-    url: window.libraryURL,
+    url:`${window.libraryURL}/pages/${start}/${window._booksPerPage}`,
     dataType:'json',
     method: 'GET',
     success: data => {
@@ -250,10 +261,13 @@ Library.prototype._handleGetBooksDb = function (){
       this._handleEventTrigger("objUpdate2", {detail: {data: "_handleGetBooksDb"}});
     }
   })
+
+//)
   return false;
 };
 
 Library.prototype._handleDeleteBookDb = function (bookId){
+  //let _self = this;
   $.ajax({
     url: window.libraryURL + "/" + bookId,
     dataType:'text',
@@ -261,6 +275,7 @@ Library.prototype._handleDeleteBookDb = function (bookId){
     data: bookId,
     success: data => {
       console.log("Deleted book id " + bookId);
+      this._handleEventTrigger("booksAddOrDel", {detail: {data: "handleDeleteBookDb"}});
     }
   })
 };
