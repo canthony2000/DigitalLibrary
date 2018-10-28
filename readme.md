@@ -38,3 +38,11 @@ express
 mongoose
 
 ## Other:
+
+## Start Site:
+-Open terminal
+-Navigate to the root folder
+-Get in projects/DigitalLibrary/library-service and type nodemon server.js
+
+## Mongodb API
+http://127.0.0.1:3002/Library/pages/5/1
