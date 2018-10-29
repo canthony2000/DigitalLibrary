@@ -41,17 +41,18 @@ Keys on each td to reference with find so that adjusting columns is completely d
 - Robo3T - Mongodb administration
 
 ## Node packages used:
-body-parser
-cors
-express
-mongoose
+- "body-parser": "^1.18.3",
+- "cors": "^2.8.4",
+- "express": "^4.16.3",
+- "mongoose": "^5.2.4",
+- "nodemon": "^1.18.5"
 
 ## Start Site:
 - Open terminal
 - Navigate to the root folder
-- Get in projects/DigitalLibrary/library-service and type `nodemon server.js`
+- Get in <root>/DigitalLibrary/library-service and type `nodemon server.js`
 - navigate to root/index.html and open in browser.
 
 ## Mongodb API
-http://127.0.0.1:3002/Library/pages/5/1
-http://127.0.0.1:3002/Library/count
+- http://127.0.0.1:3002/Library/pages/5/1
+- http://127.0.0.1:3002/Library/count
