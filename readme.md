@@ -1,6 +1,6 @@
-# Digital Library JavaScript Class
+# Digital Library Node/HTML5/CSS3/JS application using mongodb
 
-Created by Corey Anthony
+### Created by Corey Anthony
 
 ## Points for discussion during code review:
 
@@ -46,8 +46,6 @@ cors
 express
 mongoose
 
-## Other:
-
 ## Start Site:
 - Open terminal
 - Navigate to the root folder
@@ -56,3 +54,4 @@ mongoose
 
 ## Mongodb API
 http://127.0.0.1:3002/Library/pages/5/1
+http://127.0.0.1:3002/Library/count
