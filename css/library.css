@@ -1,0 +1,101 @@
+/*
+green - #009933
+gold - #ffcc00
+*/
+
+/* body {
+   background-image: url("../assets/books3.png");
+   background-color: #cccccc;
+} */
+
+header, footer {
+  background-color: #928467;
+}
+
+blockquote p{
+  font-size: 1.8rem;
+  font-family: "times";
+  margin-bottom: 0px;
+}
+
+.card {
+  width: 14rem;
+}
+
+.lIcon {
+  height: 16px;
+  padding-right: 6px;
+  /* padding-left: 3px; */
+}
+
+.lImageUpload {
+  border-color: gray;
+  border-width: 1px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.libBookModel{
+  margin: 0 auto;
+}
+
+.lib-table-wrapper {
+    display: block;
+    max-height: 350px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.lib-tbl-th {
+  height: 42px;
+}
+
+.lib-del-label:hover{
+  color: blue;
+  cursor: pointer;
+}
+
+.lib-page-start, .lib-page-end, .lib-page-total{
+  color: red;
+}
+
+tr .noPad{
+  padding: 0px;
+}
+
+tr .th-container{
+  padding-left: 6px;
+  padding-top: 3px;
+  padding-bottom: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+tr .lib-edit-btn{
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+  .lib-header-buttons{
+    height: 45px;
+  }
+  .lib-del-btn{
+    float: right;
+  }
+  .lib-bnr-quote1{
+    visibility: hidden;
+    height: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lib-header-buttons{
+    margin-bottom: 8px;
+  }
+  .lib-bnr-quote2{
+    visibility: hidden;
+    height: 0px;
+  }
+}

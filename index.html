@@ -1,14 +1,462 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>Digital Library - Only the Greatest Books!</title>
     <meta charset="utf-8">
     <title>Digital Library</title>
+    <link rel="stylesheet" href="css/bootstrap.css"> <!-- bootstrap-4.1.1-dist -->
+    <link rel="stylesheet" href="css/library.css">
   </head>
   <body>
-    <p>Hello World</p>
+    <div class="container-fluid">
+
+      <div class="row mt-2">
+        <div class="col text-center">
+          <h1>AdventureFriday! - Digital Book Library</h1>
+          <blockquote class="text-center lib-bnr-quote1">
+            <p ><i>Your imagination and a good book!</i></p>
+          </blockquote>
+        </div>
+      </div>
+      <div class="row lib-header-buttons">
+      <!-- <div class="row mt-2"> -->
+        <div class="col-md-2">
+          <button type="button" id="add-books-btn" class="btn btn-outline-secondary">Add Some Books</button>
+        </div>
+        <blockquote class="col-md-8 text-center lib-bnr-quote2">
+          <p ><i>Your imagination and a good book!</i></p>
+        </blockquote>
+        <div class="col-md-2">
+          <button type="button" id="del-book-btn" class="btn btn-outline-secondary lib-del-btn">Delete a Book</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0">
+        <!-- <div> -->
+          <header>
+            <div class="text-center">
+            <img src="assets/banner.jpg" class="img-fluid" alt="Responsive image">
+          </div>
+          </header>
+        </div>
+      </div>
+      <main>
+        <div class="row">
+          <div class="col mt-2">
+            <button type="button" id="show-books-btn" class="btn btn-outline-secondary">Show All Books</button>
+            <button type="button" id="suggest-book-btn" class="btn btn-outline-secondary">Suggest a Book</button>
+          </div>
+          <div class="col-md-5 mt-2">
+            <div id="SearchContainer" class="input-group">
+              <input type="text" class="form-control" placeholder="Search by Title or Author" aria-label="Search by Title or Author" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="search-btn">Search</button>
+              </div>
+            </div>
+          </div>
+          <div class="col mt-2">
+            <div class="float-xl-right">
+              <button type="button" id="show-authors-btn" class="btn btn-outline-secondary">Show All Authors</button>
+              <button type="button" id="suggest-authors-btn" class="btn btn-outline-secondary">Suggest an Author</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="paginationInfo">
+          <div class="col-md-3 mt-2">
+            <p></p>
+          </div>
+          <div class="col-md-2 mt-2">
+            <select class="custom-select" id="pageSetSelect">
+              <option selected>Choose...</option>
+            </select>
+          </div>
+          <div class="col-md-7 mt-2">
+            <nav aria-label="Book Navigation">
+            <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            </ul>
+            </nav>
+          </div>
+        </div>
 
 
 
-    <script src="js/site.js"></script>
+
+        <div class="lib-table-wrapper mt-2 mb-2">
+          <div class="table-responsive">
+            <table id="main-books-listing" class="table table-striped">
+              <thead>
+                <tr>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center" colspan="8">Your bookshelf is empty.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+      <div class="row">
+        <div class="col-md-12 pl-0 pr-0">
+          <footer class="">
+            <img src="assets/clear.png"></img>
+          </footer>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- *************** Model dialog boxes -->
+    <!-- Modal Edit Book Attributes-->
+    <div id="editBookAttrib" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editBookAttribLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="editBookAttribLabel">Edit Book Attributes</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Book</p>
+            <form id="edit-books-frm">
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Title</label>
+                    <input type="text" id="editbookTitle" name="Title" class="form-control" placeholder="Add a book title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <label for="editbookAuthor">Author</label>
+                    <input type="text" class="form-control" id="editbookAuthor" name="Author" placeholder="Add an author name">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="editbookRating">Rating (stars)</label>
+                    <select class="form-control" name="Rating" id="editbookRating">
+                      <option value = "5" selected>5</option>
+                      <option value = "4">4</option>
+                      <option value = "3">3</option>
+                      <option value = "2">2</option>
+                      <option value = "1">1</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label for="editbookPages">Page Count</label>
+                    <input type="number" class="form-control" id="editbookPages" name="Number_Of_Pages" placeholder="example: 300">
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="editbookPubDate">Publication Date</label>
+                    <input type="date" class="form-control" id="editbookPubDate" name="Publish_Date">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <label for="editbookSynopsys">Synopsys</label>
+                    <textarea class="form-control" id="editbookSynopsys" name="Synopsys" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <input type="file" id="editfileUpload">
+                  </div>
+                  <div class="col-sm-4">
+                    <img id="editimgPreview" src="assets/defaultBook.jpg" height="200" alt="Image preview...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="update-book-btn" class="btn btn-outline-secondary">Update</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal End Edit Book Attributes-->
+
+    <!-- Modal Add a Book-->
+    <div id="addABook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addABookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="Add Book" id="addABookLabel">Add books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="add-books-frm">
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Title</label>
+                    <input type="text" id="bookTitle" name="Title" class="form-control" placeholder="Add a book title">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                    <label for="bookAuthor">Author</label>
+                    <input type="text" class="form-control" id="bookAuthor" name="Author" placeholder="Add an author name">
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="bookRating">Rating (stars)</label>
+                    <select class="form-control" name="Rating" id="bookRating">
+                      <option value = "5" selected>5</option>
+                      <option value = "4">4</option>
+                      <option value = "3">3</option>
+                      <option value = "2">2</option>
+                      <option value = "1">1</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-6">
+                    <label for="bookPages">Page Count</label>
+                    <input type="number" class="form-control" id="bookPages" name="Number_Of_Pages" placeholder="example: 300">
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="bookPubDate">Publication Date</label>
+                    <input type="date" class="form-control" id="bookPubDate" name="Publish_Date">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                    <label for="bookSynopsys">Synopsys</label>
+                    <textarea class="form-control" id="bookSynopsys" name="Synopsys" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-8">
+                  <input type="file" id="fileUpload">
+                </div>
+                  <div class="col-sm-4">
+                    <img id="imgPreview" src="assets/defaultBook.jpg" height="200" alt="Image preview...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <hr>
+                <div class="col-sm-3">
+                  <button type="button" id="add-to-queue-btn" class="btn btn-outline-secondary btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    Add to Queue
+                  </button>
+                </div>
+                <div class="col-sm-9 pl-5">
+                  <!-- <div class=""> -->
+                  <label id="readyToAddBkCt">0 Ready to add!&nbsp;</label><img class="lIcon " alt="arrow" src="assets/arrowRight.svg"></img>
+                  <button type="button" id="add-to-lib-btn" class="btn btn-outline-secondary btn-sm float-md-right" data-toggle="button" aria-pressed="false" autocomplete="off">Add Book(s) to Library</button>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Add a Book-->
+
+    <!-- Model Delete a Book -->
+    <div id="deleteBook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteBookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="deleteBookLabel">Delete Books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="delete-books-frm">
+              <div class="form-group">
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookTitle">Delete a book by title</label>
+                    <select class="custom-select" id="deletebookTitle">
+                      <option selected>Choose...</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col">
+                    <label for="bookAuthor">Delete books by author</label>
+                    <select class="custom-select" id="deletebookAuthor">
+                      <option selected>Choose...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="del-selected-books-btn" class="btn btn-outline-secondary">Delete Book(s)</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Delete a Book -->
+
+    <!-- Model Suggest an Author-->
+    <div id="suggestAuthor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="suggestAuthorLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="suggestAuthorLabel">Author Suggestion</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Based on your book choices, the following author seems like a great suggestion!</p>
+            <ul>
+              <li>Stephan King</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End  Suggest an Author-->
+
+    <!-- Model Display Authors-->
+    <div id="listAuthors" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="listAuthorsLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="listAuthorsLabel">Author List</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li>No Authors</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Display Authors -->
+
+    <!-- Model Suggest a Book (random book)-->
+    <div id="suggestBook" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="suggestBookLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="suggestBookLabel">Book Suggestion</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body libBookModel">
+            <div class="card mb-2">
+              <img class="card-img-top" src="assets/kill-mockingbird-th.jpeg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">To Kill a Mockingbird</h5>
+                <p class="card-text .bkInfo">By Harper Lee<br>Published in 1965<br>512 pages</p>
+                <img class="lIcon" src="assets/rate5.svg"></img>
+              </div>
+            </div>
+            <div class="card mb-2">
+              <div class="card-body">
+              <p class="card-text">Response with single book from DB as GET:ID</p>
+              <textarea id="mongoDbResponse"  readonly name="BookObjFromDb" rows="10" cols="20"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Suggest a Book -->
+
+    <!-- Model Show All Books-->
+    <div id="showAllBooks" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="showAllBooksLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="showAllBooksLabel">All Books</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4">
+                  <!-- <div class="card mb-2" style="width: 14rem;"> -->
+                  <div class="card mb-2">
+                    <img class="card-img-top" src="assets/moby-dick-th.jpeg" alt="Card image cap">
+                    <div class="card-body">
+                      <h5 class="card-title">Moby Dick</h5>
+                      <p class="card-text">By Herman Melville<br>Published in 1851<br>754 pages</p>
+                      <img class="lIcon" src="assets/rate3.svg"></img>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="show-all-prev-btn" class="btn btn-outline-secondary">Previous</button>
+            <button type="button" id="show-all-next-btn" class="btn btn-outline-secondary">Next</button>
+            <!-- <button type="button" id="show-all-close-btn" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" id="show-all-close-btn" class="btn btn-secondary">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Model Show All Books--->
+
+    <script src="js/jquery.js" charset="utf-8"></script>
+    <script src="js/bootstrap.js" charset="utf-8"></script>
+    <script src="js/Book.js" charset="utf-8"></script>
+    <script src="js/Library.js" charset="utf-8"></script>
+    <script src="js/Util.js" charset="utf-8"></script>
+
+    <script src="js/AddBooks.js" charset="utf-8"></script>
+    <script src="js/ShowAuthorsUI.js" charset="utf-8"></script>
+    <script src="js/ShowBooksUI.js" charset="utf-8"></script>
+    <script src="js/SuggestBookUI.js" charset="utf-8"></script>
+    <script src="js/SuggestAuthorUI.js" charset="utf-8"></script>
+    <script src="js/DeleteBooksUI.js" charset="utf-8"></script>
+    <script src="js/SearchBooksUI.js" charset="utf-8"></script>
+    <script src="js/DataTable.js" charset="utf-8"></script>
+    <script src="js/EditBookAttribUI.js" charset="utf-8"></script>
+    <script src="js/PaginationUI.js" charset="utf-8"></script>
   </body>
 </html>
