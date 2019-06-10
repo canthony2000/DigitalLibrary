@@ -17,3 +17,7 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+# Need to intgrate linter check
+# Need to integrate SonarCube
+# Need to integrate build when pushing from staging to master
